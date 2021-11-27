@@ -2,7 +2,7 @@ import ProgressBarBU from "./ProgressBarBU";
 
 const Category = (props) => {
   return (
-    <div className="card">
+    <div className="card rounded-pill">
       <div className="card-body">
         <div className="row justify-content-around align-items-center">
           <div className="col-4">
