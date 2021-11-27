@@ -1,11 +1,16 @@
-const ProgressBarBU = () => {
+const ProgressBarBU = (props) => {
+  const percentages = parseInt((props.currBalance / props.totalExpected) * 100);
+  console.log(props.currBalance, props.totalExpected, percentages);
   return (
-    <div class="progress" style={{ height: 20 + "px" }}>
+    <div class="progress rounded-pill" style={{ height: 25 + "px" }}>
       <div
-        className="progress-bar"
+        className={
+          "progress-bar rounded-pill " +
+          (percentages > 100 ? "bg-danger" : "bg-success")
+        }
         role="progressbar"
-        style={{ width: 25 + "%" }}
-        aria-valuenow="25"
+        style={{ width: percentages + "%" }}
+        aria-valuenow={percentages}
         aria-valuemin="0"
         aria-valuemax="100"
       ></div>
