@@ -18,8 +18,8 @@ const CategoryList = () => {
   const Water = {
     icon: "water",
     name: "Water",
-    currBalance: 120,
-    totalExpected: 20,
+    currBalance: 121,
+    totalExpected: 120,
   };
 
   const categories = [Supermarket, Electricity, Water];

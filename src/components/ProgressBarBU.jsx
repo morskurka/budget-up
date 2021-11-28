@@ -1,6 +1,5 @@
 const ProgressBarBU = (props) => {
-  const percentages = parseInt((props.currBalance / props.totalExpected) * 100);
-  console.log(props.currBalance, props.totalExpected, percentages);
+  const { percentages } = props;
   return (
     <div class="progress rounded-pill" style={{ height: 25 + "px" }}>
       <div
