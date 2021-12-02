@@ -1,8 +1,7 @@
 import "./App.css";
-import Category from "./components/Category";
-import CategoryList from "./components/CategoryList";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -10,7 +9,7 @@ function App() {
       <Navbar />
       <div className="container">
         <div className="App">Welcome to BudgetUP!</div>
-        <CategoryList />
+        <HomePage />
       </div>
 
       <Footer />
