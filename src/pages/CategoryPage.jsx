@@ -1,5 +1,6 @@
 import BalanceInfoBar from "../components/BalanceInfoBar";
 import CategoryGraph from "../components/CategoryGraph";
+import CategoryTable from "../components/CategoryTable";
 
 const CategoryPage = () => {
   const labels = [
@@ -26,6 +27,7 @@ const CategoryPage = () => {
               graphLabels={labels}
               graphData={data}
             />
+            <CategoryTable />
           </div>
         </div>
       </div>
