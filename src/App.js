@@ -1,15 +1,15 @@
 import "./App.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import HomePage from "./pages/HomePage";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
   return (
     <>
       <Navbar />
-      <div className="container">
-        <div className="App">Welcome to BudgetUP!</div>
-        <HomePage />
+      <div>
+        <div className="App"></div>
+        <CategoryPage />
       </div>
 
       <Footer />
