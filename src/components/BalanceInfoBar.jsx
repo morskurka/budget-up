@@ -8,17 +8,17 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
         style={{ paddingTop: "4rem", paddingBottom: "9.5rem" }}
       ></div>
       <div
-        className="container"
+        className="container-fluid"
         style={{
-          marginTop: "-10rem",
+          marginTop: "-12rem",
           paddingRight: "2rem",
           paddingLeft: "2rem",
         }}
       >
         <div className="row g-4 mb-4">
           <div className="col-lg-12 col-md-12 col-12">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <h3 className="title-white">Follow Your Expenses</h3>
+            <div className="d-flex justify-content-between align-items-center mb-2">
+              <h3 className="text-white">Follow Your Expenses</h3>
               <a href="#" className="btn btn-white">
                 Create New
               </a>
