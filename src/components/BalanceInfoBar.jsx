@@ -18,7 +18,7 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
         <div className="row g-4 mb-4">
           <div className="col-lg-12 col-md-12 col-12">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h3 className="text-white">Follow Your Expenses</h3>
+              <h3 className="title-white">Follow Your Expenses</h3>
               <a href="#" className="btn btn-white">
                 Create New
               </a>
@@ -26,28 +26,28 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
           </div>
           <div className="col-6 col-lg-3">
             <BalanceInfoCard
-              text="My Balance"
+              title="My Balance"
               icon="arrow-down-up"
               amount="1200"
             />
           </div>
           <div className="col-6 col-lg-3">
             <BalanceInfoCard
-              text="Expected Balance"
+              title="Expected Balance"
               icon="emoji-smile-upside-down"
               amount="3100"
             />
           </div>
           <div className="col-6 col-lg-3">
             <BalanceInfoCard
-              text="Income This Month"
+              title="Income This Month"
               icon="box-arrow-in-down-left"
               amount="500"
             />
           </div>
           <div className="col-6 col-lg-3">
             <BalanceInfoCard
-              text="Outcome This Month"
+              title="Outcome This Month"
               icon="box-arrow-up-right"
               amount="100"
             />

@@ -1,10 +1,10 @@
-const BalanceInfoCard = ({ text, icon, amount }) => {
+const BalanceInfoCard = ({ title, icon, amount }) => {
   return (
     <div className="card">
       <div className="card-body">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <div>
-            <h4 className="mb-0">{text}</h4>
+            <h4 className="mb-0">{title}</h4>
           </div>
           <div className="text-primary">
             <i className={"bi bi-" + icon + " fs-4"}></i>
