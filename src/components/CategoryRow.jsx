@@ -2,7 +2,7 @@ import CategoryCard from "./CategoryCard";
 
 const CategoryRow = () => {
   const Supermarket = {
-    icon: "shop",
+    icon: "cart3",
     name: "Supermarket",
     currBalance: 1200,
     totalExpected: 1450,
@@ -16,7 +16,7 @@ const CategoryRow = () => {
   };
 
   const Water = {
-    icon: "water",
+    icon: "droplet",
     name: "Water",
     currBalance: 121,
     totalExpected: 120,
