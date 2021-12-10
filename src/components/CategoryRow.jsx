@@ -23,6 +23,7 @@ const CategoryRow = () => {
   };
 
   const categories = [Supermarket, Electricity, Water];
+
   return (
     <section className="bg-white">
       <div classNameName="container" style={{ padding: "0 30px" }}>

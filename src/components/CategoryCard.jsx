@@ -20,13 +20,12 @@ const CategoryCard = ({ icon, title, currBalance, totalExpected }) => {
           height: "72px",
           borderRadius: "50%",
           background: "#2F80ED",
-          color: "#ffffff",
           fontSize: "35px",
           marginBottom: "20px",
           marginTop: "-60px",
         }}
       >
-        <i className={"bi bi-" + icon}></i>
+        <i className={"bi bi-" + icon + " text-white"}></i>
       </div>
       <div>
         <h4 className="fw-bold">{title}</h4>
