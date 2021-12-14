@@ -32,18 +32,18 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarsExample04">
           <ul className="navbar-nav ms-auto mb-2 mb-md-0">
             <li className="nav-item">
-              <a className="nav-link active my-3" aria-current="page" href="#">
+              <a className="nav-link active my-3" aria-current="page" href="/">
                 HOME
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link my-3" href="#">
-                SERVICES
+              <a className="nav-link my-3" href="/CategoryRow">
+                CategoryRow
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link my-3" href="#">
-                ABOUT US
+              <a className="nav-link my-3" href="/CategoryPage">
+                CategoryPage
               </a>
             </li>
             <li className="nav-item dropdown">
