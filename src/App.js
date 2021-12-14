@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import CategoryPage from "./pages/CategoryPage";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import CashExpensesPage from "./pages/CashExpensesPage";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/CategoryRow" element={<CategoryRow />} />
           <Route path="/CategoryPage" element={<CategoryPage />} />
-          
+          <Route path="/CashExpensesPage" element={<CashExpensesPage />} />
         </Routes>
       </Router>
       <Footer />

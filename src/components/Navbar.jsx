@@ -46,6 +46,11 @@ const Navbar = () => {
                 CategoryPage
               </a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link my-3" href="/CashExpensesPage">
+                CashExpensesPage
+              </a>
+            </li>
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
