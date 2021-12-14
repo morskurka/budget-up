@@ -1,10 +1,7 @@
 const Footer = () => {
   return (
     <div>
-      <footer
-        className="text-center text-lg-start text-dark"
-        style={{ backgroundColor: "#ECEFF1" }}
-      >
+      <footer className="text-dark" style={{ backgroundColor: "#ECEFF1" }}>
         <section
           className="d-flex justify-content-between p-4 text-white"
           style={{ backgroundColor: "#21D192" }}
@@ -29,8 +26,8 @@ const Footer = () => {
           </div>
         </section>
 
-        <section className="">
-          <div className="container text-center text-md-start mt-5">
+        <section>
+          <div className="container mt-5">
             <div className="row mt-3">
               <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                 <a className="navbar-brand text-dark fw-bold fs-2" href="#">
@@ -60,12 +57,12 @@ const Footer = () => {
                   }}
                 />
                 <p>
-                  <a href="#!" className="text-dark">
+                  <a href="#" className="text-dark">
                     About Us
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-dark">
+                  <a href="#" className="text-dark">
                     Services
                   </a>
                 </p>
@@ -82,17 +79,17 @@ const Footer = () => {
                   }}
                 />
                 <p>
-                  <a href="#!" className="text-dark">
+                  <a href="#" className="text-dark">
                     Home
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-dark">
+                  <a href="#" className="text-dark">
                     My Profile
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-dark">
+                  <a href="#" className="text-dark">
                     Settings
                   </a>
                 </p>
@@ -125,7 +122,6 @@ const Footer = () => {
             </div>
           </div>
         </section>
-
         <div
           className="text-center p-3"
           style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
