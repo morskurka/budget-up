@@ -14,7 +14,7 @@ const CashExpense = () => {
             <option value="Other">Other</option>
           </select>
         </div>
-        <div className="col-sm-4 col-md-3 mb-2">
+        <div className="col-sm-4 col-md-3 col-lg-2 mb-2">
           <div class="input-group">
             <span class="input-group-text" id="basic-addon1">
               $
