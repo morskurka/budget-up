@@ -1,8 +1,11 @@
+import BalanceInfoBar from "../components/BalanceInfoBar";
 import CashExpense from "../components/CashExpense";
 
 const CashExpensesPage = () => {
   return (
     <>
+      <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />
+
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-xl-10">
