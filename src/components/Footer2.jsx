@@ -6,7 +6,7 @@ const Footer2 = () => {
     >
       <div className="container" style={{ padding: "0 30px" }}>
         <div className="row">
-          <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <div className="col-md-4 col-lg-4 col-xl-3 mx-auto mb-4">
             <div style={{ marginBottom: "20px" }}>
               <a className="navbar-brand fw-bold fs-3" href="#0">
                 <img
@@ -125,7 +125,7 @@ const Footer2 = () => {
               </p>
             </div>
           </div>
-          <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
             <div>
               <h6 className="fw-bold text-uppercase">Links</h6>
               <hr
