@@ -1,9 +1,9 @@
-const CashExpense = () => {
+const CashExpense = (props) => {
   return (
     <>
       <div
         className="row align-items-center m-4 justify-content-center"
-        id="cashExpenseRow"
+        id={"cashExpenseRow" + props.id}
       >
         <div className="col-sm-6 col-md-4 mb-2">
           <select className="form-select form-select-md">
@@ -27,7 +27,7 @@ const CashExpense = () => {
             />
           </div>
         </div>
-        <div className="col-sm-2">
+        <div className="col-sm-2 mb-2">
           <button className="btn btn-danger">
             <i class="bi bi-eraser"></i>
           </button>

@@ -28,10 +28,10 @@ const CashExpensesPage = () => {
                   </div>
                 </div>
                 <div>
-                  <CashExpense />
-                  <CashExpense />
-                  <CashExpense />
-                  <CashExpense />
+                  <CashExpense id="1" />
+                  <CashExpense id="2" />
+                  <CashExpense id="3" />
+                  <CashExpense id="4" />
                 </div>
                 <div className="ms-5">
                   <button className="btn btn-success">
