@@ -1,10 +1,20 @@
-const PasswordSettingsPage = ({ name }) => {
+const ProfileSettingsPage = ({ name }) => {
   return (
-    <section className="py-5 my-5">
-      <div className="container">
+    <section className="py-5 my-5" style={{ background: "#f9f9f9" }}>
+      <div
+        className="container"
+        style={{
+          width: "100%",
+          paddingRight: "15px",
+          paddingLeft: "15px",
+          marginRight: "auto",
+          marginLeft: "auto",
+          maxWidth: "1140px",
+        }}
+      >
         <h1 className="mb-5">Account Settings</h1>
-        <div className="bg-white shadow rounded-lg d-block d-sm-flex">
-          <div className="border border-right" style={{ minWidth: "250px" }}>
+        <div className="bg-white shadow rounded-1 d-sm-flex">
+          <div className="border-end" style={{ minWidth: "250px" }}>
             <div className="p-4">
               <div className="text-center mb-3">
                 <img
@@ -16,6 +26,7 @@ const PasswordSettingsPage = ({ name }) => {
                     width: "100px",
                     borderRadius: "100%",
                     border: "5px solid #ffff",
+                    boxShadow: "0 2px 10px rgb(0 0 0 / 10%)",
                   }}
                 />
               </div>
@@ -42,6 +53,7 @@ const PasswordSettingsPage = ({ name }) => {
                   color: "#333",
                 }}
               >
+                <i class="bi bi-person-fill pe-1"></i>
                 Account
               </a>
               <a
@@ -59,6 +71,7 @@ const PasswordSettingsPage = ({ name }) => {
                   color: "#333",
                 }}
               >
+                <i class="bi bi-key-fill pe-1"></i>
                 Password
               </a>
               <a
@@ -76,133 +89,184 @@ const PasswordSettingsPage = ({ name }) => {
                   color: "#333",
                 }}
               >
+                <i class="bi bi-bell-fill pe-1"></i>
                 Notification
               </a>
             </div>
           </div>
-          <div class="tab-content" id="v-pills-tabContent">
+          <div className="tab-content p-4 p-md-5" id="v-pills-tabContent">
             <div
-              class="tab-pane fade show active"
+              className="tab-pane fade show active"
               id="v-pills-Account"
               role="tabpanel"
               aria-labelledby="v-pills-Account-tab"
             >
               <div>
                 <h3 className="mb-4">Account Settings</h3>
-                <div className="row">
+                <form className="row d-flex g-4 needs-validation" novalidate>
                   <div className="col-md-6">
-                    <div className="form-group">
-                      <label>First Name</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value="Kiran"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label>Last Name</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value="Acharya"
-                      />
-                    </div>
+                    <label for="validationCustom01" className="form-label">
+                      First name
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="validationCustom01"
+                      required
+                    />
+                    <div className="valid-feedback"></div>
                   </div>
                   <div className="col-md-6">
-                    <div className="form-group">
-                      <label>Email</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value="kiranacharya287@gmail.com"
-                      />
-                    </div>
+                    <label for="validationCustom02" className="form-label">
+                      Last name
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="validationCustom02"
+                      required
+                    />
+                    <div className="valid-feedback"></div>
                   </div>
                   <div className="col-md-6">
-                    <div className="form-group">
-                      <label>Phone number</label>
+                    <label for="validationCustom03" className="form-label">
+                      Email address
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="validationCustom03"
+                      required
+                    />
+                    <div className="invalid-feedback">
+                      Please provide a valid Email address.
+                    </div>
+                  </div>
+                  <div className="col-md-3">
+                    <label for="validationCustom04" className="form-label">
+                      State
+                    </label>
+                    <select
+                      className="form-select"
+                      id="validationCustom04"
+                      required
+                    >
+                      <option selected disabled value="">
+                        Choose...
+                      </option>
+                      <option>...</option>
+                    </select>
+                    <div className="invalid-feedback">
+                      Please select a valid state.
+                    </div>
+                  </div>
+                  <div className="col-md-3">
+                    <label for="validationCustom05" className="form-label">
+                      Zip
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="validationCustom05"
+                      required
+                    />
+                    <div className="invalid-feedback">
+                      Please provide a valid zip.
+                    </div>
+                  </div>
+                  <div className="col-12">
+                    <label for="validationCustom03" className="form-label">
+                      Gender :
+                    </label>
+                    <div className="form-check">
                       <input
-                        type="text"
-                        className="form-control"
-                        value="+91 9876543215"
+                        className="form-check-input"
+                        type="radio"
+                        name="flexRadioDefault"
+                        id="flexRadioDefault1"
                       />
+                      <label
+                        className="form-check-label"
+                        for="flexRadioDefault1"
+                      >
+                        Male
+                      </label>
                     </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label>Company</label>
+                    <div className="form-check">
                       <input
-                        type="text"
-                        className="form-control"
-                        value="Kiran Workspace"
+                        className="form-check-input"
+                        type="radio"
+                        name="flexRadioDefault"
+                        id="flexRadioDefault2"
+                        checked
                       />
+                      <label
+                        className="form-check-label"
+                        for="flexRadioDefault2"
+                      >
+                        Female
+                      </label>
                     </div>
                   </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label>Designation</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value="UI Developer"
-                      />
+                  <div className="col-12">
+                    <div className="d-flex gap-4">
+                      <button className="btn btn-primary">Update</button>
+                      <button className="btn btn-light">Cancel</button>
                     </div>
                   </div>
-                  <div className="col-md-12">
-                    <div className="form-group">
-                      <label>Bio</label>
-                      <textarea className="form-control" rows="4">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Labore vero enim error similique quia numquam ullam
-                        corporis officia odio repellendus aperiam consequatur
-                        laudantium porro voluptatibus, itaque laboriosam
-                        veritatis voluptatum distinctio!
-                      </textarea>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <button className="btn btn-primary">Update</button>
-                  <button className="btn btn-light">Cancel</button>
-                </div>
+                </form>
               </div>
             </div>
             <div
-              class="tab-pane fade"
+              className="tab-pane fade"
               id="v-pills-Password"
               role="tabpanel"
               aria-labelledby="v-pills-Password-tab"
             >
               <div>
                 <h3 className="mb-4">Password Settings</h3>
-                <div className="row">
+                <form className="row g-4 needs-validation" novalidate>
                   <div className="col-md-6">
-                    <div className="form-group">
-                      <label>Old password</label>
-                      <input type="password" className="form-control" />
+                    <label for="validationCustom01" className="form-label">
+                      Old password
+                    </label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="inputPassword"
+                    />
+                    <div className="valid-feedback"></div>
+                  </div>
+                  <div className="col-md-6"></div>
+                  <div className="col-md-6">
+                    <label for="validationCustom02" className="form-label">
+                      New password
+                    </label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="inputPassword"
+                    />
+                    <div className="valid-feedback"></div>
+                  </div>
+                  <div className="col-md-6">
+                    <label for="validationCustom03" className="form-label">
+                      Confirm new password
+                    </label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="inputPassword"
+                    />
+                    <div className="invalid-feedback"></div>
+                  </div>
+                  <div className="col-12">
+                    <div className="d-flex gap-4">
+                      <button className="btn btn-primary">Update</button>
+                      <button className="btn btn-light">Cancel</button>
                     </div>
                   </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label>New password</label>
-                      <input type="password" className="form-control" />
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label>Confirm new password</label>
-                      <input type="password" className="form-control" />
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <button className="btn btn-primary">Update</button>
-                  <button className="btn btn-light">Cancel</button>
-                </div>
+                </form>
               </div>
             </div>
             <div
@@ -255,9 +319,11 @@ const PasswordSettingsPage = ({ name }) => {
                     </label>
                   </div>
                 </div>
-                <div>
-                  <button className="btn btn-primary">Update</button>
-                  <button className="btn btn-light">Cancel</button>
+                <div className="col-12 pt-5">
+                  <div className="d-flex gap-4">
+                    <button className="btn btn-primary">Update</button>
+                    <button className="btn btn-light">Cancel</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -268,4 +334,4 @@ const PasswordSettingsPage = ({ name }) => {
   );
 };
 
-export default PasswordSettingsPage;
+export default ProfileSettingsPage;
