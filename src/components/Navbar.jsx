@@ -51,6 +51,11 @@ const Navbar = () => {
                 CashExpensesPage
               </a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link my-3" href="/CashIncomesPage">
+                CashIncomesPage
+              </a>
+            </li>
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
