@@ -74,27 +74,27 @@ const Navbar = () => {
               </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown04">
                 <li>
-                  <p class="fs-6  fst-italic text-center text-secondary">
+                  <p className="fs-6  fst-italic text-center text-secondary">
                     Mor-Skurka
                   </p>
-                  <hr class="dropdown-divider" />
+                  <hr className="dropdown-divider" />
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
-                    <i class="bi bi-person mx-2 "></i>
+                    <i className="bi bi-person mx-2 "></i>
                     MY PROFILE
                   </a>
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
-                    <i class="bi bi-gear mx-2"></i>
+                    <i className="bi bi-gear mx-2"></i>
                     SETTINGS
                   </a>
                 </li>
                 <li>
-                  <hr class="dropdown-divider" />
+                  <hr className="dropdown-divider" />
                   <a className="dropdown-item-dark" href="#">
-                    <i class="bi bi-box-arrow-right mx-2"></i>
+                    <i className="bi bi-box-arrow-right mx-2"></i>
                     LOG OUT
                   </a>
                 </li>
