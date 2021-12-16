@@ -33,13 +33,13 @@ const ProfileSettingsPage = ({ name }) => {
               <h4 className="text-center">{name}</h4>
             </div>
             <div
-              class="nav flex-column nav-pills"
+              className="nav flex-column nav-pills"
               id="v-pills-tab"
               role="tablist"
               aria-orientation="vertical"
             >
               <a
-                class="nav-link active"
+                className="nav-link active"
                 id="v-pills-Account-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#v-pills-Account"
@@ -53,11 +53,11 @@ const ProfileSettingsPage = ({ name }) => {
                   color: "#333",
                 }}
               >
-                <i class="bi bi-person-fill pe-1"></i>
+                <i className="bi bi-person-fill pe-1"></i>
                 Account
               </a>
               <a
-                class="nav-link"
+                className="nav-link"
                 id="v-pills-Password-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#v-pills-Password"
@@ -71,11 +71,11 @@ const ProfileSettingsPage = ({ name }) => {
                   color: "#333",
                 }}
               >
-                <i class="bi bi-key-fill pe-1"></i>
+                <i className="bi bi-key-fill pe-1"></i>
                 Password
               </a>
               <a
-                class="nav-link"
+                className="nav-link"
                 id="v-pills-Notification-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#v-pills-Notification"
@@ -89,7 +89,7 @@ const ProfileSettingsPage = ({ name }) => {
                   color: "#333",
                 }}
               >
-                <i class="bi bi-bell-fill pe-1"></i>
+                <i className="bi bi-bell-fill pe-1"></i>
                 Notification
               </a>
             </div>
@@ -103,9 +103,9 @@ const ProfileSettingsPage = ({ name }) => {
             >
               <div>
                 <h3 className="mb-4">Account Settings</h3>
-                <form className="row d-flex g-4 needs-validation" novalidate>
+                <form className="row d-flex g-4 needs-validation" noValidate>
                   <div className="col-md-6">
-                    <label for="validationCustom01" className="form-label">
+                    <label htmlFor="validationCustom01" className="form-label">
                       First name
                     </label>
                     <input
@@ -117,7 +117,7 @@ const ProfileSettingsPage = ({ name }) => {
                     <div className="valid-feedback"></div>
                   </div>
                   <div className="col-md-6">
-                    <label for="validationCustom02" className="form-label">
+                    <label htmlFor="validationCustom02" className="form-label">
                       Last name
                     </label>
                     <input
@@ -129,7 +129,7 @@ const ProfileSettingsPage = ({ name }) => {
                     <div className="valid-feedback"></div>
                   </div>
                   <div className="col-md-6">
-                    <label for="validationCustom03" className="form-label">
+                    <label htmlFor="validationCustom03" className="form-label">
                       Email address
                     </label>
                     <input
@@ -143,7 +143,7 @@ const ProfileSettingsPage = ({ name }) => {
                     </div>
                   </div>
                   <div className="col-md-3">
-                    <label for="validationCustom04" className="form-label">
+                    <label htmlFor="validationCustom04" className="form-label">
                       State
                     </label>
                     <select
@@ -151,7 +151,7 @@ const ProfileSettingsPage = ({ name }) => {
                       id="validationCustom04"
                       required
                     >
-                      <option selected disabled value="">
+                      <option defaultValue disabled value="">
                         Choose...
                       </option>
                       <option>...</option>
@@ -161,7 +161,7 @@ const ProfileSettingsPage = ({ name }) => {
                     </div>
                   </div>
                   <div className="col-md-3">
-                    <label for="validationCustom05" className="form-label">
+                    <label htmlFor="validationCustom05" className="form-label">
                       Zip
                     </label>
                     <input
@@ -175,7 +175,7 @@ const ProfileSettingsPage = ({ name }) => {
                     </div>
                   </div>
                   <div className="col-12">
-                    <label for="validationCustom03" className="form-label">
+                    <label htmlFor="validationCustom03" className="form-label">
                       Gender :
                     </label>
                     <div className="form-check">
@@ -187,7 +187,7 @@ const ProfileSettingsPage = ({ name }) => {
                       />
                       <label
                         className="form-check-label"
-                        for="flexRadioDefault1"
+                        htmlFor="flexRadioDefault1"
                       >
                         Male
                       </label>
@@ -198,11 +198,11 @@ const ProfileSettingsPage = ({ name }) => {
                         type="radio"
                         name="flexRadioDefault"
                         id="flexRadioDefault2"
-                        checked
+                        defaultChecked
                       />
                       <label
                         className="form-check-label"
-                        for="flexRadioDefault2"
+                        htmlFor="flexRadioDefault2"
                       >
                         Female
                       </label>
@@ -225,37 +225,37 @@ const ProfileSettingsPage = ({ name }) => {
             >
               <div>
                 <h3 className="mb-4">Password Settings</h3>
-                <form className="row g-4 needs-validation" novalidate>
+                <form className="row g-4 needs-validation" noValidate>
                   <div className="col-md-6">
-                    <label for="validationCustom01" className="form-label">
+                    <label htmlFor="validationCustom01" className="form-label">
                       Old password
                     </label>
                     <input
                       type="password"
-                      class="form-control"
+                      className="form-control"
                       id="inputPassword"
                     />
                     <div className="valid-feedback"></div>
                   </div>
                   <div className="col-md-6"></div>
                   <div className="col-md-6">
-                    <label for="validationCustom02" className="form-label">
+                    <label htmlFor="validationCustom02" className="form-label">
                       New password
                     </label>
                     <input
                       type="password"
-                      class="form-control"
+                      className="form-control"
                       id="inputPassword"
                     />
                     <div className="valid-feedback"></div>
                   </div>
                   <div className="col-md-6">
-                    <label for="validationCustom03" className="form-label">
+                    <label htmlFor="validationCustom03" className="form-label">
                       Confirm new password
                     </label>
                     <input
                       type="password"
-                      class="form-control"
+                      className="form-control"
                       id="inputPassword"
                     />
                     <div className="invalid-feedback"></div>
@@ -270,7 +270,7 @@ const ProfileSettingsPage = ({ name }) => {
               </div>
             </div>
             <div
-              class="tab-pane fade"
+              className="tab-pane fade"
               id="v-pills-Notification"
               role="tabpanel"
               aria-labelledby="v-pills-Notification-tab"
@@ -285,7 +285,7 @@ const ProfileSettingsPage = ({ name }) => {
                       value=""
                       id="notification1"
                     />
-                    <label className="form-check-label" for="notification1">
+                    <label className="form-check-label" htmlFor="notification1">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Dolorum accusantium accusamus, neque cupiditate quis
                     </label>
@@ -299,7 +299,7 @@ const ProfileSettingsPage = ({ name }) => {
                       value=""
                       id="notification2"
                     />
-                    <label className="form-check-label" for="notification2">
+                    <label className="form-check-label" htmlFor="notification2">
                       hic nesciunt repellat perferendis voluptatum totam porro
                       eligendi.
                     </label>
@@ -313,7 +313,7 @@ const ProfileSettingsPage = ({ name }) => {
                       value=""
                       id="notification3"
                     />
-                    <label className="form-check-label" for="notification3">
+                    <label className="form-check-label" htmlFor="notification3">
                       commodi fugiat molestiae tempora corporis. Sed dignissimos
                       suscipit
                     </label>
