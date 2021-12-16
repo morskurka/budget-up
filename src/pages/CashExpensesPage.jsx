@@ -4,47 +4,31 @@ import CashExpense from "../components/CashExpense";
 import { GlobalContext } from "../contexts/GlobalState";
 
 const CashExpensesPage = () => {
-  // add / remove CashExpense Components
-  const [ExpensesComponents, setExpensesComponents] = useState([
-    <CashExpense
-      id={0}
-      key={0}
-      updateExpensesList={addExpenseObject}
-      handleDeleteBtnClicked={removeExpenseItem}
-    />,
+  // store expanses details
+  const [idCounter, setIdCounter] = useState(0);
+  const [ExpensesList, setExpensesList] = useState([
+    { id: idCounter, key: idCounter },
   ]);
 
-  function addExpenseItem() {
-    let newId = ExpensesComponents[ExpensesComponents.length - 1].props.id + 1;
-    setExpensesComponents([
-      ...ExpensesComponents,
-      <CashExpense
-        id={newId}
-        key={newId}
-        updateExpensesList={addExpenseObject}
-        handleDeleteBtnClicked={removeExpenseItem}
-      />,
+  const addExpenseItem = () => {
+    setExpensesList([
+      ...ExpensesList,
+      { id: idCounter + 1, key: idCounter + 1 },
     ]);
-  }
+    setIdCounter(idCounter + 1);
+  };
 
   function removeExpenseItem(id) {
-    if (id !== 0) {
-      // remove from DOM
-      let newExpensesComponents = ExpensesComponents.filter(
-        (item) => item.key !== id
-      );
-      // remove from ExpensesList
-      setExpensesComponents(newExpensesComponents);
+    if (ExpensesList.length > 1) {
       let newExpensesList = ExpensesList.filter((item) => item.id !== id);
       setExpensesList(newExpensesList);
     }
   }
 
-  // store expanses details
-  const [ExpensesList, setExpensesList] = useState([]);
-  function addExpenseObject(id, category, amount) {
+  function updateExpenseItem(id, category, date, amount) {
     let newExpensesList = [...ExpensesList];
-    newExpensesList[id] = { id, category, amount };
+    let index = newExpensesList.findIndex((item) => item.id === id);
+    newExpensesList[index] = { id, key: id, category, date, amount };
     setExpensesList(newExpensesList);
   }
 
@@ -68,10 +52,8 @@ const CashExpensesPage = () => {
   const { addTransaction } = useContext(GlobalContext);
   const onSubmit = (e) => {
     e.preventDefault();
-    if (ExpensesList.length > 0) {
-      // TODO: add transactions to database
-      ExpensesList.forEach((expense) => addTransaction(expense));
-    }
+    // TODO: add transactions to database
+    ExpensesList.forEach((expense) => addTransaction(expense));
   };
 
   return (
@@ -101,8 +83,17 @@ const CashExpensesPage = () => {
                   </div>
                 </div>
                 <div>
-                  <div>{ExpensesComponents}</div>
-                  <div className="ms-5">
+                  <div>
+                    {ExpensesList.map((expense) => (
+                      <CashExpense
+                        id={expense.key}
+                        key={expense.key}
+                        updateExpenseItem={updateExpenseItem}
+                        handleDeleteBtnClicked={removeExpenseItem}
+                      />
+                    ))}
+                  </div>
+                  <div className="me-5 d-flex justify-content-end">
                     {/* ADD EXPENSE COMPONENT */}
                     <button
                       className="btn btn-success"
@@ -116,6 +107,8 @@ const CashExpensesPage = () => {
                   <button
                     className="btn btn-success btn-lg rounded-pill"
                     onClick={onSubmit}
+                    /* TODO: implement logic instead of CONST value */
+                    disabled={1500 - sum < 0}
                   >
                     Save
                   </button>
