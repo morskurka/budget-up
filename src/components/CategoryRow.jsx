@@ -1,44 +1,59 @@
 import CategoryCard from "./CategoryCard";
+import { useState, useContext } from "react";
+import { GlobalContext } from "../contexts/GlobalState";
 
 const CategoryRow = () => {
-  const Supermarket = {
-    icon: "cart3",
-    name: "Supermarket",
-    currBalance: 1200,
-    totalExpected: 1450,
-  };
+  const {
+    transactions,
+    getCurrentMonthTransactionByCategory,
+    categoriesIcons,
+  } = useContext(GlobalContext);
 
-  const Electricity = {
-    icon: "plug",
-    name: "Electricity",
-    currBalance: 700,
-    totalExpected: 1200,
-  };
-
-  const Water = {
-    icon: "droplet",
-    name: "Water",
-    currBalance: 121,
-    totalExpected: 120,
-  };
-
-  const categories = [Supermarket, Electricity, Water];
+  const currMonthTransByCategory =
+    getCurrentMonthTransactionByCategory(transactions);
 
   return (
     <section className="bg-white">
       <div className="container" style={{ padding: "0 30px" }}>
-        <div className="row">
-          {categories.map((category, index) => {
-            return (
-              <div className="col-lg-4 col-md-6" key={index}>
-                <CategoryCard
-                  icon={category.icon}
-                  title={category.name}
-                  currBalance={category.currBalance}
-                  totalExpected={category.totalExpected}
-                />
-              </div>
-            );
+        <div className={"row"}>
+          {currMonthTransByCategory.map((cat, index) => {
+            if (index % 3 === 0)
+              return (
+                <div className="col-lg-4 col-md-6" key={index}>
+                  <CategoryCard
+                    title={cat.name}
+                    currBalance={cat.sum}
+                    totalExpected={1000}
+                    icon={categoriesIcons[cat.name]}
+                  />
+                </div>
+              );
+          })}
+          {currMonthTransByCategory.map((cat, index) => {
+            if (index % 3 === 1)
+              return (
+                <div className="col-lg-4 col-md-6" key={index}>
+                  <CategoryCard
+                    title={cat.name}
+                    currBalance={cat.sum}
+                    totalExpected={1000}
+                    icon={categoriesIcons[cat.name]}
+                  />
+                </div>
+              );
+          })}
+          {currMonthTransByCategory.map((cat, index) => {
+            if (index % 3 === 2)
+              return (
+                <div className="col-lg-4 col-md-6" key={index}>
+                  <CategoryCard
+                    title={cat.name}
+                    currBalance={cat.sum}
+                    totalExpected={1000}
+                    icon={categoriesIcons[cat.name]}
+                  />
+                </div>
+              );
           })}
         </div>
       </div>

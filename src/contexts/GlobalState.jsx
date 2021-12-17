@@ -6,49 +6,49 @@ const initialState = {
   transactions: [
     {
       id: 1,
-      date: "15/12/2021",
+      date: "2021-12-15",
       amount: -350,
       category: "Supermarket",
       sub_category: "Shufersal",
     },
     {
       id: 2,
-      date: "10/12/2021",
+      date: "2021-12-10",
       amount: -35,
       category: "Supermarket",
       sub_category: "Shufersal",
     },
     {
       id: 3,
-      date: "11/12/2021",
+      date: "2021-12-11",
       amount: 2500,
       category: "Salary",
       sub_category: "",
     },
     {
       id: 4,
-      date: "15/11/2021",
+      date: "2021-11-15",
       amount: -200,
       category: "Water",
       sub_category: "",
     },
     {
       id: 5,
-      date: "02/12/2021",
+      date: "2021-12-02",
       amount: -70,
       category: "Electricity",
       sub_category: "",
     },
     {
       id: 6,
-      date: "11/10/2021",
+      date: "2021-10-11",
       amount: -2000,
       category: "Rent",
       sub_category: "",
     },
     {
       id: 7,
-      date: "30/09/2021",
+      date: "2021-09-30",
       amount: -175,
       category: "Clothing",
       sub_category: "",
@@ -66,7 +66,7 @@ const initialState = {
     {
       id: 1,
       title: "Birth Day",
-      date: "11/12/2021",
+      date: "2021-12-11",
       amount: 3000,
     },
   ],
@@ -90,6 +90,11 @@ const initialState = {
       triple_gamma: 0.3,
     },
   ],
+  categoriesIcons: {
+    Supermarket: "cart3",
+    Electricity: "plug",
+    Water: "droplet",
+  },
 };
 
 // Create context
@@ -107,11 +112,40 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
+  function getCurrentMonthTransactionByCategory(transactions) {
+    // get all categories names
+    let categoriesSet = new Set();
+    transactions.forEach((trans) => categoriesSet.add(trans.category));
+
+    // filter by current month
+    let currMonthTransByCategory = [];
+    categoriesSet.forEach((cat) => {
+      let currMonthTrans = transactions.filter(
+        (tran) =>
+          tran.category === cat &&
+          new Date(tran.date).getMonth() === new Date().getMonth()
+      );
+      // sum the transactions
+      let sum = currMonthTrans.reduce((prev, next) => {
+        return prev + next.amount;
+      }, 0);
+      // push to array
+      currMonthTransByCategory.push({
+        name: cat,
+        transactions: currMonthTrans,
+        sum: Math.abs(sum),
+      });
+    });
+    return currMonthTransByCategory;
+  }
+
   return (
     <GlobalContext.Provider
       value={{
         transactions: state.transactions,
+        categoriesIcons: state.categoriesIcons,
         addTransaction,
+        getCurrentMonthTransactionByCategory,
       }}
     >
       {children}
