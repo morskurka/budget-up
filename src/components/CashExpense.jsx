@@ -1,9 +1,13 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import { GlobalContext } from "../contexts/GlobalState";
 
 const CashExpense = ({ id, updateExpenseItem, handleDeleteBtnClicked }) => {
   const [category, setCategory] = useState("");
   const amount = useRef();
   const date = useRef();
+  const { getCategoriesNames } = useContext(GlobalContext);
+
+  const categoriesNames = getCategoriesNames();
 
   function handleCategoryChange(e) {
     setCategory(e.target.value);
@@ -26,9 +30,14 @@ const CashExpense = ({ id, updateExpenseItem, handleDeleteBtnClicked }) => {
             required
           >
             <option value="">Select Category</option>
+            {categoriesNames.map((category) => {
+              return <option value={category}>{category}</option>;
+            })}
+            {/* 
             <option value="Supermarket">Supermarket</option>
             <option value="Water">Water</option>
             <option value="Electricity">Electricity</option>
+             */}
             <option value="Other">Other</option>
           </select>
         </div>
