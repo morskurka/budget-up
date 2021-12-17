@@ -116,7 +116,7 @@ export const GlobalProvider = ({ children }) => {
     // get all categories names
     let categoriesSet = new Set();
     state.transactions.forEach((trans) => categoriesSet.add(trans.category));
-    return categoriesSet;
+    return Array.from(categoriesSet);
   }
 
   function getCurrentMonthTransactionByCategory() {
