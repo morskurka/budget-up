@@ -59,11 +59,10 @@ const CashExpensesPage = () => {
     let expenses = JSON.parse(JSON.stringify(ExpensesList));
     expenses.forEach((expense) => {
       delete expense.key;
+      expense.amount = -Math.abs(expense.amount);
       addTransaction(expense);
     });
     navigate("/");
-    // alert(`${ExpensesList.length} Expense added to DB!`);
-    // setExpensesList([{ id: 0, key: 0 }]);
   };
 
   return (
