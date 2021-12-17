@@ -1,20 +1,16 @@
 import CategoryCard from "./CategoryCard";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoBar from "../components/BalanceInfoBar";
 
 const CategoryRow = () => {
-  const {
-    transactions,
-    getCurrentMonthTransactionByCategory,
-    categoriesIcons,
-  } = useContext(GlobalContext);
+  const { getCurrentMonthTransactionByCategory, categoriesIcons } =
+    useContext(GlobalContext);
 
   const currMonthTransByCategory = getCurrentMonthTransactionByCategory();
 
   return (
     <>
-      {" "}
       <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />;
       <section className="bg-white">
         <div className="container" style={{ padding: "0 30px" }}>
