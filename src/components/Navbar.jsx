@@ -9,7 +9,7 @@ const Navbar = () => {
       aria-label="Fourth navbar example"
     >
       <div className="container">
-        <a className="navbar-brand fw-bold fs-2" href="#">
+        <Link className="navbar-brand fw-bold fs-2" to="/">
           <img
             className="mx-2"
             src="logo192.png"
@@ -18,7 +18,7 @@ const Navbar = () => {
             height="24"
           />
           BudgetUP
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -44,9 +44,9 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link my-3" href="/CategoryPage">
+              <Link className="nav-link my-3" to="/CategoryPage">
                 CategoryPage
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link my-3" to="/CashExpensesPage">
@@ -82,7 +82,7 @@ const Navbar = () => {
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="#">
+                  <Link className="dropdown-item" to="/ProfileSettingsPage">
                     <i className="bi bi-person mx-2 "></i>
                     MY PROFILE
                   </Link>
@@ -95,7 +95,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
-                  <Link className="dropdown-item-dark" to="#">
+                  <Link className="dropdown-item-dark" to="/">
                     <i className="bi bi-box-arrow-right mx-2"></i>
                     LOG OUT
                   </Link>
