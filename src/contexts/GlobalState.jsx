@@ -112,15 +112,21 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
-  function getCurrentMonthTransactionByCategory(transactions) {
+  function getCategoriesNames() {
     // get all categories names
     let categoriesSet = new Set();
-    transactions.forEach((trans) => categoriesSet.add(trans.category));
+    state.transactions.forEach((trans) => categoriesSet.add(trans.category));
+    return categoriesSet;
+  }
+
+  function getCurrentMonthTransactionByCategory() {
+    // get all categories names
+    let categoriesSet = getCategoriesNames();
 
     // filter by current month
     let currMonthTransByCategory = [];
     categoriesSet.forEach((cat) => {
-      let currMonthTrans = transactions.filter(
+      let currMonthTrans = state.transactions.filter(
         (tran) =>
           tran.category === cat &&
           new Date(tran.date).getMonth() === new Date().getMonth()
@@ -146,6 +152,7 @@ export const GlobalProvider = ({ children }) => {
         categoriesIcons: state.categoriesIcons,
         addTransaction,
         getCurrentMonthTransactionByCategory,
+        getCategoriesNames,
       }}
     >
       {children}

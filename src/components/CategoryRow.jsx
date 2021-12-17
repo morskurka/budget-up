@@ -10,8 +10,7 @@ const CategoryRow = () => {
     categoriesIcons,
   } = useContext(GlobalContext);
 
-  const currMonthTransByCategory =
-    getCurrentMonthTransactionByCategory(transactions);
+  const currMonthTransByCategory = getCurrentMonthTransactionByCategory();
 
   return (
     <>
