@@ -23,6 +23,7 @@ const CashExpense = ({ id, updateExpenseItem, handleDeleteBtnClicked }) => {
             className="form-select form-select-md"
             name="category"
             onChange={handleCategoryChange}
+            required
           >
             <option value="">Select Category</option>
             <option value="Supermarket">Supermarket</option>
@@ -38,6 +39,8 @@ const CashExpense = ({ id, updateExpenseItem, handleDeleteBtnClicked }) => {
             min="0"
             className="form-control"
             ref={date}
+            min={new Date(new Date().setDate(1)).toISOString().split("T")[0]}
+            max={new Date().toISOString().split("T")[0]}
             onChange={() =>
               updateExpenseItem(
                 parseInt(id),
@@ -46,6 +49,7 @@ const CashExpense = ({ id, updateExpenseItem, handleDeleteBtnClicked }) => {
                 parseInt(amount.current.value)
               )
             }
+            required
           />
         </div>
         <div className="col-md-3 col-lg-2 mb-2">
@@ -64,6 +68,7 @@ const CashExpense = ({ id, updateExpenseItem, handleDeleteBtnClicked }) => {
                   parseInt(amount.current.value)
                 )
               }
+              required
             />
           </div>
         </div>
@@ -71,6 +76,7 @@ const CashExpense = ({ id, updateExpenseItem, handleDeleteBtnClicked }) => {
           <button
             className="btn btn-danger"
             onClick={() => handleDeleteBtnClicked(id)}
+            type="button"
           >
             <i className="bi bi-eraser"></i>
           </button>

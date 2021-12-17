@@ -1,9 +1,12 @@
 import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import BalanceInfoBar from "../components/BalanceInfoBar";
 import CashExpense from "../components/CashExpense";
 import { GlobalContext } from "../contexts/GlobalState";
 
 const CashExpensesPage = () => {
+  const navigate = useNavigate();
+
   // store expanses details
   const [idCounter, setIdCounter] = useState(0);
   const [ExpensesList, setExpensesList] = useState([
@@ -53,7 +56,14 @@ const CashExpensesPage = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     // TODO: add transactions to database
-    ExpensesList.forEach((expense) => addTransaction(expense));
+    let expenses = JSON.parse(JSON.stringify(ExpensesList));
+    expenses.forEach((expense) => {
+      delete expense.key;
+      addTransaction(expense);
+    });
+    navigate("/");
+    // alert(`${ExpensesList.length} Expense added to DB!`);
+    // setExpensesList([{ id: 0, key: 0 }]);
   };
 
   return (
@@ -82,7 +92,7 @@ const CashExpensesPage = () => {
                     </div>
                   </div>
                 </div>
-                <div>
+                <form onSubmit={onSubmit}>
                   <div>
                     {ExpensesList.map((expense) => (
                       <CashExpense
@@ -98,21 +108,22 @@ const CashExpensesPage = () => {
                     <button
                       className="btn btn-success"
                       onClick={addExpenseItem}
+                      type="button"
                     >
                       <i className="bi bi-plus-square"></i>
                     </button>
                   </div>
-                </div>
-                <div className="align-items-center justify-content-center d-flex">
-                  <button
-                    className="btn btn-success btn-lg rounded-pill"
-                    onClick={onSubmit}
-                    /* TODO: implement logic instead of CONST value */
-                    disabled={1500 - sum < 0}
-                  >
-                    Save
-                  </button>
-                </div>
+                  <div className="align-items-center justify-content-center d-flex">
+                    <button
+                      className="btn btn-success btn-lg rounded-pill"
+                      /* TODO: implement logic instead of CONST value */
+                      disabled={1500 - sum < 0}
+                      type="submit"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
