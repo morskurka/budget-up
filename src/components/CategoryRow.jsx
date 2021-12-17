@@ -26,11 +26,11 @@ const CategoryRow = () => {
 
   return (
     <section className="bg-white">
-      <div classNameName="container" style={{ padding: "0 30px" }}>
+      <div className="container" style={{ padding: "0 30px" }}>
         <div className="row">
-          {categories.map((category) => {
+          {categories.map((category, index) => {
             return (
-              <div className="col-lg-4 col-md-6">
+              <div className="col-lg-4 col-md-6" key={index}>
                 <CategoryCard
                   icon={category.icon}
                   title={category.name}
