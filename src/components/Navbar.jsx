@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   const image = true;
 
@@ -32,14 +34,14 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarsExample04">
           <ul className="navbar-nav ms-auto mb-2 mb-md-0">
             <li className="nav-item">
-              <a className="nav-link active my-3" aria-current="page" href="/">
+              <Link className="nav-link active my-3" aria-current="page" to="/">
                 HOME
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link my-3" href="/CategoryRow">
+              <Link className="nav-link my-3" to="/CategoryRow">
                 CategoryRow
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
               <a className="nav-link my-3" href="/CategoryPage">
@@ -47,19 +49,19 @@ const Navbar = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link my-3" href="/CashExpensesPage">
+              <Link className="nav-link my-3" to="/CashExpensesPage">
                 CashExpensesPage
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link my-3" href="/CashIncomesPage">
+              <Link className="nav-link my-3" to="/CashIncomesPage">
                 CashIncomesPage
-              </a>
+              </Link>
             </li>
             <li className="nav-item dropdown">
-              <a
+              <Link
                 className="nav-link dropdown-toggle"
-                href="#"
+                to="#"
                 id="dropdown04"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -71,7 +73,7 @@ const Navbar = () => {
                   width="55"
                   height="55"
                 />
-              </a>
+              </Link>
               <ul className="dropdown-menu" aria-labelledby="dropdown04">
                 <li>
                   <p className="fs-6  fst-italic text-center text-secondary">
@@ -80,23 +82,23 @@ const Navbar = () => {
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="#">
                     <i className="bi bi-person mx-2 "></i>
                     MY PROFILE
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="#">
                     <i className="bi bi-gear mx-2"></i>
                     SETTINGS
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
-                  <a className="dropdown-item-dark" href="#">
+                  <Link className="dropdown-item-dark" to="#">
                     <i className="bi bi-box-arrow-right mx-2"></i>
                     LOG OUT
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>
