@@ -1,7 +1,7 @@
 const ProgressBarBU = (props) => {
   const { percentages } = props;
   return (
-    <div class="progress rounded-pill" style={{ height: 25 + "px" }}>
+    <div className="progress rounded-pill" style={{ height: 25 + "px" }}>
       <div
         className={
           "progress-bar rounded-pill " +

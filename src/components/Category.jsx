@@ -4,12 +4,12 @@ const Category = (props) => {
   const percentages = (props.currBalance / props.totalExpected) * 100;
 
   return (
-    <div className="card rounded-pill bg-light">
+    <div className="card rounded-pill bg-light m-2">
       <div className="card-body">
         <div className="row justify-content-around align-items-center">
           <div className="col-4">
             <div className="card-title fs-5">
-              <i class={"bi bi-" + props.icon}></i>
+              <i className={"bi bi-" + props.icon}></i>
               {" " + props.name}
             </div>
           </div>

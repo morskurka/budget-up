@@ -26,16 +26,15 @@ const CategoryList = () => {
 
   return (
     <div className="list-group">
-      {categories.map((category) => {
+      {categories.map((category, index) => {
         return (
-          <div className="m-2">
-            <Category
-              name={category.name}
-              icon={category.icon}
-              currBalance={category.currBalance}
-              totalExpected={category.totalExpected}
-            />
-          </div>
+          <Category
+            key={index}
+            name={category.name}
+            icon={category.icon}
+            currBalance={category.currBalance}
+            totalExpected={category.totalExpected}
+          />
         );
       })}
     </div>
