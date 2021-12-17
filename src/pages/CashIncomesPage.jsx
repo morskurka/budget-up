@@ -12,7 +12,7 @@ const CashIncomesPage = () => {
             <div className="card m-2">
               <div className="card-body p-4 bg-light">
                 <h1 className="card-title ms-3 mb-4 display-6 align-items-center">
-                  <i class="bi bi-cash-coin me-4"></i>
+                  <i className="bi bi-cash-coin me-4"></i>
                   Classify Your Cash Incomes
                 </h1>
                 <div className="row justify-content-center">

@@ -13,13 +13,13 @@ const CashIncome = (props) => {
               className="form-control"
               id="cashAmount"
             />
-            <label for="cashAmount">Source</label>
+            <label htmlFor="cashAmount">Source</label>
           </div>
         </div>
         <div className="col-md-4 col-lg-4 mb-2">
           <div className="form-floating">
             <input type="date" min="0" className="form-control" id="cashDate" />
-            <label for="cashDate">Date</label>
+            <label htmlFor="cashDate">Date</label>
           </div>
         </div>
         <div className="col-md-3 col-lg-3 mb-2">
@@ -30,12 +30,12 @@ const CashIncome = (props) => {
               className="form-control"
               id="cashAmount"
             />
-            <label for="cashDate">Amount</label>
+            <label htmlFor="cashDate">Amount</label>
           </div>
         </div>
         <div className="col-md-1 col-lg-1 mb-2">
           <button className="btn btn-lg btn-danger">
-            <i class="bi bi-eraser"></i>
+            <i className="bi bi-eraser"></i>
           </button>
         </div>
       </div>
