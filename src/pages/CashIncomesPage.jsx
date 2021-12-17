@@ -1,7 +1,30 @@
 import BalanceInfoBar from "../components/BalanceInfoBar";
 import CashIncome from "../components/CashIncome";
+import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { GlobalContext } from "../contexts/GlobalState";
 
 const CashIncomesPage = () => {
+  const navigate = useNavigate();
+
+  const [source, setSource] = useState();
+  const [date, setDate] = useState();
+  const [amount, setAmount] = useState();
+  const { addTransaction } = useContext(GlobalContext);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    // TODO: add transactions to database
+    addTransaction({
+      id: 1,
+      category: "Income",
+      subCategory: source,
+      date,
+      amount: parseInt(amount),
+    });
+    navigate("/");
+  };
+
   return (
     <>
       <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />
@@ -12,23 +35,25 @@ const CashIncomesPage = () => {
             <div className="card m-2">
               <div className="card-body p-4 bg-light">
                 <h1 className="card-title ms-3 mb-4 display-6 align-items-center">
-                  <i class="bi bi-cash-coin me-4"></i>
+                  <i className="bi bi-cash-coin me-4"></i>
                   Classify Your Cash Incomes
                 </h1>
-                <div className="row justify-content-center">
-                  <div className="">
-                    <div className="card m-3 rounded-pill">
-                      <div className="card-body text-center">
-                        <h3 className="fw-light">Unclassified Cash Income</h3>
-                        <h2>1500$</h2>
-                      </div>
-                    </div>
+                <form onSubmit={onSubmit}>
+                  <CashIncome
+                    setSource={setSource}
+                    setDate={setDate}
+                    setAmount={setAmount}
+                  />
+                  <div className="align-items-center justify-content-center d-flex">
+                    <button
+                      className="btn btn-success btn-lg rounded-pill"
+                      /* TODO: implement logic instead of CONST value */
+                      type="submit"
+                    >
+                      Save
+                    </button>
                   </div>
-                </div>
-                <div>
-                  <CashIncome id="1" />
-                </div>
-                <div className="ms-5"></div>
+                </form>
               </div>
             </div>
           </div>
