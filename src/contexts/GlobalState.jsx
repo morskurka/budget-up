@@ -22,8 +22,8 @@ const initialState = {
       id: 3,
       date: "2021-12-11",
       amount: 2500,
-      category: "Salary",
-      sub_category: "",
+      category: "Income",
+      sub_category: "Salary",
     },
     {
       id: 4,
@@ -52,6 +52,13 @@ const initialState = {
       amount: -175,
       category: "Clothing",
       sub_category: "",
+    },
+    {
+      id: 8,
+      date: "2021-12-11",
+      amount: 10000,
+      category: "Income",
+      sub_category: "Savta",
     },
   ],
   user: {
@@ -90,11 +97,6 @@ const initialState = {
       triple_gamma: 0.3,
     },
   ],
-  categoriesIcons: {
-    Supermarket: "cart3",
-    Electricity: "plug",
-    Water: "droplet",
-  },
 };
 
 // Create context
@@ -103,6 +105,12 @@ export const GlobalContext = createContext(initialState);
 // Provider component
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
+
+  const categoriesIcons = {
+    Supermarket: "cart3",
+    Electricity: "plug",
+    Water: "droplet",
+  };
 
   // Actions
   function addTransaction(transaction) {
@@ -119,39 +127,12 @@ export const GlobalProvider = ({ children }) => {
     return Array.from(categoriesSet);
   }
 
-  function getCurrentMonthTransactionByCategory() {
-    // get all categories names
-    let categoriesSet = getCategoriesNames();
-
-    // filter by current month
-    let currMonthTransByCategory = [];
-    categoriesSet.forEach((cat) => {
-      let currMonthTrans = state.transactions.filter(
-        (tran) =>
-          tran.category === cat &&
-          new Date(tran.date).getMonth() === new Date().getMonth()
-      );
-      // sum the transactions
-      let sum = currMonthTrans.reduce((prev, next) => {
-        return prev + next.amount;
-      }, 0);
-      // push to array
-      currMonthTransByCategory.push({
-        name: cat,
-        transactions: currMonthTrans,
-        sum: Math.abs(sum),
-      });
-    });
-    return currMonthTransByCategory;
-  }
-
   return (
     <GlobalContext.Provider
       value={{
         transactions: state.transactions,
-        categoriesIcons: state.categoriesIcons,
+        categoriesIcons,
         addTransaction,
-        getCurrentMonthTransactionByCategory,
         getCategoriesNames,
       }}
     >

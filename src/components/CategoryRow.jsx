@@ -4,8 +4,34 @@ import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoBar from "../components/BalanceInfoBar";
 
 const CategoryRow = () => {
-  const { getCurrentMonthTransactionByCategory, categoriesIcons } =
+  const { getCategoriesNames, categoriesIcons, transactions } =
     useContext(GlobalContext);
+
+  function getCurrentMonthTransactionByCategory() {
+    // get all categories names
+    let categoriesSet = getCategoriesNames();
+
+    // filter by current month
+    let currMonthTransByCategory = [];
+    categoriesSet.forEach((cat) => {
+      let currMonthTrans = transactions.filter(
+        (tran) =>
+          tran.category === cat &&
+          new Date(tran.date).getMonth() === new Date().getMonth()
+      );
+      // sum the transactions
+      let sum = currMonthTrans.reduce((prev, next) => {
+        return prev + next.amount;
+      }, 0);
+      // push to array
+      currMonthTransByCategory.push({
+        name: cat,
+        transactions: currMonthTrans,
+        sum: Math.abs(sum),
+      });
+    });
+    return currMonthTransByCategory;
+  }
 
   const currMonthTransByCategory = getCurrentMonthTransactionByCategory();
 
