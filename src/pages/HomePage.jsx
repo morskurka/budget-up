@@ -1,28 +1,89 @@
-import CategoryList from "../components/CategoryList";
-import BalanceInfo from "../components/BalanceInfo";
+import CategoryCard from "../components/CategoryCard";
+import { useContext } from "react";
+import { GlobalContext } from "../contexts/GlobalState";
+import BalanceInfoBar from "../components/BalanceInfoBar";
 
 const HomePage = () => {
+  const { getCategoriesNames, categoriesIcons, transactions } =
+    useContext(GlobalContext);
+
+  function getCurrentMonthTransactionByCategory() {
+    // get all categories names
+    let categoriesSet = getCategoriesNames();
+
+    // filter by current month
+    let currMonthTransByCategory = [];
+    categoriesSet.forEach((cat) => {
+      let currMonthTrans = transactions.filter(
+        (tran) =>
+          tran.category === cat &&
+          new Date(tran.date).getMonth() === new Date().getMonth()
+      );
+      // sum the transactions
+      let sum = currMonthTrans.reduce((prev, next) => {
+        return prev + next.amount;
+      }, 0);
+      // push to array
+      currMonthTransByCategory.push({
+        name: cat,
+        transactions: currMonthTrans,
+        sum: Math.abs(sum),
+      });
+    });
+    return currMonthTransByCategory;
+  }
+
+  const currMonthTransByCategory = getCurrentMonthTransactionByCategory();
+
   return (
-    <div className="row align-items-center justify-content-center">
-      <div className="col-lg-2 justify-content-center">
-        <BalanceInfo title="Add Cash Expense" />
-        <BalanceInfo title="Add Event" />
-      </div>
-      <div className="col-lg-9">
-        <div className="row">
-          <div className="col-lg-3">
-            <BalanceInfo title="Current Balance" amount="100" />
-            <BalanceInfo title="Current Balance" amount="-500" />
-            <BalanceInfo title="Income This Month" amount="12000" />
-            <BalanceInfo title="Outcome This Month" amount="-7800" />
-          </div>
-          <div className="col-lg-1 border-start d-none d-lg-block"></div>
-          <div className="col-lg-8">
-            <CategoryList />
+    <>
+      <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />;
+      <section className="bg-white">
+        <div className="container" style={{ padding: "0 30px" }}>
+          <div className={"row"}>
+            {currMonthTransByCategory.map((cat, index) => {
+              if (index % 3 === 0)
+                return (
+                  <div className="col-lg-4 col-md-6" key={index}>
+                    <CategoryCard
+                      title={cat.name}
+                      currBalance={cat.sum}
+                      totalExpected={1000}
+                      icon={categoriesIcons[cat.name]}
+                    />
+                  </div>
+                );
+            })}
+            {currMonthTransByCategory.map((cat, index) => {
+              if (index % 3 === 1)
+                return (
+                  <div className="col-lg-4 col-md-6" key={index}>
+                    <CategoryCard
+                      title={cat.name}
+                      currBalance={cat.sum}
+                      totalExpected={1000}
+                      icon={categoriesIcons[cat.name]}
+                    />
+                  </div>
+                );
+            })}
+            {currMonthTransByCategory.map((cat, index) => {
+              if (index % 3 === 2)
+                return (
+                  <div className="col-lg-4 col-md-6" key={index}>
+                    <CategoryCard
+                      title={cat.name}
+                      currBalance={cat.sum}
+                      totalExpected={1000}
+                      icon={categoriesIcons[cat.name]}
+                    />
+                  </div>
+                );
+            })}
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 
