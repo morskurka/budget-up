@@ -1,8 +1,30 @@
+import { useContext, useState } from "react";
+import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoBar from "../components/BalanceInfoBar";
 import CategoryGraph from "../components/CategoryGraph";
 import CategoryTable from "../components/CategoryTable";
 
-const CategoryPage = () => {
+const CategoryPage = ({ category }) => {
+  const { transactions } = useContext(GlobalContext);
+  const [year, setYear] = useState(new Date().getUTCFullYear());
+  console.log(year);
+
+  // calculate the sum for each month for specific category
+  const monthlySum = transactions
+    .filter(
+      (item) =>
+        item.category === category &&
+        new Date(item.date).getUTCFullYear() === year
+    )
+    .reduce(function (acc, item) {
+      let month = new Date(item.date).getMonth();
+      if (!acc[month]) {
+        acc[month] = 0;
+      }
+      acc[month] += Math.abs(item.amount);
+      return acc;
+    }, []);
+
   const labels = [
     "January",
     "February",
@@ -11,9 +33,22 @@ const CategoryPage = () => {
     "May",
     "June",
     "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
-  const data = [100, 200, 300, 400, 500, 600, 700];
+  function previousYear() {
+    setYear(year - 1);
+    console.log(year);
+  }
+
+  function nextYear() {
+    setYear(year + 1);
+    console.log(year);
+  }
 
   return (
     <div className="bg-light">
@@ -23,15 +58,17 @@ const CategoryPage = () => {
           <div className="m-5">
             <CategoryGraph
               icon="shop"
-              name="Supermarket"
+              category="Supermarket"
+              year={year}
               graphLabels={labels}
-              graphData={data}
+              graphData={monthlySum}
+              previousYear={previousYear}
+              nextYear={nextYear}
             />
             <CategoryTable />
           </div>
         </div>
       </div>
-
       <div className="row my-6"></div>
     </div>
   );

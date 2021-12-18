@@ -19,7 +19,10 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/CategoryRow" element={<CategoryRow />} />
-            <Route path="/CategoryPage" element={<CategoryPage />} />
+            <Route
+              path="/CategoryPage"
+              element={<CategoryPage category="Supermarket" />}
+            />
             <Route path="/CashExpensesPage" element={<CashExpensesPage />} />
             <Route path="/CashIncomesPage" element={<CashIncomesPage />} />
             <Route
