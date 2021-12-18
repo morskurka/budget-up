@@ -4,6 +4,8 @@ import BalanceInfoCard from "../components/BalanceInfoCard";
 
 const BalanceInfoBar = ({ backgroundColor, barColor }) => {
   const { transactions } = useContext(GlobalContext);
+  const currentMonth = new Date().getMonth();
+  const currentYear = new Date().getUTCFullYear();
 
   // calculate balance
   const balance = transactions.reduce((acc, item) => (acc += item.amount), 0);
@@ -11,17 +13,22 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
   //calculate expected balance
 
   //calculate income this month
-  const currentMonth = new Date().getMonth() + 1;
   const income = transactions
     .filter(
-      (item) => item.amount > 0 && item.date.split("/")[1] == currentMonth
+      (item) =>
+        item.amount > 0 &&
+        new Date(item.date).getUTCFullYear() === currentYear &&
+        new Date(item.date).getMonth() === currentMonth
     )
     .reduce((acc, item) => (acc += item.amount), 0);
 
   //calculate outcome this month
   const outcome = transactions
     .filter(
-      (item) => item.amount < 0 && item.date.split("/")[1] == currentMonth
+      (item) =>
+        item.amount < 0 &&
+        new Date(item.date).getUTCFullYear() === currentYear &&
+        new Date(item.date).getMonth() === currentMonth
     )
     .reduce((acc, item) => (acc += item.amount), 0);
 
