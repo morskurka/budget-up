@@ -7,7 +7,20 @@ import CategoryTable from "../components/CategoryTable";
 const CategoryPage = ({ category }) => {
   const { transactions } = useContext(GlobalContext);
   const [year, setYear] = useState(new Date().getUTCFullYear());
-  console.log(year);
+  const labels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   // calculate the sum for each month for specific category
   const monthlySum = transactions
@@ -25,26 +38,13 @@ const CategoryPage = ({ category }) => {
       return acc;
     }, []);
 
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
+  //display previous year
   function previousYear() {
     setYear(year - 1);
     console.log(year);
   }
 
+  //display next year
   function nextYear() {
     setYear(year + 1);
     console.log(year);
