@@ -1,8 +1,8 @@
 const CategoryTable = () => {
   return (
     <div>
-      <table class="table">
-        <thead class="table-light">
+      <table className="table">
+        <thead className="table-light">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Date</th>
@@ -11,7 +11,6 @@ const CategoryTable = () => {
           </tr>
         </thead>
         <tbody>
-          {" "}
           <tr>
             <th scope="row">1</th>
             <td>13/1</td>
