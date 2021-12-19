@@ -1,35 +1,31 @@
-const CategoryTable = () => {
+import { useContext } from "react";
+import { GlobalContext } from "../contexts/GlobalState";
+
+const CategoryTable = ({ data }) => {
+  const { transactions } = useContext(GlobalContext);
+
   return (
     <div>
-      <table class="table">
-        <thead class="table-light">
+      <table className="table">
+        <thead className="table-light">
           <tr>
-            <th scope="col">#</th>
+            <th scope="col"></th>
             <th scope="col">Date</th>
             <th scope="col">Amount</th>
             <th scope="col">Business</th>
           </tr>
         </thead>
         <tbody>
-          {" "}
-          <tr>
-            <th scope="row">1</th>
-            <td>13/1</td>
-            <td>1200</td>
-            <td>Shufersal</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>16/1</td>
-            <td>100</td>
-            <td>Shufersal</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>21/1</td>
-            <td>200</td>
-            <td>Shufersal</td>
-          </tr>
+          {data.map((item, index) => {
+            return (
+              <tr>
+                <th scope="row">{index}</th>
+                <td>{item.date}</td>
+                <td>{item.amount}</td>
+                <td>{item.sub_category}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
