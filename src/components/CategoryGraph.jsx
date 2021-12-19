@@ -1,7 +1,15 @@
 import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
-const CategoryGraph = ({ icon, name, graphLabels, graphData }) => {
+const CategoryGraph = ({
+  icon,
+  category,
+  graphLabels,
+  graphData,
+  year,
+  previousYear,
+  nextYear,
+}) => {
   const categoryData = {
     labels: graphLabels,
     datasets: [
@@ -22,15 +30,27 @@ const CategoryGraph = ({ icon, name, graphLabels, graphData }) => {
           <i className={"bi bi-" + icon} style={{ fontSize: "50px" }}></i>
         </span>
         <div className="card-body text-dark ps-5 ms-2 font mt-2">
-          <h3 className="card-title text-decoration-underline mt-2">{name}</h3>
+          <h3 className="card-title text-decoration-underline mt-2">
+            {category}
+          </h3>
           <p className="card-text">
             <Bar data={categoryData} />
           </p>
-          <div className="card-footer">
-            <a href="#" className="btn btn-outline-success">
-              <i className="bi bi-backspace pe-2"></i>
-              Previous Year
-            </a>
+          <div className="card-footer bg-white">
+            <button
+              className="btn me-4"
+              style={{ fontSize: "45px" }}
+              onClick={() => previousYear()}
+            >
+              <i class="bi bi-arrow-left-circle"></i>
+            </button>
+            <button
+              className="btn"
+              style={{ fontSize: "45px" }}
+              onClick={() => nextYear()}
+            >
+              <i class="bi bi-arrow-right-circle"></i>
+            </button>
           </div>
         </div>
       </div>

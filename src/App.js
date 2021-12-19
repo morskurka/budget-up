@@ -17,7 +17,10 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/CategoryPage" element={<CategoryPage />} />
+            <Route
+              path="/CategoryPage"
+              element={<CategoryPage icon="cart" category="Supermarket" />}
+            />
             <Route path="/CashExpensesPage" element={<CashExpensesPage />} />
             <Route path="/CashIncomesPage" element={<CashIncomesPage />} />
             <Route
