@@ -1,110 +1,110 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 import AppReducer from "./AppReducer";
-
 // Initial state
+
 const initialState = {
   transactions: [
     {
       id: 1,
-      date: "2021-12-15",
+      tDate: "2021-12-15",
       amount: -350,
       category: "Supermarket",
       sub_category: "Shufersal",
     },
     {
       id: 2,
-      date: "2021-12-10",
+      tDate: "2021-12-10",
       amount: -35,
       category: "Supermarket",
       sub_category: "Shufersal",
     },
     {
       id: 3,
-      date: "2021-12-11",
+      tDate: "2021-12-11",
       amount: 2500,
       category: "Income",
       sub_category: "Salary",
     },
     {
       id: 4,
-      date: "2021-11-15",
+      tDate: "2021-11-15",
       amount: -200,
       category: "Water",
       sub_category: "",
     },
     {
       id: 5,
-      date: "2021-12-02",
+      tDate: "2021-12-02",
       amount: -70,
       category: "Electricity",
       sub_category: "",
     },
     {
       id: 6,
-      date: "2021-10-11",
+      tDate: "2021-10-11",
       amount: -2000,
       category: "Rent",
       sub_category: "",
     },
     {
       id: 7,
-      date: "2021-09-30",
+      tDate: "2021-09-30",
       amount: -175,
       category: "Clothing",
       sub_category: "",
     },
     {
       id: 8,
-      date: "2021-12-11",
+      tDate: "2021-12-11",
       amount: 10000,
       category: "Income",
       sub_category: "Savta",
     },
     {
       id: 9,
-      date: "2021-12-15",
+      tDate: "2021-12-15",
       amount: -100,
       category: "Supermarket",
       sub_category: "Shufersal",
     },
     {
       id: 10,
-      date: "2021-12-10",
+      tDate: "2021-12-10",
       amount: -100,
       category: "Supermarket",
       sub_category: "Shufersal",
     },
     {
       id: 11,
-      date: "2020-12-11",
+      tDate: "2020-12-11",
       amount: -100,
       category: "Supermarket",
       sub_category: "",
     },
     {
       id: 12,
-      date: "2020-03-15",
+      tDate: "2020-03-15",
       amount: -100,
       category: "Supermarket",
       sub_category: "",
     },
     {
       id: 13,
-      date: "2020-12-02",
+      tDate: "2020-12-02",
       amount: -100,
       category: "Supermarket",
       sub_category: "",
     },
     {
       id: 14,
-      date: "2020-10-11",
+      tDate: "2020-10-11",
       amount: -100,
       category: "Supermarket",
       sub_category: "",
     },
     {
       id: 15,
-      date: "2020-09-30",
+      tDate: "2020-09-30",
       amount: -100,
       category: "Supermarket",
       sub_category: "",
@@ -122,7 +122,7 @@ const initialState = {
     {
       id: 1,
       title: "Birth Day",
-      date: "2021-12-11",
+      tDate: "2021-12-11",
       amount: 3000,
     },
   ],
@@ -160,6 +160,13 @@ export const GlobalProvider = ({ children }) => {
     Electricity: "plug",
     Water: "droplet",
   };
+
+  useEffect(async () => {
+    const res = await fetch("/transactions");
+    console.log(res);
+    const tTransactions = await res.json();
+    dispatch({ type: "LOAD_USER_TRANSACTIONS", payload: tTransactions });
+  }, [initialState]);
 
   // Actions
   function addTransaction(transaction) {

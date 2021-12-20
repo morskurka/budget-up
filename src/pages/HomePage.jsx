@@ -17,7 +17,7 @@ const HomePage = () => {
       let currMonthTrans = transactions.filter(
         (tran) =>
           tran.category === cat &&
-          new Date(tran.date).getMonth() === new Date().getMonth()
+          new Date(tran.tDate).getMonth() === new Date().getMonth()
       );
       // sum the transactions
       let sum = currMonthTrans.reduce((prev, next) => {

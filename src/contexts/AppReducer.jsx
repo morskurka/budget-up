@@ -5,6 +5,11 @@ export default (state, action) => {
         ...state,
         transactions: [action.payload, ...state.transactions],
       };
+    case "LOAD_USER_TRANSACTIONS":
+      return {
+        ...state,
+        transactions: action.payload,
+      };
     default:
       return state;
   }
