@@ -2,7 +2,7 @@
 const express = require("express");
 // import cors to set CORS options to '*' easily
 const cors = require("cors");
-const dbOperations = require("../dbFiles/dbOperations");
+const dbOperations = require("./dbOperations");
 
 const port = process.env.PORT || 5000;
 
