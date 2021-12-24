@@ -4,6 +4,8 @@ import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoBar from "../components/BalanceInfoBar";
 
 const HomePage = () => {
+  const displayCategoryList = false;
+
   const { getCategoriesNames, categoriesIcons, transactions } =
     useContext(GlobalContext);
 
@@ -37,52 +39,65 @@ const HomePage = () => {
 
   return (
     <>
-      <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />;
-      <section className="bg-white">
-        <div className="container" style={{ padding: "0 30px" }}>
-          <div className={"row"}>
-            {currMonthTransByCategory.map((cat, index) => {
-              if (index % 3 === 0)
-                return (
-                  <div className="col-lg-4 col-md-6" key={index}>
-                    <CategoryCard
-                      title={cat.name}
-                      currBalance={cat.sum}
-                      totalExpected={1000}
-                      icon={categoriesIcons[cat.name]}
-                    />
-                  </div>
-                );
-            })}
-            {currMonthTransByCategory.map((cat, index) => {
-              if (index % 3 === 1)
-                return (
-                  <div className="col-lg-4 col-md-6" key={index}>
-                    <CategoryCard
-                      title={cat.name}
-                      currBalance={cat.sum}
-                      totalExpected={1000}
-                      icon={categoriesIcons[cat.name]}
-                    />
-                  </div>
-                );
-            })}
-            {currMonthTransByCategory.map((cat, index) => {
-              if (index % 3 === 2)
-                return (
-                  <div className="col-lg-4 col-md-6" key={index}>
-                    <CategoryCard
-                      title={cat.name}
-                      currBalance={cat.sum}
-                      totalExpected={1000}
-                      icon={categoriesIcons[cat.name]}
-                    />
-                  </div>
-                );
-            })}
+      <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />
+      {displayCategoryList ? (
+        <section className="bg-white">
+          <div className="container" style={{ padding: "0 30px" }}>
+            <div className={"row"}>
+              {currMonthTransByCategory.map((cat, index) => {
+                if (index % 3 === 0)
+                  return (
+                    <div className="col-lg-4 col-md-6" key={index}>
+                      <CategoryCard
+                        title={cat.name}
+                        currBalance={cat.sum}
+                        totalExpected={1000}
+                        icon={categoriesIcons[cat.name]}
+                      />
+                    </div>
+                  );
+              })}
+              {currMonthTransByCategory.map((cat, index) => {
+                if (index % 3 === 1)
+                  return (
+                    <div className="col-lg-4 col-md-6" key={index}>
+                      <CategoryCard
+                        title={cat.name}
+                        currBalance={cat.sum}
+                        totalExpected={1000}
+                        icon={categoriesIcons[cat.name]}
+                      />
+                    </div>
+                  );
+              })}
+              {currMonthTransByCategory.map((cat, index) => {
+                if (index % 3 === 2)
+                  return (
+                    <div className="col-lg-4 col-md-6" key={index}>
+                      <CategoryCard
+                        title={cat.name}
+                        currBalance={cat.sum}
+                        totalExpected={1000}
+                        icon={categoriesIcons[cat.name]}
+                      />
+                    </div>
+                  );
+              })}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col">
+              <div className="text-center">
+                <div className="spinner-border" role="status"></div>
+                <p>Loading...</p>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
+      )}
     </>
   );
 };
