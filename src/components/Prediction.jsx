@@ -7,7 +7,6 @@ import {
 } from "../contexts/exponential-smoothing";
 
 const Prediction = () => {
-  const [displayCategoryList, setDisplayCategoryList] = useState(false);
   const { transactions, getCategoriesNames, categoriesInfo, addCategoryInfo } =
     useContext(GlobalContext);
   const categoriesName = getCategoriesNames();
@@ -67,16 +66,18 @@ const Prediction = () => {
     let simpleMSE = 0;
     let doubleMSE = 0;
     let tripleMSE = 0;
+    let index = 0;
 
     const data = [
       ...categoryInfo.monthlySums.thirdYear,
       ...categoryInfo.monthlySums.secondYear,
-      ...categoryInfo.monthlySums.currYear,
+      ...categoryInfo.monthlySums.currYear.slice(0, new Date().getMonth() + 1),
     ];
+    index = data.length;
 
     let simpleExp = new SimpleExponentialSmoothing(data, 0.5);
     let doubleExp = new HoltSmoothing(data, 0.5, 0.5);
-    let tripleExp = new HoltWintersSmoothing(data, 0.5, 0.5, 0.5, 4, true);
+    let tripleExp = new HoltWintersSmoothing(data, 0.5, 0.5, 0.5, 12, true);
     simpleExp.optimizeParameter(10);
     doubleExp.optimizeParameters(10);
     tripleExp.optimizeParameters(10);
@@ -100,7 +101,8 @@ const Prediction = () => {
       simpleExp,
       doubleExp,
       tripleExp,
-      categoryInfo
+      categoryInfo,
+      index
     );
     console.log("choose");
     console.log(categoryInfo);
@@ -116,7 +118,8 @@ const Prediction = () => {
     simpleExp,
     doubleExp,
     tripleExp,
-    categoryInfo
+    categoryInfo,
+    index
   ) {
     if (simpleMSE <= doubleMSE && simpleMSE <= tripleMSE)
       categoryInfo.expected = simpleExp.forecast[simpleExp.forecast.length - 1];
@@ -125,33 +128,31 @@ const Prediction = () => {
       categoryInfo.expected = doubleExp.forecast[doubleExp.forecast.length - 1];
       console.log(doubleExp.forecast[doubleExp.forecast.length - 1]);
       console.log(categoryInfo.expected);
-    } else
-      categoryInfo.expected = tripleExp.forecast[tripleExp.forecast.length - 1];
+    } else {
+      categoryInfo.expected = tripleExp.forecast[index];
+    }
     console.log("min");
     console.log(categoryInfo);
+    console.log(tripleExp.forecast[index]);
     return categoryInfo;
   }
 
   return (
     <>
-      {displayCategoryList ? (
-        <p>prediction</p>
-      ) : (
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col">
-              <div className="text-center">
-                <div
-                  className="btn btn-primary"
-                  onClick={() => initCategoryInfo()}
-                >
-                  login
-                </div>
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col">
+            <div className="text-center">
+              <div
+                className="btn btn-primary"
+                onClick={() => initCategoryInfo()}
+              >
+                login
               </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 };
