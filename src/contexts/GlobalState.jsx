@@ -7,92 +7,92 @@ const initialState = {
     {
       id: 1,
       date: "2021-12-15",
-      amount: -350,
+      amount: -100,
       category: "Supermarket",
       sub_category: "Shufersal",
     },
     {
       id: 2,
       date: "2021-12-10",
-      amount: -35,
+      amount: -100,
       category: "Supermarket",
       sub_category: "Shufersal",
     },
     {
       id: 3,
       date: "2021-12-11",
-      amount: 2500,
+      amount: 100,
       category: "Income",
       sub_category: "Salary",
     },
     {
       id: 4,
       date: "2021-11-15",
-      amount: -200,
+      amount: -100,
       category: "Water",
       sub_category: "",
     },
     {
       id: 5,
       date: "2021-12-02",
-      amount: -70,
+      amount: -100,
       category: "Electricity",
       sub_category: "",
     },
     {
       id: 6,
-      date: "2021-10-11",
-      amount: -2000,
+      date: "2020-10-11",
+      amount: -100,
       category: "Rent",
       sub_category: "",
     },
     {
       id: 7,
-      date: "2021-09-30",
-      amount: -175,
+      date: "2020-09-30",
+      amount: -100,
       category: "Clothing",
       sub_category: "",
     },
     {
       id: 8,
-      date: "2021-12-11",
-      amount: 10000,
-      category: "Income",
+      date: "2020-09-11",
+      amount: -100,
+      category: "Clothing",
       sub_category: "Savta",
     },
     {
       id: 9,
-      date: "2021-12-15",
+      date: "2019-12-15",
       amount: -100,
       category: "Supermarket",
       sub_category: "Shufersal",
     },
     {
       id: 10,
-      date: "2021-12-10",
+      date: "2019-12-10",
       amount: -100,
       category: "Supermarket",
       sub_category: "Shufersal",
     },
     {
       id: 11,
-      date: "2020-12-11",
+      date: "2019-12-11",
       amount: -100,
       category: "Supermarket",
       sub_category: "",
     },
     {
       id: 12,
-      date: "2020-03-15",
+      date: "2019-03-15",
       amount: -100,
-      category: "Supermarket",
+      category: "Clothing",
       sub_category: "",
     },
     {
       id: 13,
-      date: "2020-12-02",
+      date: "2019-03-02",
       amount: -100,
-      category: "Supermarket",
+      category: "Clothing",
       sub_category: "",
     },
     {
@@ -146,6 +146,7 @@ const initialState = {
       triple_gamma: 0.3,
     },
   ],
+  categoriesInfo: [],
 };
 
 // Create context
@@ -176,6 +177,13 @@ export const GlobalProvider = ({ children }) => {
     return Array.from(categoriesSet);
   }
 
+  function addCategoryInfo(categoryInfo) {
+    dispatch({
+      type: "ADD_CATEGORY_INFO",
+      payload: categoryInfo,
+    });
+  }
+
   return (
     <GlobalContext.Provider
       value={{
@@ -183,6 +191,8 @@ export const GlobalProvider = ({ children }) => {
         categoriesIcons,
         addTransaction,
         getCategoriesNames,
+        categoriesInfo: state.categoriesInfo,
+        addCategoryInfo,
       }}
     >
       {children}
