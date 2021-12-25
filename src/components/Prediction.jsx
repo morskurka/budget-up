@@ -21,7 +21,7 @@ const Prediction = () => {
       const secondYear = getMonthlySums(cat, year - 1);
       const thirdYear = getMonthlySums(cat, year - 2);
 
-      const categoryInfo = {
+      let categoryInfo = {
         category: cat,
         monthlySums: {
           currYear: currYear,
@@ -30,10 +30,13 @@ const Prediction = () => {
         },
         expected: null,
       };
+      categoryInfo = chooseExMethod(categoryInfo);
+      console.log("init");
+      console.log(categoryInfo);
       addCategoryInfo(categoryInfo);
+      console.log("after");
+      console.log(categoriesInfo);
     });
-    console.log("1");
-    chooseExMethod();
   }
 
   // get monthly sums for single year in specific category
@@ -57,7 +60,7 @@ const Prediction = () => {
   }
 
   // find the most suitable EX method for each category
-  function chooseExMethod() {
+  function chooseExMethod(categoryInfo) {
     let simplePrediction = [];
     let doublePrediction = [];
     let triplePrediction = [];
@@ -65,42 +68,43 @@ const Prediction = () => {
     let doubleMSE = 0;
     let tripleMSE = 0;
 
-    categoriesInfo.forEach((categoryInfo) => {
-      const data = [
-        ...categoryInfo.monthlySums.currYear,
-        ...categoryInfo.monthlySums.secondYear,
-        ...categoryInfo.monthlySums.thirdYear,
-      ];
+    const data = [
+      ...categoryInfo.monthlySums.thirdYear,
+      ...categoryInfo.monthlySums.secondYear,
+      ...categoryInfo.monthlySums.currYear,
+    ];
 
-      const simpleExp = new SimpleExponentialSmoothing(data, 0.5);
-      const doubleExp = new HoltSmoothing(data, 0.5, 0.5);
-      const tripleExp = new HoltWintersSmoothing(data, 0.5, 0.5, 0.5, 4, true);
-      simpleExp.optimizeParameter(10);
-      doubleExp.optimizeParameters(10);
-      tripleExp.optimizeParameters(10);
-      if (categoryInfo.category === "Supermarket") {
-        console.log(simpleExp);
-        console.log(doubleExp);
-        console.log(tripleExp);
-      }
-      simpleMSE = simpleExp.computeMeanSquaredError();
-      doubleMSE = doubleExp.computeMeanSquaredError();
-      tripleMSE = tripleExp.computeMeanSquaredError();
-      if (categoryInfo.category === "Supermarket") {
-        console.log(simpleMSE);
-        console.log(doubleMSE);
-        console.log(tripleMSE);
-      }
-      findMinMSE(
-        simpleMSE,
-        doubleMSE,
-        tripleMSE,
-        simpleExp,
-        doubleExp,
-        tripleExp,
-        categoryInfo
-      );
-    });
+    let simpleExp = new SimpleExponentialSmoothing(data, 0.5);
+    let doubleExp = new HoltSmoothing(data, 0.5, 0.5);
+    let tripleExp = new HoltWintersSmoothing(data, 0.5, 0.5, 0.5, 4, true);
+    simpleExp.optimizeParameter(10);
+    doubleExp.optimizeParameters(10);
+    tripleExp.optimizeParameters(10);
+    if (categoryInfo.category === "Supermarket") {
+      console.log(simpleExp);
+      console.log(doubleExp);
+      console.log(tripleExp);
+    }
+    simpleMSE = simpleExp.computeMeanSquaredError();
+    doubleMSE = doubleExp.computeMeanSquaredError();
+    tripleMSE = tripleExp.computeMeanSquaredError();
+    if (categoryInfo.category === "Supermarket") {
+      console.log(simpleMSE);
+      console.log(doubleMSE);
+      console.log(tripleMSE);
+    }
+    categoryInfo = findMinMSE(
+      simpleMSE,
+      doubleMSE,
+      tripleMSE,
+      simpleExp,
+      doubleExp,
+      tripleExp,
+      categoryInfo
+    );
+    console.log("choose");
+    console.log(categoryInfo);
+    return categoryInfo;
   }
 
   /* find the EX method with the minimum MSE for specific category
@@ -116,10 +120,16 @@ const Prediction = () => {
   ) {
     if (simpleMSE <= doubleMSE && simpleMSE <= tripleMSE)
       categoryInfo.expected = simpleExp.forecast[simpleExp.forecast.length - 1];
-    else if (doubleMSE <= simpleMSE && doubleMSE <= tripleMSE)
+    else if (doubleMSE <= simpleMSE && doubleMSE <= tripleMSE) {
+      console.log("1");
       categoryInfo.expected = doubleExp.forecast[doubleExp.forecast.length - 1];
-    else
+      console.log(doubleExp.forecast[doubleExp.forecast.length - 1]);
+      console.log(categoryInfo.expected);
+    } else
       categoryInfo.expected = tripleExp.forecast[tripleExp.forecast.length - 1];
+    console.log("min");
+    console.log(categoryInfo);
+    return categoryInfo;
   }
 
   return (
