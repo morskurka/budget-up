@@ -13,29 +13,31 @@ const Prediction = () => {
 
   // initialize the categoryInfo array when the user first signed up
   function initCategoryInfo() {
-    const year = new Date().getUTCFullYear();
+    if (categoriesInfo.length === 0) {
+      const year = new Date().getUTCFullYear();
 
-    categoriesName.forEach((cat) => {
-      const currYear = getMonthlySums(cat, year);
-      const secondYear = getMonthlySums(cat, year - 1);
-      const thirdYear = getMonthlySums(cat, year - 2);
+      categoriesName.forEach((cat) => {
+        const currYear = getMonthlySums(cat, year);
+        const secondYear = getMonthlySums(cat, year - 1);
+        const thirdYear = getMonthlySums(cat, year - 2);
 
-      let categoryInfo = {
-        category: cat,
-        monthlySums: {
-          currYear: currYear,
-          secondYear: secondYear,
-          thirdYear: thirdYear,
-        },
-        expected: null,
-      };
-      categoryInfo = chooseExMethod(categoryInfo);
-      console.log("init");
-      console.log(categoryInfo);
-      addCategoryInfo(categoryInfo);
-      console.log("after");
-      console.log(categoriesInfo);
-    });
+        let categoryInfo = {
+          category: cat,
+          monthlySums: {
+            currYear: currYear,
+            secondYear: secondYear,
+            thirdYear: thirdYear,
+          },
+          expected: null,
+        };
+        categoryInfo = chooseExMethod(categoryInfo);
+        console.log("init");
+        console.log(categoryInfo);
+        addCategoryInfo(categoryInfo);
+        console.log("after");
+        console.log(categoriesInfo);
+      });
+    }
   }
 
   // get monthly sums for single year in specific category
