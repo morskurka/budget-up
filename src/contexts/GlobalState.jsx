@@ -310,7 +310,7 @@ export const GlobalProvider = ({ children }) => {
   };
 
   useEffect(async () => {
-    const res = await fetch("/transactions");
+    const res = await fetch("/api/transactions");
     console.log(res);
     const tTransactions = await res.json();
     dispatch({ type: "LOAD_USER_TRANSACTIONS", payload: tTransactions });
