@@ -10,6 +10,11 @@ export default (state, action) => {
         ...state,
         transactions: action.payload,
       };
+    case "ADD_CATEGORY_INFO":
+      return {
+        ...state,
+        categoriesInfo: [action.payload, ...state.categoriesInfo],
+      };
     default:
       return state;
   }

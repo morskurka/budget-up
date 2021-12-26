@@ -2,6 +2,7 @@ import CategoryCard from "../components/CategoryCard";
 import { useContext } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoBar from "../components/BalanceInfoBar";
+import Prediction from "../components/Prediction";
 
 const HomePage = () => {
   const { getCategoriesNames, categoriesIcons, transactions } =
@@ -37,7 +38,8 @@ const HomePage = () => {
 
   return (
     <>
-      <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />;
+      <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />
+      <Prediction />
       <section className="bg-white">
         <div className="container" style={{ padding: "0 30px" }}>
           <div className={"row"}>
