@@ -29,8 +29,7 @@ async function getAllTransactionsByUserID(userID) {
   return request.recordset;
 }
 
-getAllTransactionsByUserID(1);
-
 module.exports = {
   getAllTransactionsByUserID,
+  
 };

@@ -47,10 +47,10 @@ const Prediction = () => {
       .filter(
         (item) =>
           item.category === category &&
-          new Date(item.date).getUTCFullYear() === year
+          new Date(item.tDate).getUTCFullYear() === year
       )
       .reduce(function (acc, item) {
-        let month = new Date(item.date).getMonth();
+        let month = new Date(item.tDate).getMonth();
         if (!acc[month]) {
           acc[month] = 0;
         }
