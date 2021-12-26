@@ -166,7 +166,7 @@ export const GlobalProvider = ({ children }) => {
     console.log(res);
     const tTransactions = await res.json();
     dispatch({ type: "LOAD_USER_TRANSACTIONS", payload: tTransactions });
-  }, [initialState]);
+  }, []);
 
   // Actions
   function addTransaction(transaction) {
