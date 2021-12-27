@@ -30,7 +30,22 @@ async function getAllTransactionsByUserID(userID) {
   return request.recordset;
 }
 
+async function addTransactionToDB(t) {
+  const query = `INSERT INTO Transactions 
+                  (userID, tDate, amount, category)
+                  VALUES 
+                  (@userID, @tDate, @amount, @category)`;
+  let request = await connectionPool.request();
+  request.input("userID", sql.Int, 1);
+  request.input("tDate", sql.Date, new Date(t.tDate));
+  request.input("amount", sql.Float, t.amount);
+  request.input("category", sql.NVarChar, t.category);
+  await request.query(query);
+  console.log(`Executed: ${query}`);
+}
+
 module.exports = {
   getAllTransactionsByUserID,
   connectToDB,
+  addTransactionToDB,
 };

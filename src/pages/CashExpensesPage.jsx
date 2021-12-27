@@ -28,10 +28,10 @@ const CashExpensesPage = () => {
     }
   }
 
-  function updateExpenseItem(id, category, date, amount) {
+  function updateExpenseItem(id, category, tDate, amount) {
     let newExpensesList = [...ExpensesList];
     let index = newExpensesList.findIndex((item) => item.id === id);
-    newExpensesList[index] = { id, key: id, category, date, amount };
+    newExpensesList[index] = { id, key: id, category, tDate, amount };
     setExpensesList(newExpensesList);
   }
 
