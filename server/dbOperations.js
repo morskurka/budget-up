@@ -15,21 +15,22 @@ var dbConfig = {
   },
 };
 
-async function getAllTransactionsByUserID(userID) {
-  // Create connection instance
+let connectionPool;
+
+async function connectToDB() {
   const conn = new sql.ConnectionPool(dbConfig);
-  let pool = await conn.connect();
-  console.log("Connected");
-  let request = await pool
-    .request()
-    .query(`SELECT * from Transactions WHERE userID = ${userID}`);
-  console.log("Query executed");
-  conn.close();
-  console.log("Connection closed");
+  connectionPool = await conn.connect();
+  console.log("Connected to DB");
+}
+
+async function getAllTransactionsByUserID(userID) {
+  const query = `SELECT * FROM Transactions WHERE userID = ${userID}`;
+  let request = await connectionPool.request().query(query);
+  console.log(`Executed: ${query}`);
   return request.recordset;
 }
 
 module.exports = {
   getAllTransactionsByUserID,
-  
+  connectToDB,
 };
