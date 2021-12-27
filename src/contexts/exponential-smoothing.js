@@ -383,13 +383,15 @@ export class HoltWintersSmoothing {
     }
 
     for (let i = this.seasonLength; i < this.data.length; ++i) {
-      B[i] =
-        this.alpha * (this.data[i] / S[i - this.seasonLength]) +
-        (1 - this.alpha) * (B[i - 1] + A[i - 1]);
+      S[i - this.seasonLength] === 0
+        ? (B[i] = 0)
+        : (B[i] = this.alpha * (this.data[i] / S[i - this.seasonLength]));
+      B[i] += (1 - this.alpha) * (B[i - 1] + A[i - 1]);
+
       A[i] = this.gamma * (B[i] - B[i - 1]) + (1 - this.gamma) * A[i - 1];
-      S[i] =
-        this.delta * (this.data[i] / B[i]) +
-        (1 - this.delta) * S[i - this.seasonLength];
+
+      B[i] === 0 ? (S[i] = 0) : (S[i] = this.delta * (this.data[i] / B[i]));
+      S[i] += (1 - this.delta) * S[i - this.seasonLength];
     }
 
     var forecast = [];
