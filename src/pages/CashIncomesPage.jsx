@@ -19,8 +19,8 @@ const CashIncomesPage = () => {
       id: 1,
       category: "Income",
       subCategory: source,
-      date,
-      amount: parseInt(amount),
+      tDate: date,
+      amount: parseFloat(amount),
     });
     navigate("/");
   };
