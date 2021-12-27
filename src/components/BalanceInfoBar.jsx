@@ -18,7 +18,7 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
         <div className="row g-4 mb-4">
           <div className="col-lg-12 col-md-12 col-12">
             <div className="d-flex justify-content-between align-items-center mb-2">
-              <h3 className="text-white">Follow Your Expenses</h3>
+              <h3 className="text-white"> Expenses</h3>
               <a href="#" className="btn btn-white">
                 Create New
               </a>
