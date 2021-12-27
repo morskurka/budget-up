@@ -33,5 +33,6 @@ app.get("*", (req, res) => {
 });
 
 app.listen(port, () => {
+  dbOperations.connectToDB();
   console.log(`Example app listening at http://localhost:${port}`);
 });

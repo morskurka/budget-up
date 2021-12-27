@@ -18,7 +18,8 @@
     "start": "cd server && npm start",
     "build": "react-scripts build && cd server && npm install",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "startlocal": "react-scripts start"
   },
   "eslintConfig": {
     "extends": [
