@@ -44,7 +44,9 @@ const CategoryCard = ({ icon, title, currBalance, totalExpected }) => {
             </div>
             <div className="col text-end">
               <div className="fw-light">Expected</div>
-              <div className="fw-bold lead">{totalExpected + "$"}</div>
+              <div className="fw-bold lead">
+                {isNaN(totalExpected) ? "N/A" : totalExpected + "$"}
+              </div>
             </div>
           </div>
           <ProgressBarBU percentages={percentages} />
