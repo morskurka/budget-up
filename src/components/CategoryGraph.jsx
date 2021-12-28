@@ -15,6 +15,7 @@ const CategoryGraph = ({
     datasets: [
       {
         data: graphData,
+        label: year,
         backgroundColor: "rgba(51, 152, 102, 0.5)",
       },
     ],
