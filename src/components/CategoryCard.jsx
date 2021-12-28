@@ -1,16 +1,38 @@
 import ProgressBarBU from "./ProgressBarBU";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-const CategoryCard = ({ icon, title, currBalance, totalExpected }) => {
+const CategoryCard = ({
+  icon,
+  title,
+  currBalance,
+  totalExpected,
+  setCurrCategory,
+}) => {
   const percentages = (currBalance / totalExpected) * 100;
+  const navigate = useNavigate();
+
+  const [hover, setHover] = useState(false);
 
   return (
     <div
+      onMouseEnter={() => {
+        setHover(true);
+      }}
+      onMouseLeave={() => {
+        setHover(false);
+      }}
       style={{
         padding: "30px 35px",
         borderRadius: "10px",
         marginBottom: "40px",
         marginTop: "30px",
         boxShadow: "0px 5px 25px rgba(218, 211, 211, 0.3)",
+        ...(hover ? { background: "#f5f5f5" } : null), // background: "#f5f5f5",
+      }}
+      onClick={() => {
+        setCurrCategory(title);
+        navigate("/CategoryPage");
       }}
     >
       <div

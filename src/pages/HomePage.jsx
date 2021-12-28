@@ -9,7 +9,7 @@ import {
   HoltWintersSmoothing,
 } from "../contexts/exponential-smoothing";
 
-const HomePage = () => {
+const HomePage = ({ setCurrCategory }) => {
   const {
     transactions,
     getCategoriesNames,
@@ -168,6 +168,7 @@ and update the expected amount for this category*/
                       }
                       totalExpected={parseInt(cat.expected)}
                       icon={categoriesIcons[cat.category]}
+                      setCurrCategory={setCurrCategory}
                     />
                   </div>
                 );
@@ -183,6 +184,7 @@ and update the expected amount for this category*/
                       }
                       totalExpected={parseInt(cat.expected)}
                       icon={categoriesIcons[cat.category]}
+                      setCurrCategory={setCurrCategory}
                     />
                   </div>
                 );
@@ -198,6 +200,7 @@ and update the expected amount for this category*/
                       }
                       totalExpected={parseInt(cat.expected)}
                       icon={categoriesIcons[cat.category]}
+                      setCurrCategory={setCurrCategory}
                     />
                   </div>
                 );
