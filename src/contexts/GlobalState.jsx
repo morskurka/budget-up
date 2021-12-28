@@ -318,6 +318,10 @@ export const GlobalProvider = ({ children }) => {
 
   // Actions
   async function addTransaction(transaction) {
+    dispatch({
+      type: "ADD_TRANSACTION",
+      payload: transaction,
+    });
     const res = await fetch("/api/transactions/add", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, *cors, same-origin
@@ -326,10 +330,6 @@ export const GlobalProvider = ({ children }) => {
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify(transaction), // body data type must match "Content-Type" header
-    });
-    dispatch({
-      type: "ADD_TRANSACTION",
-      payload: transaction,
     });
   }
 
