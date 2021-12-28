@@ -3,7 +3,7 @@ import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoCard from "../components/BalanceInfoCard";
 
 const BalanceInfoBar = ({ backgroundColor, barColor }) => {
-  const { transactions } = useContext(GlobalContext);
+  const { transactions, categoriesInfo } = useContext(GlobalContext);
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getUTCFullYear();
 
@@ -14,7 +14,6 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
     const balance = transactions.reduce((acc, item) => (acc += item.amount), 0);
     setMyBalance(balance);
   }, [transactions]);
-  //calculate expected balance
 
   //calculate income this month
   const income = transactions
@@ -35,6 +34,28 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
         new Date(item.tDate).getMonth() === currentMonth
     )
     .reduce((acc, item) => (acc += item.amount), 0);
+
+  //calculate expected balance
+  const [expectedBalance, setExpectedBalance] = useState(
+    myBalance - income + outcome
+  );
+
+  useEffect(() => {
+    const prediction = categoriesInfo.reduce((acc, item) => {
+      const date = new Date().getMonth();
+      if (item.category === "משכורת 1" || item.category === "משכורת 2") {
+        if (!isNaN(item.expected)) {
+          acc += item.expected;
+        }
+      } else {
+        if (!isNaN(item.expected)) {
+          acc -= item.expected;
+        }
+      }
+      return acc;
+    }, 0);
+    setExpectedBalance(parseInt(myBalance - income + outcome - prediction));
+  }, [transactions]);
 
   return (
     <div className={backgroundColor}>
@@ -69,6 +90,7 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
               title="My Balance"
               icon="arrow-down-up"
               amount={myBalance}
+              tooltipTitle="Your current balance based on all known transactions"
             />
           </div>
           {/*expected balance card*/}
@@ -76,7 +98,8 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
             <BalanceInfoCard
               title="Expected Balance"
               icon="emoji-smile-upside-down"
-              amount="----"
+              amount={expectedBalance}
+              tooltipTitle="Your predictable balance at the end of the month"
             />
           </div>
           {/*income this month card*/}
@@ -85,6 +108,7 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
               title="Income This Month"
               icon="box-arrow-in-down-left"
               amount={income}
+              tooltipTitle="Sum of all POSITIVE transactions this month"
             />
           </div>
           {/*outcome this month card*/}
@@ -93,6 +117,7 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
               title="Outcome This Month"
               icon="box-arrow-up-right"
               amount={outcome}
+              tooltipTitle="Sum of all NEGATIVE transactions this month"
             />
           </div>
         </div>

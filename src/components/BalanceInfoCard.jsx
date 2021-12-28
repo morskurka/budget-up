@@ -1,4 +1,24 @@
-const BalanceInfoCard = ({ title, icon, amount }) => {
+import { Tooltip } from "bootstrap";
+import { useEffect, useRef } from "react";
+
+const BalanceInfoCard = ({ title, icon, amount, tooltipTitle }) => {
+  // var tooltipTriggerList = [].slice.call(
+  //   document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  // );
+  // var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  //   return new Tooltip(tooltipTriggerEl);
+  // });
+
+  const tooltipRef = useRef();
+
+  useEffect(() => {
+    var tooltip = new Tooltip(tooltipRef.current, {
+      title: tooltipTitle ? tooltipTitle : "test",
+      placement: "top",
+      trigger: "hover",
+    });
+  }, []);
+
   return (
     <div
       className="card border-0"
@@ -10,7 +30,9 @@ const BalanceInfoCard = ({ title, icon, amount }) => {
       <div className="card-body">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <div>
-            <h4 className="pt-3">{title}</h4>
+            <h4 className="pt-3" data-bs-toggle="tooltip" ref={tooltipRef}>
+              {title}
+            </h4>
           </div>
           <div className="text-primary">
             <i className={"bi bi-" + icon + " fs-4"}></i>
