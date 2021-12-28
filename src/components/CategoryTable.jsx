@@ -6,7 +6,7 @@ const CategoryTable = ({ data }) => {
 
   return (
     <div>
-      <table className="table">
+      <table className="table table-hover">
         <thead className="table-light">
           <tr>
             <th scope="col"></th>
@@ -19,10 +19,10 @@ const CategoryTable = ({ data }) => {
           {data.map((item, index) => {
             return (
               <tr>
-                <th scope="row">{index}</th>
-                <td>{item.date}</td>
+                <th scope="row">{index + 1}</th>
+                <td>{item.tDate.split("T")[0]}</td>
                 <td>{item.amount}</td>
-                <td>{item.sub_category}</td>
+                <td>{item.subCategory}</td>
               </tr>
             );
           })}

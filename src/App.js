@@ -8,18 +8,24 @@ import ProfileSettingsPage from "./pages/ProfileSettingsPage";
 import CashExpensesPage from "./pages/CashExpensesPage";
 import CashIncomesPage from "./pages/CashIncomesPage";
 import { GlobalProvider } from "./contexts/GlobalState";
+import { useState } from "react";
 
 function App() {
+  const [currCategory, setCurrCategory] = useState("");
+
   return (
     <>
       <GlobalProvider>
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/"
+              element={<HomePage setCurrCategory={setCurrCategory} />}
+            />
             <Route
               path="/CategoryPage"
-              element={<CategoryPage icon="cart" category="Supermarket" />}
+              element={<CategoryPage icon="cart" category={currCategory} />}
             />
             <Route path="/CashExpensesPage" element={<CashExpensesPage />} />
             <Route path="/CashIncomesPage" element={<CashIncomesPage />} />

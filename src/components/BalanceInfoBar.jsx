@@ -1,16 +1,55 @@
+import { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoCard from "../components/BalanceInfoCard";
 
 const BalanceInfoBar = ({ backgroundColor, barColor }) => {
+  const { transactions } = useContext(GlobalContext);
+  const currentMonth = new Date().getMonth();
+  const currentYear = new Date().getUTCFullYear();
+
+  // calculate balance
+  const [myBalance, setMyBalance] = useState(0);
+
+  useEffect(() => {
+    const balance = transactions.reduce((acc, item) => (acc += item.amount), 0);
+    setMyBalance(balance);
+  }, [transactions]);
+  //calculate expected balance
+
+  //calculate income this month
+  const income = transactions
+    .filter(
+      (item) =>
+        item.amount > 0 &&
+        new Date(item.tDate).getUTCFullYear() === currentYear &&
+        new Date(item.tDate).getMonth() === currentMonth
+    )
+    .reduce((acc, item) => (acc += item.amount), 0);
+
+  //calculate outcome this month
+  const outcome = transactions
+    .filter(
+      (item) =>
+        item.amount < 0 &&
+        new Date(item.tDate).getUTCFullYear() === currentYear &&
+        new Date(item.tDate).getMonth() === currentMonth
+    )
+    .reduce((acc, item) => (acc += item.amount), 0);
+
   return (
     <div className={backgroundColor}>
       <div
         className={barColor}
-        style={{ paddingTop: "4rem", paddingBottom: "9.5rem" }}
+        style={{
+          paddingTop: "4rem",
+          paddingBottom: "9.5rem",
+          backgroundColor: barColor,
+        }}
       ></div>
       <div
         className="container-fluid"
         style={{
-          marginTop: "-12rem",
+          marginTop: "-11rem",
           paddingRight: "2rem",
           paddingLeft: "2rem",
         }}
@@ -24,32 +63,36 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
               </a>
             </div>
           </div>
-          <div className="col-6 col-lg-3">
+          {/*balance card*/}
+          <div className="col-xl-3 col-lg-6 col-md-6 col-12">
             <BalanceInfoCard
               title="My Balance"
               icon="arrow-down-up"
-              amount="1200"
+              amount={myBalance}
             />
           </div>
-          <div className="col-6 col-lg-3">
+          {/*expected balance card*/}
+          <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-6">
             <BalanceInfoCard
               title="Expected Balance"
               icon="emoji-smile-upside-down"
-              amount="3100"
+              amount="----"
             />
           </div>
-          <div className="col-6 col-lg-3">
+          {/*income this month card*/}
+          <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-6">
             <BalanceInfoCard
               title="Income This Month"
               icon="box-arrow-in-down-left"
-              amount="500"
+              amount={income}
             />
           </div>
-          <div className="col-6 col-lg-3">
+          {/*outcome this month card*/}
+          <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-6">
             <BalanceInfoCard
               title="Outcome This Month"
               icon="box-arrow-up-right"
-              amount="100"
+              amount={outcome}
             />
           </div>
         </div>
