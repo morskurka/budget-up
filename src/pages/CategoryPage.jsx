@@ -1,11 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoBar from "../components/BalanceInfoBar";
 import CategoryGraph from "../components/CategoryGraph";
 import CategoryTable from "../components/CategoryTable";
+import { useNavigate } from "react-router-dom";
 
 const CategoryPage = ({ category }) => {
   const { transactions, categoriesIcons } = useContext(GlobalContext);
+  const navigate = useNavigate();
   const [year, setYear] = useState(new Date().getUTCFullYear());
   const labels = [
     "January",
@@ -47,6 +49,10 @@ const CategoryPage = ({ category }) => {
   function nextYear() {
     setYear(year + 1);
   }
+
+  useEffect(() => {
+    if (!category) navigate("/");
+  }, [category]);
 
   return (
     <div className="bg-light">
