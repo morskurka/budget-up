@@ -24,7 +24,7 @@ app.options("*", cors());
 //DB Connection
 
 app.get("/api/transactions", async (req, res) => {
-  res.json(await dbOperations.getAllTransactionsByUserID(1));
+  res.json(await dbOperations.getAllTransactionsByUserID(3));
 });
 
 app.post("/api/transactions/add", async (req, res) => {
