@@ -1,5 +1,10 @@
-import React, { createContext, useEffect, useReducer } from "react";
+import React, { createContext, useEffect, useReducer, useState } from "react";
 import AppReducer from "./AppReducer";
+import {
+  SimpleExponentialSmoothing,
+  HoltSmoothing,
+  HoltWintersSmoothing,
+} from "../contexts/exponential-smoothing";
 // Initial state
 
 const initialState = {
@@ -311,10 +316,13 @@ export const GlobalProvider = ({ children }) => {
 
   useEffect(async () => {
     const res = await fetch("/api/transactions");
-    console.log(res);
     const tTransactions = await res.json();
     dispatch({ type: "LOAD_USER_TRANSACTIONS", payload: tTransactions });
   }, []);
+
+  useEffect(() => {
+    initCategoryInfo();
+  }, [state.transactions]);
 
   // Actions
   async function addTransaction(transaction) {
@@ -345,6 +353,114 @@ export const GlobalProvider = ({ children }) => {
       type: "ADD_CATEGORY_INFO",
       payload: categoryInfo,
     });
+  }
+
+  // initialize the categoryInfo array when the user first signed up
+  function initCategoryInfo() {
+    const categoriesName = getCategoriesNames();
+
+    const year = new Date().getUTCFullYear();
+
+    categoriesName.forEach((cat) => {
+      const currYear = getMonthlySums(cat, year);
+      const secondYear = getMonthlySums(cat, year - 1);
+      const thirdYear = getMonthlySums(cat, year - 2);
+
+      let categoryInfo = {
+        category: cat,
+        monthlySums: {
+          currYear: currYear,
+          secondYear: secondYear,
+          thirdYear: thirdYear,
+        },
+        expected: null,
+      };
+      categoryInfo = chooseExMethod(categoryInfo);
+      addCategoryInfo(categoryInfo);
+    });
+  }
+
+  // get monthly sums for single year in specific category
+  function getMonthlySums(category, year) {
+    let res = new Array(12).fill(0);
+    const MonthlySums = state.transactions
+      .filter(
+        (item) =>
+          item.category === category &&
+          new Date(item.tDate).getUTCFullYear() === year
+      )
+      .reduce(function (acc, item) {
+        let month = new Date(item.tDate).getMonth();
+        if (!acc[month]) {
+          acc[month] = 0;
+        }
+        acc[month] += Math.abs(item.amount);
+        return acc;
+      }, res);
+    return MonthlySums;
+  }
+
+  // find the most suitable EX method for each category
+  function chooseExMethod(categoryInfo) {
+    let simpleMSE = 0;
+    let doubleMSE = 0;
+    let tripleMSE = 0;
+
+    const data = [
+      ...categoryInfo.monthlySums.thirdYear,
+      ...categoryInfo.monthlySums.secondYear,
+      ...categoryInfo.monthlySums.currYear.slice(0, new Date().getMonth() + 1),
+    ];
+
+    let simpleExp = new SimpleExponentialSmoothing(data, 0.5);
+    let doubleExp = new HoltSmoothing(data, 0.5, 0.5);
+    let tripleExp = new HoltWintersSmoothing(data, 0.5, 0.5, 0.5, 12, true);
+
+    simpleExp.optimizeParameter(10);
+    doubleExp.optimizeParameters(10);
+    tripleExp.optimizeParameters(10);
+
+    simpleExp.predict();
+    doubleExp.predict();
+    tripleExp.predict();
+
+    simpleMSE = simpleExp.computeMeanSquaredError();
+    doubleMSE = doubleExp.computeMeanSquaredError();
+    tripleMSE = tripleExp.computeMeanSquaredError();
+
+    categoryInfo = findMinMSE(
+      simpleMSE,
+      doubleMSE,
+      tripleMSE,
+      simpleExp,
+      doubleExp,
+      tripleExp,
+      categoryInfo
+    );
+
+    return categoryInfo;
+  }
+
+  /* find the EX method with the minimum MSE for specific category
+  and update the expected amount for this category*/
+  function findMinMSE(
+    simpleMSE,
+    doubleMSE,
+    tripleMSE,
+    simpleExp,
+    doubleExp,
+    tripleExp,
+    categoryInfo
+  ) {
+    if (simpleMSE <= doubleMSE && simpleMSE <= tripleMSE)
+      categoryInfo.expected = simpleExp.forecast[simpleExp.forecast.length - 1];
+    else if (doubleMSE <= simpleMSE && doubleMSE <= tripleMSE) {
+      categoryInfo.expected = doubleExp.forecast[doubleExp.forecast.length - 1];
+    } else {
+      categoryInfo.expected = tripleExp.forecast[tripleExp.data.length - 1];
+    }
+
+    return categoryInfo;
   }
 
   return (
