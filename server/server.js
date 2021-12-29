@@ -28,9 +28,7 @@ app.get("/api/transactions", async (req, res) => {
 });
 
 app.post("/api/transactions/add", async (req, res) => {
-  //console.log(req.body);
   dbOperations.addTransactionToDB(req.body);
-  //res.json(await dbOperations.getAllTransactionsByUserID(1));
 });
 
 // All other GET requests not handled before will return our React app

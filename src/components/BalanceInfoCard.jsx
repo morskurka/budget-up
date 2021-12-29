@@ -2,13 +2,6 @@ import { Tooltip } from "bootstrap";
 import { useEffect, useRef } from "react";
 
 const BalanceInfoCard = ({ title, icon, amount, tooltipTitle }) => {
-  // var tooltipTriggerList = [].slice.call(
-  //   document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  // );
-  // var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-  //   return new Tooltip(tooltipTriggerEl);
-  // });
-
   const tooltipRef = useRef();
 
   useEffect(() => {
@@ -40,7 +33,7 @@ const BalanceInfoCard = ({ title, icon, amount, tooltipTitle }) => {
         </div>
         <div
           className={
-            (amount > 0 ? "text-success" : "text-danger") + " fw-bold pt-3"
+            (amount >= 0 ? "text-success" : "text-danger") + " fw-bold pt-3"
           }
         >
           <h1>{amount && amount + "$"}</h1>

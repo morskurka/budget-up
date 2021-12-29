@@ -35,27 +35,10 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
     )
     .reduce((acc, item) => (acc += item.amount), 0);
 
-  //calculate expected balance
-  const [expectedBalance, setExpectedBalance] = useState(
-    myBalance - income + outcome
-  );
-
-  useEffect(() => {
-    const prediction = categoriesInfo.reduce((acc, item) => {
-      const date = new Date().getMonth();
-      if (item.category === "משכורת 1" || item.category === "משכורת 2") {
-        if (!isNaN(item.expected)) {
-          acc += item.expected;
-        }
-      } else {
-        if (!isNaN(item.expected)) {
-          acc -= item.expected;
-        }
-      }
-      return acc;
-    }, 0);
-    setExpectedBalance(parseInt(myBalance - income + outcome - prediction));
-  }, [transactions]);
+  //calculate global saving amount
+  const saving = transactions
+    .filter((item) => item.category.toLowerCase() === "saving")
+    .reduce((acc, item) => (acc += item.amount), 0);
 
   return (
     <div className={backgroundColor}>
@@ -96,10 +79,10 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
           {/*expected balance card*/}
           <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-6">
             <BalanceInfoCard
-              title="Expected Balance"
+              title="Saving Balance"
               icon="emoji-smile-upside-down"
-              amount={expectedBalance}
-              tooltipTitle="Your predictable balance at the end of the month"
+              amount={-saving}
+              tooltipTitle="Sum of Transactions from 'Saving' Category"
             />
           </div>
           {/*income this month card*/}
