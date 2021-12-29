@@ -4,8 +4,8 @@ import BalanceInfoBar from "../components/BalanceInfoBar";
 import CategoryGraph from "../components/CategoryGraph";
 import CategoryTable from "../components/CategoryTable";
 
-const CategoryPage = ({ icon, category }) => {
-  const { transactions } = useContext(GlobalContext);
+const CategoryPage = ({ category }) => {
+  const { transactions, categoriesIcons } = useContext(GlobalContext);
   const [year, setYear] = useState(new Date().getUTCFullYear());
   const labels = [
     "January",
@@ -55,7 +55,7 @@ const CategoryPage = ({ icon, category }) => {
         <div className="col ms-5 ps-5">
           <div className="m-5">
             <CategoryGraph
-              icon={icon}
+              icon={categoriesIcons[category]}
               category={category}
               year={year}
               graphLabels={labels}

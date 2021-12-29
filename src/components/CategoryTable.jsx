@@ -1,9 +1,4 @@
-import { useContext } from "react";
-import { GlobalContext } from "../contexts/GlobalState";
-
 const CategoryTable = ({ data }) => {
-  const { transactions } = useContext(GlobalContext);
-
   return (
     <div>
       <table className="table table-hover">
@@ -18,7 +13,7 @@ const CategoryTable = ({ data }) => {
         <tbody>
           {data.map((item, index) => {
             return (
-              <tr>
+              <tr key={index}>
                 <th scope="row">{index + 1}</th>
                 <td>{item.tDate.split("T")[0]}</td>
                 <td>{item.amount}</td>

@@ -25,7 +25,7 @@ function App() {
             />
             <Route
               path="/CategoryPage"
-              element={<CategoryPage icon="cart" category={currCategory} />}
+              element={<CategoryPage category={currCategory} />}
             />
             <Route path="/CashExpensesPage" element={<CashExpensesPage />} />
             <Route path="/CashIncomesPage" element={<CashIncomesPage />} />

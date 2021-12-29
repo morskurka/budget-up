@@ -312,6 +312,31 @@ export const GlobalProvider = ({ children }) => {
     Supermarket: "cart3",
     Electricity: "plug",
     Water: "droplet",
+    Income: "cash",
+    "Supermarket - Completion": "shop",
+    Restaurants: "egg-fried", // MISSING
+    "Mortgage / Rent": "house",
+    "Cosmetics & Personal Care": "brush",
+    "Property Tax": "house-door",
+    TV: "tv",
+    "Furniture & Household Equipment": "building",
+    Clothing: "", // MISSING
+    "Health Insurance / HMO": "thermometer-snow",
+    "Pharmacy, Specialist Doctor": "bandaid",
+    "Education & Classes": "mortarboard",
+    Entertainment: "film",
+    "Office Supplies": "paperclip",
+    Internet: "globe",
+    Cellular: "telephone",
+    "Public Transport": "truck",
+    Vacations: "dice-3",
+    "Donations & Taxes": "currency-exchange",
+    "Various Expenses": "",
+    "Car Insurance": "",
+    "Car Maintenance": "",
+    Gas: "",
+    Newspapers: "",
+    Saving: "piggy-bank",
   };
 
   useEffect(async () => {

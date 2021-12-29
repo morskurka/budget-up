@@ -43,14 +43,14 @@ const CategoryGraph = ({
               style={{ fontSize: "45px" }}
               onClick={() => previousYear()}
             >
-              <i class="bi bi-arrow-left-circle"></i>
+              <i className="bi bi-arrow-left-circle"></i>
             </button>
             <button
               className="btn"
               style={{ fontSize: "45px" }}
               onClick={() => nextYear()}
             >
-              <i class="bi bi-arrow-right-circle"></i>
+              <i className="bi bi-arrow-right-circle"></i>
             </button>
           </div>
         </div>
