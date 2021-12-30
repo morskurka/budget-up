@@ -6,11 +6,9 @@ import {
   HoltWintersSmoothing,
 } from "../contexts/exponential-smoothing";
 
-import {
-  deleteTransactionFromDB,
-  insertTransactionToDB,
-  updateTransactionOnDB,
-} from "./ClientDBOperations";
+import deleteTransactionFromDB from "./ClientDBOperations";
+import insertTransactionToDB from "./ClientDBOperations";
+import updateTransactionOnDB from "./ClientDBOperations";
 // Initial state
 
 const initialState = {
