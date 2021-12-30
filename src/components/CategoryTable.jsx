@@ -15,7 +15,7 @@ const CategoryTable = ({ data }) => {
             return (
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
-                <td>{item.tDate.split("T")[0]}</td>
+                <td>{new Date(item.tDate).toLocaleDateString()}</td>
                 <td>{item.amount}</td>
                 <td>{item.subCategory}</td>
               </tr>

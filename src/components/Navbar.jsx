@@ -39,18 +39,13 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link my-3" to="/CategoryPage">
-                CategoryPage
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link my-3" to="/CashExpensesPage">
-                CashExpensesPage
+                Classify Cash Expenses
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link my-3" to="/CashIncomesPage">
-                CashIncomesPage
+                Add Income Transaction
               </Link>
             </li>
             <li className="nav-item dropdown">

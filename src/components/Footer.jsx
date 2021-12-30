@@ -1,4 +1,8 @@
+import { Link, useNavigate } from "react-router-dom";
+
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <footer
       className="position-relative"
@@ -8,7 +12,7 @@ const Footer = () => {
         <div className="row">
           <div className="col-md-4 col-lg-4 col-xl-3 mx-auto mb-4">
             <div style={{ marginBottom: "20px" }}>
-              <a className="navbar-brand fw-bold fs-3" href="#0">
+              <Link className="navbar-brand fw-bold fs-3" to="/">
                 <img
                   className="pe-1"
                   style={{ maxWidth: "70px" }}
@@ -16,33 +20,35 @@ const Footer = () => {
                   alt=""
                 />
                 BudgetUp
-              </a>
+              </Link>
             </div>
             <p className="pe-4 mb-5">
-              Bootstrap 5 UI Kit for Startup Landing Page to Build Rapid
-              User-interface for your next web projects.
+              This project is used for demonstration only. All banking
+              transactions were simulated based on the Israeli CBS yearly survey
+              from 2018 (most recent available)
             </p>
-            <ul className="d-flex justify-content-start p-0 mb-1 list-unstyled">
+            <ul className="d-flex justify-content-start p-0 mb-1  list-unstyled">
               <li>
                 <a
                   className="d-flex justify-content-center align-items-center me-2"
-                  href="#0"
+                  href="https://www.linkedin.com/in/elchanan-shuky-shukrun/"
                   style={{
                     borderRadius: "50%",
                     color: "#ffffff",
                     width: "44px",
                     height: "44px",
                     background: "rgba(47, 128, 237, 0.4)",
+                    margin: "0",
                     fontSize: "20px",
                   }}
                 >
-                  <i className="bi bi-facebook"></i>
+                  <i className="bi bi-linkedin"></i>
                 </a>
               </li>
               <li>
                 <a
                   className="d-flex justify-content-center align-items-center me-2"
-                  href="#0"
+                  href="https://github.com/shuky-shukrun/budget-up"
                   style={{
                     borderRadius: "50%",
                     color: "#ffffff",
@@ -57,24 +63,8 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  className="d-flex justify-content-center align-items-center me-2"
-                  href="#0"
-                  style={{
-                    borderRadius: "50%",
-                    color: "#ffffff",
-                    width: "44px",
-                    height: "44px",
-                    background: "rgba(47, 128, 237, 0.4)",
-                    fontSize: "20px",
-                  }}
-                >
-                  <i className="bi bi-instagram"></i>
-                </a>
-              </li>
-              <li>
-                <a
                   className="d-flex justify-content-center align-items-center"
-                  href="#0"
+                  href="https://www.linkedin.com/in/elchanan-shuky-shukrun/"
                   style={{
                     borderRadius: "50%",
                     color: "#ffffff",
@@ -102,26 +92,26 @@ const Footer = () => {
                 }}
               />
               <p>
-                <a
+                <Link
                   className="text-decoration-none"
-                  href=""
+                  to=""
                   style={{
                     color: "#585978",
                   }}
                 >
                   My profile
-                </a>
+                </Link>
               </p>
               <p>
-                <a
+                <Link
                   className="text-decoration-none"
-                  href=""
+                  to=""
                   style={{
                     color: "#585978",
                   }}
                 >
                   Settings
-                </a>
+                </Link>
               </p>
             </div>
           </div>
@@ -137,37 +127,37 @@ const Footer = () => {
                 }}
               />
               <p>
-                <a
+                <Link
                   className="text-decoration-none"
-                  href=""
+                  to=""
                   style={{
                     color: "#585978",
                   }}
                 >
                   Home
-                </a>
+                </Link>
               </p>
               <p>
-                <a
+                <Link
                   className="text-decoration-none"
-                  href=""
+                  to=""
                   style={{
                     color: "#585978",
                   }}
                 >
                   About us
-                </a>
+                </Link>
               </p>
               <p>
-                <a
+                <Link
                   className="text-decoration-none"
-                  href=""
+                  to=""
                   style={{
                     color: "#585978",
                   }}
                 >
                   Services
-                </a>
+                </Link>
               </p>
             </div>
           </div>
@@ -182,16 +172,14 @@ const Footer = () => {
               }}
             />
             <p>
-              <i className="bi bi-house-fill mr-3"></i> New York, NY 10012, US
+              <i className="bi bi-house-fill mr-3"></i> Ort Braude Collage,
+              Karmiel
             </p>
             <p>
-              <i className="bi bi-envelope-fill mr-3"></i> info@example.com
+              <i className="bi bi-envelope-fill mr-3"></i> elnn.sh@gmail.com
             </p>
             <p>
-              <i className="bi bi-telephone-fill mr-3"></i> + 01 234 567 88
-            </p>
-            <p>
-              <i className="bi bi-telephone-fill mr-3"></i> + 01 234 567 89
+              <i className="bi bi-envelope-fill mr-3"></i> morskurka22@gmail.com
             </p>
           </div>
         </div>
@@ -209,12 +197,12 @@ const Footer = () => {
             }}
           >
             © 2022 Copyright:
-            <a className="ps-1" href="" style={{ color: "inherit" }}>
+            <Link className="ps-1" to="" style={{ color: "inherit" }}>
               BudgetUp
-            </a>
+            </Link>
           </p>
         </div>
-        <a
+        <Link
           className="d-flex justify-content-center align-items-center text-align-center position-absolute"
           style={{
             width: "45px",
@@ -227,10 +215,10 @@ const Footer = () => {
             bottom: "30px",
             right: "30px",
           }}
-          href="#"
+          to="#"
         >
           <i className="bi bi-caret-up"></i>
-        </a>
+        </Link>
       </div>
     </footer>
   );

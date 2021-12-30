@@ -3,7 +3,7 @@ import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoCard from "../components/BalanceInfoCard";
 
 const BalanceInfoBar = ({ backgroundColor, barColor }) => {
-  const { transactions, categoriesInfo } = useContext(GlobalContext);
+  const { transactions } = useContext(GlobalContext);
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getUTCFullYear();
 
@@ -62,9 +62,7 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
           <div className="col-lg-12 col-md-12 col-12">
             <div className="d-flex justify-content-between align-items-center mb-2">
               <h3 className="text-white"> Expenses</h3>
-              <a href="#" className="btn btn-white">
-                Create New
-              </a>
+              <button className="btn btn-light">Create New</button>
             </div>
           </div>
           {/*balance card*/}

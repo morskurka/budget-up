@@ -5,8 +5,8 @@ const BalanceInfoCard = ({ title, icon, amount, tooltipTitle }) => {
   const tooltipRef = useRef();
 
   useEffect(() => {
-    var tooltip = new Tooltip(tooltipRef.current, {
-      title: tooltipTitle ? tooltipTitle : "test",
+    new Tooltip(tooltipRef.current, {
+      title: tooltipTitle,
       placement: "top",
       trigger: "hover",
     });
