@@ -22,6 +22,11 @@ app.use(express.static(__dirname)); //specifies the root directory from which to
 app.options("*", cors());
 
 //DB Connection
+app.post("/api/login", async (req, res) => {
+  console.log("server-start");
+  console.log(req.body);
+  res.json(await dbOperations.getUserFromDB(req.body));
+});
 
 app.get("/api/transactions", async (req, res) => {
   res.json(await dbOperations.getAllTransactionsByUserID(3));

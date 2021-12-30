@@ -23,6 +23,17 @@ async function connectToDB() {
   console.log("Connected to DB");
 }
 
+async function getUserFromDB(userAuth) {
+  console.log("DB-getUserFromDB");
+  console.log(userAuth);
+
+  const query = `SELECT * from Users WHERE email = '${userAuth.email}' AND uPassword = '${userAuth.password}'`;
+  console.log(`Executed: ${query}`);
+  let user = await connectionPool.request().query(query);
+  console.log(user.recordset);
+  return user.recordset;
+}
+
 async function getAllTransactionsByUserID(userID) {
   const query = `SELECT * FROM Transactions WHERE userID = ${userID}`;
   let request = await connectionPool.request().query(query);
@@ -48,6 +59,7 @@ async function addTransactionToDB(t) {
 }
 
 module.exports = {
+  getUserFromDB,
   getAllTransactionsByUserID,
   connectToDB,
   addTransactionToDB,

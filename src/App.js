@@ -9,6 +9,7 @@ import CashExpensesPage from "./pages/CashExpensesPage";
 import CashIncomesPage from "./pages/CashIncomesPage";
 import { GlobalProvider } from "./contexts/GlobalState";
 import { useState } from "react";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   const [currCategory, setCurrCategory] = useState("");
@@ -19,6 +20,7 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
+            <Route path="/Login" element={<LoginPage />} />
             <Route
               path="/"
               element={<HomePage setCurrCategory={setCurrCategory} />}
