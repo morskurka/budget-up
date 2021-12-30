@@ -31,6 +31,14 @@ app.post("/api/transactions/add", async (req, res) => {
   dbOperations.addTransactionToDB(req.body);
 });
 
+app.post("/api/transactions/update", async (req, res) => {
+  dbOperations.updateExistingTransaction(req.body);
+});
+
+app.post("/api/transactions/delete", async (req, res) => {
+  dbOperations.deleteTransactionById(req.body);
+});
+
 // All other GET requests not handled before will return our React app
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../build", "index.html"));

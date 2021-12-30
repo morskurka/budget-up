@@ -31,12 +31,15 @@ async function getAllTransactionsByUserID(userID) {
 }
 
 async function addTransactionToDB(t) {
+  // TODO: IMPLEMENT BY LOGIC!!!
+  const userID = 3;
+
   const query = `INSERT INTO Transactions 
                   (userID, tDate, amount, category, subCategory)
                   VALUES 
                   (@userID, @tDate, @amount, @category, @subCategory)`;
   let request = await connectionPool.request();
-  request.input("userID", sql.Int, 1);
+  request.input("userID", sql.Int, userID);
   request.input("tDate", sql.Date, new Date(t.tDate));
   request.input("amount", sql.Float, t.amount);
   request.input("category", sql.NVarChar, t.category);
@@ -47,8 +50,29 @@ async function addTransactionToDB(t) {
   console.log(`Executed: ${query}`);
 }
 
+async function deleteTransactionById(transaction) {
+  const query = `delete FROM Transactions WHERE id = ${transaction.id}`;
+  let request = await connectionPool.request().query(query);
+  console.log(`Executed: ${query}`);
+}
+
+async function updateExistingTransaction(transaction) {
+  const query = `UPDATE Transactions SET
+                  amount = @amount
+                  WHERE
+                  id = @id`;
+  let request = await connectionPool.request();
+  request.input("id", sql.Int, transaction.id);
+  request.input("amount", sql.Float, transaction.amount);
+
+  await request.query(query);
+  console.log(`Executed: ${query}`);
+}
+
 module.exports = {
   getAllTransactionsByUserID,
   connectToDB,
   addTransactionToDB,
+  deleteTransactionById,
+  updateExistingTransaction,
 };

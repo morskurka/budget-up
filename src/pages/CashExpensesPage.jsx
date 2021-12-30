@@ -6,6 +6,37 @@ import { GlobalContext } from "../contexts/GlobalState";
 
 const CashExpensesPage = () => {
   const navigate = useNavigate();
+  const { addTransaction, transactions } = useContext(GlobalContext);
+  const [cashWithdrawalItem, setCashWithdrawalItem] = useState();
+  const [index, setIndex] = useState(0);
+
+  // get all Cash withdrawals transactions
+  const cashWithdrawals = transactions.filter((transaction) => {
+    return (
+      transaction.category === "Cash withdrawals" &&
+      new Date(transaction.tDate).getFullYear() === new Date().getFullYear() &&
+      new Date(transaction.tDate).getMonth() == new Date().getMonth()
+    );
+  });
+
+  // update cashWithdrawals
+  useEffect(() => {
+    setCashWithdrawalItem(cashWithdrawals[index]);
+  }, [transactions, index]);
+
+  //display previous withdrawal
+  function previousCashWithdrawal() {
+    if (index > 0) {
+      setIndex(index - 1);
+    }
+  }
+
+  //display next withdrawal
+  function nextCashWithdrawal() {
+    if (index < cashWithdrawals.length - 1) {
+      setIndex(index + 1);
+    }
+  }
 
   // store expanses details
   const [idCounter, setIdCounter] = useState(0);
@@ -52,7 +83,6 @@ const CashExpensesPage = () => {
     updateSum();
   }, [ExpensesList]);
 
-  const { addTransaction } = useContext(GlobalContext);
   const onSubmit = (e) => {
     e.preventDefault();
     // TODO: add transactions to database
@@ -60,6 +90,8 @@ const CashExpensesPage = () => {
     expenses.forEach((expense) => {
       delete expense.key;
       expense.amount = -Math.abs(expense.amount);
+      expense.withdrawTransaction = cashWithdrawals[index];
+      expense.withdrawTransaction.amount -= expense.amount;
       addTransaction(expense);
     });
     navigate("/");
@@ -86,7 +118,19 @@ const CashExpensesPage = () => {
                           Unclassified Cash Withdrawal
                         </h3>
                         {/* TODO: implement logic instead of CONST value */}
-                        <h2>{1500 - sum}$</h2>
+                        <h2>
+                          <div className="lead">
+                            {cashWithdrawalItem &&
+                              `Transaction ${
+                                cashWithdrawalItem.id
+                              } from ${new Date(
+                                cashWithdrawalItem.tDate
+                              ).toLocaleDateString()}: `}
+                          </div>
+                          {cashWithdrawalItem &&
+                            Math.abs(cashWithdrawalItem.amount) - sum}
+                          $
+                        </h2>
                       </div>
                     </div>
                   </div>
@@ -116,13 +160,32 @@ const CashExpensesPage = () => {
                     <button
                       className="btn btn-success btn-lg rounded-pill"
                       /* TODO: implement logic instead of CONST value */
-                      disabled={1500 - sum < 0}
+                      disabled={
+                        cashWithdrawalItem &&
+                        Math.abs(cashWithdrawalItem.amount) - sum < 0
+                      }
                       type="submit"
                     >
                       Save
                     </button>
                   </div>
                 </form>
+                <div>
+                  <button
+                    className="btn me-4"
+                    style={{ fontSize: "45px" }}
+                    onClick={() => previousCashWithdrawal()}
+                  >
+                    <i className="bi bi-arrow-left-circle"></i>
+                  </button>
+                  <button
+                    className="btn"
+                    style={{ fontSize: "45px" }}
+                    onClick={() => nextCashWithdrawal()}
+                  >
+                    <i className="bi bi-arrow-right-circle"></i>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

@@ -1,9 +1,28 @@
 export default (state, action) => {
   switch (action.type) {
     case "ADD_TRANSACTION":
+      // get withdrawTransaction from payload
+      let withdrawTransaction = action.payload.withdrawTransaction;
+      let newTransactions = state.transactions;
+      // delete if amount == 0
+      if (withdrawTransaction.amount === 0) {
+        newTransactions = state.transactions.filter(
+          (t) => withdrawTransaction.id !== t.id
+        );
+      }
+      // update sum if not
+      else {
+        state.transactions.forEach((t) => {
+          if (t.id === withdrawTransaction.id) {
+            t.amount = withdrawTransaction.amount;
+          }
+        });
+      }
+      let newTransaction = { ...action.payload };
+      delete newTransaction.withdrawTransaction;
       return {
         ...state,
-        transactions: [action.payload, ...state.transactions],
+        transactions: [newTransaction, ...newTransactions],
       };
     case "LOAD_USER_TRANSACTIONS":
       return {

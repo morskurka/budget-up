@@ -5,6 +5,12 @@ import {
   HoltSmoothing,
   HoltWintersSmoothing,
 } from "../contexts/exponential-smoothing";
+
+import {
+  deleteTransactionFromDB,
+  insertTransactionToDB,
+  updateTransactionOnDB,
+} from "./ClientDBOperations";
 // Initial state
 
 const initialState = {
@@ -356,15 +362,16 @@ export const GlobalProvider = ({ children }) => {
       type: "ADD_TRANSACTION",
       payload: transaction,
     });
-    const res = await fetch("/api/transactions/add", {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(transaction), // body data type must match "Content-Type" header
-    });
+    insertTransactionToDB(transaction);
+    console.log("insertTransactionToDB(transaction)");
+    let withdrawTransaction = transaction.withdrawTransaction;
+    if (Math.abs(withdrawTransaction.amount) > 0) {
+      updateTransactionOnDB(withdrawTransaction);
+      console.log("updateTransactionOnDB(withdrawTransaction);");
+    } else {
+      deleteTransactionFromDB(withdrawTransaction);
+      console.log("deleteTransactionFromDB(withdrawTransaction);");
+    }
   }
 
   function getCategoriesNames() {
