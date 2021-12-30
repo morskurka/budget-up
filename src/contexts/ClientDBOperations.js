@@ -34,7 +34,7 @@ async function updateTransactionOnDB(transaction) {
   });
 }
 
-module.exports = {
+export {
   insertTransactionToDB,
   deleteTransactionFromDB,
   updateTransactionOnDB,
