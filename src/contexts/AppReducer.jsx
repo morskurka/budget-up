@@ -15,6 +15,11 @@ export default (state, action) => {
         ...state,
         categoriesInfo: [action.payload, ...state.categoriesInfo],
       };
+    case "RESET_CATEGORIES_INFO":
+      return {
+        ...state,
+        categoriesInfo: [],
+      };
     default:
       return state;
   }

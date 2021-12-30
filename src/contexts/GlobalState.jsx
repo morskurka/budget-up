@@ -313,30 +313,31 @@ export const GlobalProvider = ({ children }) => {
     Electricity: "plug",
     Water: "droplet",
     Income: "cash",
-    "Supermarket - Completion": "shop",
-    Restaurants: "egg-fried", // MISSING
+    Restaurants: "cup-straw", // MISSING
     "Mortgage / Rent": "house",
     "Cosmetics & Personal Care": "brush",
     "Property Tax": "house-door",
     TV: "tv",
     "Furniture & Household Equipment": "building",
-    Clothing: "", // MISSING
+    Clothing: "bag", // MISSING
     "Health Insurance / HMO": "thermometer-snow",
     "Pharmacy, Specialist Doctor": "bandaid",
     "Education & Classes": "mortarboard",
-    Entertainment: "film",
+    Entertainments: "film",
     "Office Supplies": "paperclip",
     Internet: "globe",
     Cellular: "telephone",
     "Public Transport": "truck",
     Vacations: "dice-3",
     "Donations & Taxes": "currency-exchange",
-    "Various Expenses": "",
-    "Car Insurance": "",
-    "Car Maintenance": "",
-    Gas: "",
-    Newspapers: "",
+    "Various Expenses": "palette2", // MISSING
+    "Car Insurance": "shield-plus", // MISSING
+    "Car Maintenance": "cone-striped", // MISSING
+    Gas: "truck", // MISSING
+    Newspapers: "newspaper",
     Saving: "piggy-bank",
+    "Cash withdrawals": "cash-stack",
+    "Bank Commissions": "bank2",
   };
 
   useEffect(async () => {
@@ -380,8 +381,16 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
+  function resetCategoriesInfo() {
+    dispatch({
+      type: "RESET_CATEGORIES_INFO",
+      payload: [],
+    });
+  }
+
   // initialize the categoryInfo array when the user first signed up
   function initCategoryInfo() {
+    resetCategoriesInfo();
     const categoriesName = getCategoriesNames();
 
     const year = new Date().getUTCFullYear();
