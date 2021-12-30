@@ -20,7 +20,6 @@ const CashIncome = ({ setSource, setDate, setAmount }) => {
               onChange={(e) => setDate(e.target.value)}
               type="date"
               className="form-control"
-              min={new Date(new Date().setDate(1)).toISOString().split("T")[0]}
               max={new Date().toISOString().split("T")[0]}
               required
             />

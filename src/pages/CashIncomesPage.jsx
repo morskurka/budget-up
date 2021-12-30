@@ -10,13 +10,13 @@ const CashIncomesPage = () => {
   const [source, setSource] = useState();
   const [date, setDate] = useState();
   const [amount, setAmount] = useState();
-  const { addTransaction } = useContext(GlobalContext);
+  const { addIncomeTransaction, transactions } = useContext(GlobalContext);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     // TODO: add transactions to database
-    addTransaction({
-      id: 1,
+    await addIncomeTransaction({
+      id: transactions[transactions.length - 1].id + 1,
       category: "Income",
       subCategory: source,
       tDate: date,
@@ -36,7 +36,7 @@ const CashIncomesPage = () => {
               <div className="card-body p-4 bg-light">
                 <h1 className="card-title ms-3 mb-4 display-6 align-items-center">
                   <i className="bi bi-cash-coin me-4"></i>
-                  Classify Your Cash Incomes
+                  Add Your Cash Incomes
                 </h1>
                 <form onSubmit={onSubmit}>
                   <CashIncome
