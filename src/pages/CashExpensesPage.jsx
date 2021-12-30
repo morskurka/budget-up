@@ -117,7 +117,6 @@ const CashExpensesPage = () => {
                         <h3 className="fw-light">
                           Unclassified Cash Withdrawal
                         </h3>
-                        {/* TODO: implement logic instead of CONST value */}
                         <h2>
                           <div className="lead">
                             {cashWithdrawalItem &&
@@ -141,6 +140,11 @@ const CashExpensesPage = () => {
                       <CashExpense
                         id={expense.key}
                         key={expense.key}
+                        minDate={
+                          cashWithdrawalItem
+                            ? cashWithdrawalItem.tDate
+                            : new Date().toDateString()
+                        }
                         updateExpenseItem={updateExpenseItem}
                         handleDeleteBtnClicked={removeExpenseItem}
                       />

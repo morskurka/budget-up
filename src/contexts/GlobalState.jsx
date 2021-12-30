@@ -367,10 +367,8 @@ export const GlobalProvider = ({ children }) => {
     let withdrawTransaction = transaction.withdrawTransaction;
     if (Math.abs(withdrawTransaction.amount) > 0) {
       updateTransactionOnDB(withdrawTransaction);
-      console.log("updateTransactionOnDB(withdrawTransaction);");
     } else {
       deleteTransactionFromDB(withdrawTransaction);
-      console.log("deleteTransactionFromDB(withdrawTransaction);");
     }
   }
 

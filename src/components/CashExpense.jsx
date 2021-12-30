@@ -1,7 +1,12 @@
 import { useRef, useState, useContext } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 
-const CashExpense = ({ id, updateExpenseItem, handleDeleteBtnClicked }) => {
+const CashExpense = ({
+  id,
+  updateExpenseItem,
+  handleDeleteBtnClicked,
+  minDate,
+}) => {
   const [category, setCategory] = useState("");
   const amount = useRef();
   const date = useRef();
@@ -33,11 +38,6 @@ const CashExpense = ({ id, updateExpenseItem, handleDeleteBtnClicked }) => {
             {categoriesNames.map((category) => {
               return <option value={category}>{category}</option>;
             })}
-            {/* 
-            <option value="Supermarket">Supermarket</option>
-            <option value="Water">Water</option>
-            <option value="Electricity">Electricity</option>
-             */}
             <option value="Other">Other</option>
           </select>
         </div>
@@ -48,7 +48,7 @@ const CashExpense = ({ id, updateExpenseItem, handleDeleteBtnClicked }) => {
             min="0"
             className="form-control"
             ref={date}
-            min={new Date(new Date().setDate(1)).toISOString().split("T")[0]}
+            min={new Date(minDate).toISOString().split("T")[0]}
             max={new Date().toISOString().split("T")[0]}
             onChange={() =>
               updateExpenseItem(
