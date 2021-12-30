@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useReducer, useState } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 import AppReducer from "./AppReducer";
 import {
   SimpleExponentialSmoothing,
@@ -6,9 +6,11 @@ import {
   HoltWintersSmoothing,
 } from "../contexts/exponential-smoothing";
 
-import deleteTransactionFromDB from "./ClientDBOperations";
-import insertTransactionToDB from "./ClientDBOperations";
-import updateTransactionOnDB from "./ClientDBOperations";
+import {
+  deleteTransactionFromDB,
+  insertTransactionToDB,
+  updateTransactionOnDB,
+} from "./ClientDBOperations";
 // Initial state
 
 const initialState = {
@@ -361,13 +363,22 @@ export const GlobalProvider = ({ children }) => {
       payload: transaction,
     });
     insertTransactionToDB(transaction);
-    console.log("insertTransactionToDB(transaction)");
-    let withdrawTransaction = transaction.withdrawTransaction;
-    if (Math.abs(withdrawTransaction.amount) > 0) {
-      updateTransactionOnDB(withdrawTransaction);
-    } else {
-      deleteTransactionFromDB(withdrawTransaction);
+    if (transaction.withdrawTransaction) {
+      let withdrawTransaction = transaction.withdrawTransaction;
+      if (Math.abs(withdrawTransaction.amount) > 0) {
+        updateTransactionOnDB(withdrawTransaction);
+      } else {
+        deleteTransactionFromDB(withdrawTransaction);
+      }
     }
+  }
+
+  async function addIncomeTransaction(transaction) {
+    dispatch({
+      type: "ADD_INCOME_TRANSACTION",
+      payload: transaction,
+    });
+    insertTransactionToDB(transaction);
   }
 
   function getCategoriesNames() {
@@ -506,6 +517,7 @@ export const GlobalProvider = ({ children }) => {
         transactions: state.transactions,
         categoriesIcons,
         addTransaction,
+        addIncomeTransaction,
         getCategoriesNames,
         categoriesInfo: state.categoriesInfo,
         addCategoryInfo,
