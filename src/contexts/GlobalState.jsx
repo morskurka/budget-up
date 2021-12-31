@@ -357,6 +357,13 @@ export const GlobalProvider = ({ children }) => {
   }, [state.transactions]);
 
   // Actions
+  function addUser(user) {
+    dispatch({
+      type: "ADD_USER",
+      payload: user,
+    });
+  }
+
   async function addTransaction(transaction) {
     dispatch({
       type: "ADD_TRANSACTION",
@@ -521,6 +528,8 @@ export const GlobalProvider = ({ children }) => {
         getCategoriesNames,
         categoriesInfo: state.categoriesInfo,
         addCategoryInfo,
+        addUser,
+        user: state.user,
       }}
     >
       {children}

@@ -68,8 +68,33 @@ async function updateExistingTransaction(transaction) {
   console.log(`Executed: ${query}`);
 }
 
+async function addUserToDB(userReg) {
+  const query = `INSERT INTO Users 
+  (firstName, lastName, email, uPassword)
+  VALUES 
+  (@firstName, @lastName, @email, @uPassword)`;
+  let user = await connectionPool
+    .request()
+    .input("firstName", sql.NVarChar, userReg.firstName)
+    .input("lastName", sql.NVarChar, userReg.lastName)
+    .input("email", sql.VarChar, userReg.email)
+    .input("uPassword", sql.VarChar, userReg.password)
+    .query(query);
+
+  return user;
+}
+
+async function getUserFromDB(userAuth) {
+  const query = `SELECT * from Users WHERE email = '${userAuth.email}' AND uPassword = '${userAuth.password}'`;
+  console.log(`Executed: ${query}`);
+  let user = await connectionPool.request().query(query);
+  return user.recordset;
+}
+
 module.exports = {
   getAllTransactionsByEmail,
+  addUserToDB,
+  getUserFromDB,
   connectToDB,
   addTransactionToDB,
   deleteTransactionById,
