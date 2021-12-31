@@ -23,8 +23,8 @@ async function connectToDB() {
   console.log("Connected to DB");
 }
 
-async function getAllTransactionsByUserID(userID) {
-  const query = `SELECT * FROM Transactions WHERE userID = ${userID}`;
+async function getAllTransactionsByEmail(email) {
+  const query = `SELECT * FROM Transactions WHERE email = '${email}'`;
   let request = await connectionPool.request().query(query);
   console.log(`Executed: ${query}`);
   return request.recordset;
@@ -32,21 +32,20 @@ async function getAllTransactionsByUserID(userID) {
 
 async function addTransactionToDB(t) {
   // TODO: IMPLEMENT BY LOGIC!!!
-  const userID = 3;
+  const email = "demouser@gmail.com";
 
   const query = `INSERT INTO Transactions 
-                  (userID, tDate, amount, category, subCategory)
+                  (email, tDate, amount, category, subCategory)
                   VALUES 
-                  (@userID, @tDate, @amount, @category, @subCategory)`;
-  let request = await connectionPool.request();
-  request.input("userID", sql.Int, userID);
-  request.input("tDate", sql.Date, new Date(t.tDate));
-  request.input("amount", sql.Float, t.amount);
-  request.input("category", sql.NVarChar, t.category);
-  //let subCategory = t.subCategory == undefined ? null : t.subCategory;
-  request.input("subCategory", sql.NVarChar, t.subCategory);
-
-  await request.query(query);
+                  (@email, @tDate, @amount, @category, @subCategory)`;
+  await connectionPool
+    .request()
+    .input("email", sql.VarChar, email)
+    .input("tDate", sql.Date, new Date(t.tDate))
+    .input("amount", sql.Float, t.amount)
+    .input("category", sql.NVarChar, t.category)
+    .input("subCategory", sql.NVarChar, t.subCategory)
+    .query(query);
   console.log(`Executed: ${query}`);
 }
 
@@ -70,7 +69,7 @@ async function updateExistingTransaction(transaction) {
 }
 
 module.exports = {
-  getAllTransactionsByUserID,
+  getAllTransactionsByEmail,
   connectToDB,
   addTransactionToDB,
   deleteTransactionById,
