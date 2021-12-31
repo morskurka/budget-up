@@ -180,3 +180,7 @@ async function addTransactionToDB(t) {
 ## Deployment Diagram
 
 ![Package Diagram](/images/BudgetUp_Deployment_Diagram.png)
+
+## Deployment Diagram
+
+![DB Structure](/images/DB_Structure.png)
