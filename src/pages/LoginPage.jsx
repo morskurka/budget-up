@@ -78,7 +78,13 @@ const LoginPage = () => {
                   ref={userPassword}
                 />
               </div>
-              <button className="btn btn-basic solid" onClick={() => login()}>
+              <button
+                className="btn btn-basic solid"
+                onClick={(e) => {
+                  e.preventDefault();
+                  login();
+                }}
+              >
                 Login
               </button>
               <p className="social-text">{loginError}</p>
@@ -105,7 +111,13 @@ const LoginPage = () => {
                   ref={regPassword}
                 />
               </div>
-              <button className="btn btn-basic solid" onClick={() => signUp()}>
+              <button
+                className="btn btn-basic solid"
+                onClick={(e) => {
+                  e.preventDefault();
+                  signUp();
+                }}
+              >
                 SIGN UP
               </button>
               <p className="social-text">{regError}</p>
