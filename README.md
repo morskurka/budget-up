@@ -172,3 +172,11 @@ async function addTransactionToDB(t) {
   await request.query(query);
 }
 ```
+
+## Package Diagram
+
+![Package Diagram](/images/BudgetUp_Package_Diagram.png)
+
+## Deployment Diagram
+
+![Package Diagram](/images/BudgetUp_Deployment_Diagram.png)
