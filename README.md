@@ -1,13 +1,15 @@
-# BudgetUp
+# BudgetUp Maintenance Guide
 
-BudgetUp is a web application that use time-series
-analysis method to analyze and predict users expenses based on their bank account transactions.
+BudgetUp is a web application that use time-series analysis methods to analyze and predict users expenses based on their bank account transactions.
 
 The service assumes that your transactions are classified into several major categories such as Supermarket, Electricity, Water, ect. (the service is agnostic to the categories name's).
 
 ## Run Locally
 
 ### _Preparation_
+
+BudgetUp uses React-js library on client side, Express.js library on server side, and MSSQL server as database.
+Therefor, you'll need to install node.js, npm, and MSSQL in order to build our project.
 
 To run this app locally on your computer you will first need to install dependencies:
 
