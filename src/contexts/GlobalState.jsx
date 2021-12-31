@@ -7,6 +7,7 @@ import {
 } from "../contexts/exponential-smoothing";
 
 import {
+  getAllTransactionsByEmail,
   deleteTransactionFromDB,
   insertTransactionToDB,
   updateTransactionOnDB,
@@ -269,12 +270,12 @@ const initialState = {
     },
   ],
   user: {
-    user_id: 1,
-    email: "elnn.sh@gmail.com",
-    firstName: "Shuky",
-    lastName: "Shukrun",
-    phone: "058-5003008",
-    password: "123123",
+    // user_id: 1,
+    // email: "elnn.sh@gmail.com",
+    // firstName: "Shuky",
+    // lastName: "Shukrun",
+    // phone: "058-5003008",
+    // password: "123123",
   },
   events: [
     {
@@ -347,10 +348,11 @@ export const GlobalProvider = ({ children }) => {
   };
 
   useEffect(async () => {
-    const res = await fetch("/api/transactions");
-    const tTransactions = await res.json();
-    dispatch({ type: "LOAD_USER_TRANSACTIONS", payload: tTransactions });
-  }, []);
+    if (state.user.email) {
+      const tTransactions = await getAllTransactionsByEmail(state.user.email);
+      dispatch({ type: "LOAD_USER_TRANSACTIONS", payload: tTransactions });
+    }
+  }, [state.user]);
 
   useEffect(() => {
     initCategoryInfo();

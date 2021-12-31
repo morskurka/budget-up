@@ -1,10 +1,17 @@
 import CategoryCard from "../components/CategoryCard";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoBar from "../components/BalanceInfoBar";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = ({ setCurrCategory }) => {
-  const { categoriesInfo, categoriesIcons } = useContext(GlobalContext);
+  const { categoriesInfo, categoriesIcons, user } = useContext(GlobalContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user.email) {
+      navigate("/login");
+    }
+  });
 
   return (
     <>

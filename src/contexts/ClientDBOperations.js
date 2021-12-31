@@ -1,3 +1,20 @@
+async function getAllTransactionsByEmail(email) {
+  console.log(`start getAllTransactionsByEmail: ${email}`);
+  const res = await fetch("/api/transactions", {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify({ email }), // body data type must match "Content-Type" header
+  });
+  console.log(`end getAllTransactionsByEmail: ${email}`);
+  let transactions = await res.json();
+  console.log(`end getAllTransactionsByEmail: ${email}`);
+  return transactions;
+}
+
 async function insertTransactionToDB(transaction) {
   await fetch("/api/transactions/add", {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -35,6 +52,7 @@ async function updateTransactionOnDB(transaction) {
 }
 
 export {
+  getAllTransactionsByEmail,
   insertTransactionToDB,
   deleteTransactionFromDB,
   updateTransactionOnDB,

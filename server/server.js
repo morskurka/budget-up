@@ -30,8 +30,9 @@ app.post("/api/login", async (req, res) => {
   res.json(await dbOperations.getUserFromDB(req.body));
 });
 
-app.get("/api/transactions", async (req, res) => {
-  res.json(await dbOperations.getAllTransactionsByEmail("demouser@gmail.com"));
+app.post("/api/transactions", async (req, res) => {
+  console.log(`/api/transactions: ${req.body}`);
+  res.json(await dbOperations.getAllTransactionsByEmail(req.body.email));
 });
 
 app.post("/api/transactions/add", async (req, res) => {
