@@ -69,17 +69,17 @@ If you want to add functionality to the project, please follow this rules:
 `GlobalState.jsx`:
 
 ```js
-  async function addIncomeTransaction(transaction) {
-    dispatch({
-        type: "ADD_INCOME_TRANSACTION",
-        payload: {
-            id: 1,
-            category: "Income",
-            subCategory: "Salary 1",
-            tDate: "2021-12-10" // YYYY-MM-DD
-            amount: 17500,
-        }
-    })
+async function addIncomeTransaction(transaction) {
+  dispatch({
+    type: "ADD_INCOME_TRANSACTION",
+    payload: {
+      id: 1,
+      category: "Income",
+      subCategory: "Salary 1",
+      tDate: "2021-12-10", // YYYY-MM-DD
+      amount: 17500,
+    },
+  });
 }
 ```
 
