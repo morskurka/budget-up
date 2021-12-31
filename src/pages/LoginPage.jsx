@@ -3,7 +3,7 @@ import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const { addUser, user } = useContext(GlobalContext); // ********************
+  const { addUser } = useContext(GlobalContext);
   const navigate = useNavigate();
   const [type, setType] = useState("");
   //user login details
@@ -11,43 +11,34 @@ const LoginPage = () => {
   const userPassword = useRef();
   const [loginError, setLoginError] = useState("");
   //user registration details
-  const regUserName = useRef();
+  const regFirstName = useRef();
+  const regLastName = useRef();
   const regEmail = useRef();
   const regPassword = useRef();
   const [regError, setRegError] = useState("");
 
   async function signUp() {
-    console.log("user signUp:");
-    console.log(regUserName.current.value);
-    console.log(regEmail.current.value);
-    console.log(regPassword.current.value);
-
     const user = await fetch("/api/registration", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        userName: regUserName.current.value,
+        firstName: regFirstName.current.value,
+        lastName: regLastName.current.value,
         email: regEmail.current.value,
         password: regPassword.current.value,
       }),
     }).then((res) => res.json());
-    console.log("user:");
-    console.log(user);
-    console.log(user.rowsAffected[0]);
+
     if (user.rowsAffected[0] == 0) {
-      setRegError("User already exists with the same email address");
+      setRegError("User already exists with the same email address"); // *******************
     } else {
       setType("");
     }
   }
 
   async function login() {
-    console.log("user Login:");
-    console.log(userEmail.current.value);
-    console.log(userPassword.current.value);
-
     const user = await fetch("/api/login", {
       method: "POST",
       headers: {
@@ -58,15 +49,11 @@ const LoginPage = () => {
         password: userPassword.current.value,
       }),
     }).then((res) => res.json());
-    console.log("user:");
-    console.log(user);
 
     if (user.length > 0) {
-      console.log("1");
       addUser(user[0]);
       navigate("/");
     } else {
-      console.log("2");
       setLoginError("Wrong username-password combination");
     }
   }
@@ -95,26 +82,16 @@ const LoginPage = () => {
                 Login
               </button>
               <p className="social-text">{loginError}</p>
-              <div className="social-media">
-                <a href="#" className="social-icon">
-                  <i className="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" className="social-icon">
-                  <i className="fab fa-twitter"></i>
-                </a>
-                <a href="#" className="social-icon">
-                  <i className="fab fa-google"></i>
-                </a>
-                <a href="#" className="social-icon">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-              </div>
             </form>
             <form action="#" className="form-section sign-up-form">
               <h2 className="title">Sign up</h2>
               <div className="input-field">
                 <i className="bi bi-person"></i>
-                <input type="text" placeholder="User name" ref={regUserName} />
+                <input type="text" placeholder="User name" ref={regFirstName} />
+              </div>
+              <div className="input-field">
+                <i className="bi bi-person"></i>
+                <input type="text" placeholder="User name" ref={regLastName} />
               </div>
               <div className="input-field">
                 <i className="bi bi-envelope"></i>
@@ -132,20 +109,6 @@ const LoginPage = () => {
                 SIGN UP
               </button>
               <p className="social-text">{regError}</p>
-              <div className="social-media">
-                <a href="#" className="social-icon">
-                  <i className="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" className="social-icon">
-                  <i className="fab fa-twitter"></i>
-                </a>
-                <a href="#" className="social-icon">
-                  <i className="fab fa-google"></i>
-                </a>
-                <a href="#" className="social-icon">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-              </div>
             </form>
           </div>
         </div>

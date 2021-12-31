@@ -24,34 +24,25 @@ async function connectToDB() {
 }
 
 async function addUserToDB(userReg) {
-  console.log("DB-addUserToDB");
-  console.log(userReg);
-
   const query = `INSERT INTO Users 
-  (firstName, lastName, email, uPassword, phone)
+  (firstName, lastName, email, uPassword)
   VALUES 
-  (@firstName, @lastName, @email, @uPassword, @phone)`;
+  (@firstName, @lastName, @email, @uPassword)`;
   let user = await connectionPool
     .request()
-    .input("firstName", sql.NVarChar, userReg.userName)
-    .input("lastName", sql.NVarChar, userReg.userName) // *****************
+    .input("firstName", sql.NVarChar, userReg.firstName)
+    .input("lastName", sql.NVarChar, userReg.lastName)
     .input("email", sql.VarChar, userReg.email)
     .input("uPassword", sql.VarChar, userReg.password)
-    .input("phone", sql.VarChar, "052-5003007") // ***************
     .query(query);
 
-  console.log(user);
   return user;
 }
 
 async function getUserFromDB(userAuth) {
-  console.log("DB-getUserFromDB");
-  console.log(userAuth);
-
   const query = `SELECT * from Users WHERE email = '${userAuth.email}' AND uPassword = '${userAuth.password}'`;
   console.log(`Executed: ${query}`);
   let user = await connectionPool.request().query(query);
-  console.log(user);
   return user.recordset;
 }
 

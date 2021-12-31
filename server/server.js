@@ -23,14 +23,10 @@ app.options("*", cors());
 
 //DB Connection
 app.post("/api/registration", async (req, res) => {
-  console.log("server-start");
-  console.log(req.body);
   res.json(await dbOperations.addUserToDB(req.body));
 });
 
 app.post("/api/login", async (req, res) => {
-  console.log("server-start");
-  console.log(req.body);
   res.json(await dbOperations.getUserFromDB(req.body));
 });
 
