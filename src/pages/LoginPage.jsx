@@ -68,7 +68,12 @@ const LoginPage = () => {
               <h2 className="title">Sign in</h2>
               <div className="input-field">
                 <i className="bi bi-person"></i>
-                <input type="text" placeholder="Email" ref={userEmail} />
+                <input
+                  type="text"
+                  placeholder="Email"
+                  ref={userEmail}
+                  required
+                />
               </div>
               <div className="input-field">
                 <i className="bi bi-lock"></i>
@@ -76,6 +81,7 @@ const LoginPage = () => {
                   type="password"
                   placeholder="Password"
                   ref={userPassword}
+                  required
                 />
               </div>
               <button
@@ -93,15 +99,30 @@ const LoginPage = () => {
               <h2 className="title">Sign up</h2>
               <div className="input-field">
                 <i className="bi bi-person"></i>
-                <input type="text" placeholder="User name" ref={regFirstName} />
+                <input
+                  type="text"
+                  placeholder="First name"
+                  ref={regFirstName}
+                  required
+                />
               </div>
               <div className="input-field">
                 <i className="bi bi-person"></i>
-                <input type="text" placeholder="User name" ref={regLastName} />
+                <input
+                  type="text"
+                  placeholder="Last name"
+                  ref={regLastName}
+                  required
+                />
               </div>
               <div className="input-field">
                 <i className="bi bi-envelope"></i>
-                <input type="email" placeholder="Email" ref={regEmail} />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  ref={regEmail}
+                  required
+                />
               </div>
               <div className="input-field">
                 <i className="bi bi-lock"></i>
@@ -109,6 +130,7 @@ const LoginPage = () => {
                   type="password"
                   placeholder="Password"
                   ref={regPassword}
+                  required
                 />
               </div>
               <button

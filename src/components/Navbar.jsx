@@ -1,8 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { GlobalContext } from "../contexts/GlobalState";
 
 const Navbar = () => {
   const image = true;
-
+  const { user } = useContext(GlobalContext);
   return (
     <nav
       className="navbar navbar-expand-md navbar-light bg-light shadow-sm py-0"
@@ -38,16 +40,20 @@ const Navbar = () => {
                 HOME
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link my-3" to="/CashExpensesPage">
-                Classify Cash Expenses
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link my-3" to="/CashIncomesPage">
-                Add Income Transaction
-              </Link>
-            </li>
+            {user.email && (
+              <li className="nav-item">
+                <Link className="nav-link my-3" to="/CashExpensesPage">
+                  Classify Cash Expenses
+                </Link>
+              </li>
+            )}
+            {user.email && (
+              <li className="nav-item">
+                <Link className="nav-link my-3" to="/CashIncomesPage">
+                  Add Income Transaction
+                </Link>
+              </li>
+            )}
             <li className="nav-item dropdown">
               <Link
                 className="nav-link dropdown-toggle"
