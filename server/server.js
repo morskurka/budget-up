@@ -31,7 +31,6 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.post("/api/transactions", async (req, res) => {
-  console.log(`/api/transactions: ${req.body}`);
   res.json(await dbOperations.getAllTransactionsByEmail(req.body.email));
 });
 

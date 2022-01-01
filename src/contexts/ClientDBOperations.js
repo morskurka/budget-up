@@ -9,9 +9,7 @@ async function getAllTransactionsByEmail(email) {
     },
     body: JSON.stringify({ email }), // body data type must match "Content-Type" header
   });
-  console.log(`end getAllTransactionsByEmail: ${email}`);
   let transactions = await res.json();
-  console.log(`end getAllTransactionsByEmail: ${email}`);
   return transactions;
 }
 
