@@ -12,6 +12,7 @@ import {
   insertTransactionToDB,
   updateTransactionOnDB,
 } from "./ClientDBOperations";
+import { end } from "@popperjs/core";
 // Initial state
 
 const initialState = {
@@ -420,13 +421,15 @@ export const GlobalProvider = ({ children }) => {
 
     categoriesName.forEach((cat) => {
       const currYear = getMonthlySums(cat, year);
-      const secondYear = getMonthlySums(cat, year - 1);
-      const thirdYear = getMonthlySums(cat, year - 2);
+      const firstYear = getMonthlySums(cat, year - 1);
+      const secondYear = getMonthlySums(cat, year - 2);
+      const thirdYear = getMonthlySums(cat, year - 3);
 
       let categoryInfo = {
         category: cat,
         monthlySums: {
           currYear: currYear,
+          firstYear: firstYear,
           secondYear: secondYear,
           thirdYear: thirdYear,
         },
@@ -462,12 +465,28 @@ export const GlobalProvider = ({ children }) => {
     let simpleMSE = 0;
     let doubleMSE = 0;
     let tripleMSE = 0;
+    let currMonth = new Date().getMonth();
+    let currYear = [];
+
+    if (currMonth != 0) {
+      currYear = categoryInfo.monthlySums.currYear.slice(0, currMonth - 1);
+    }
 
     const data = [
-      ...categoryInfo.monthlySums.thirdYear,
+      ...categoryInfo.monthlySums.thirdYear.slice(currMonth),
       ...categoryInfo.monthlySums.secondYear,
-      ...categoryInfo.monthlySums.currYear.slice(0, new Date().getMonth() + 1),
+      ...categoryInfo.monthlySums.firstYear,
+      ...currYear,
     ];
+
+    if (categoryInfo.category === "Office Supplies") {
+      console.log(currMonth);
+      console.log(categoryInfo.monthlySums.thirdYear.slice(currMonth));
+      console.log(categoryInfo.monthlySums.secondYear);
+      console.log(categoryInfo.monthlySums.firstYear);
+      console.log(currYear);
+      console.log(data);
+    }
 
     let simpleExp = new SimpleExponentialSmoothing(data, 0.5);
     let doubleExp = new HoltSmoothing(data, 0.5, 0.5);
@@ -481,9 +500,21 @@ export const GlobalProvider = ({ children }) => {
     doubleExp.predict();
     tripleExp.predict();
 
+    if (categoryInfo.category === "Office Supplies") {
+      console.log(simpleExp);
+      console.log(doubleExp);
+      console.log(tripleExp);
+    }
+
     simpleMSE = simpleExp.computeMeanSquaredError();
     doubleMSE = doubleExp.computeMeanSquaredError();
     tripleMSE = tripleExp.computeMeanSquaredError();
+
+    if (categoryInfo.category === "Office Supplies") {
+      console.log(simpleMSE);
+      console.log(doubleMSE);
+      console.log(tripleMSE);
+    }
 
     categoryInfo = findMinMSE(
       simpleMSE,
@@ -510,13 +541,17 @@ export const GlobalProvider = ({ children }) => {
     categoryInfo
   ) {
     if (simpleMSE <= doubleMSE && simpleMSE <= tripleMSE)
-      categoryInfo.expected = simpleExp.forecast[simpleExp.forecast.length - 1];
+      categoryInfo.expected = simpleExp.forecast[simpleExp.data.length];
     else if (doubleMSE <= simpleMSE && doubleMSE <= tripleMSE) {
-      categoryInfo.expected = doubleExp.forecast[doubleExp.forecast.length - 1];
+      categoryInfo.expected = doubleExp.forecast[doubleExp.data.length];
     } else {
-      categoryInfo.expected = tripleExp.forecast[tripleExp.data.length - 1];
+      categoryInfo.expected = tripleExp.forecast[tripleExp.data.length];
     }
 
+    if (categoryInfo.category === "Office Supplies") {
+      console.log(tripleExp.data.length);
+      console.log(tripleExp.forecast[tripleExp.data.length]);
+    }
     return categoryInfo;
   }
 
