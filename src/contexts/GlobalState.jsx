@@ -474,15 +474,6 @@ export const GlobalProvider = ({ children }) => {
       ...categoryInfo.monthlySums.currYear.slice(0, currMonth),
     ];
 
-    if (categoryInfo.category === "Gas") {
-      console.log(currMonth);
-      //console.log(categoryInfo.monthlySums.thirdYear.slice(currMonth));
-      console.log(categoryInfo.monthlySums.secondYear.slice(currMonth));
-      console.log(categoryInfo.monthlySums.firstYear);
-      console.log(categoryInfo.monthlySums.currYear.slice(0, currMonth));
-      console.log(data);
-    }
-
     let simpleExp = new SimpleExponentialSmoothing(data, 0.5);
     let doubleExp = new HoltSmoothing(data, 0.5, 0.5);
     let tripleExp = new HoltWintersSmoothing(data, 0.5, 0.5, 0.5, 12, true);
@@ -495,21 +486,9 @@ export const GlobalProvider = ({ children }) => {
     doubleExp.predict();
     tripleExp.predict();
 
-    if (categoryInfo.category === "Gas") {
-      console.log(simpleExp);
-      console.log(doubleExp);
-      console.log(tripleExp);
-    }
-
     simpleMSE = simpleExp.computeMeanSquaredError();
     doubleMSE = doubleExp.computeMeanSquaredError();
     tripleMSE = tripleExp.computeMeanSquaredError();
-
-    if (categoryInfo.category === "Gas") {
-      console.log(simpleMSE);
-      console.log(doubleMSE);
-      console.log(tripleMSE);
-    }
 
     categoryInfo = findMinMSE(
       simpleMSE,
@@ -541,11 +520,6 @@ export const GlobalProvider = ({ children }) => {
       categoryInfo.expected = doubleExp.forecast[doubleExp.data.length];
     } else {
       categoryInfo.expected = tripleExp.forecast[tripleExp.data.length];
-    }
-
-    if (categoryInfo.category === "Gas") {
-      console.log(tripleExp.data.length);
-      console.log(tripleExp.forecast[tripleExp.data.length]);
     }
     return categoryInfo;
   }
