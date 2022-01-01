@@ -466,25 +466,20 @@ export const GlobalProvider = ({ children }) => {
     let doubleMSE = 0;
     let tripleMSE = 0;
     let currMonth = new Date().getMonth();
-    let currYear = [];
-
-    if (currMonth != 0) {
-      currYear = categoryInfo.monthlySums.currYear.slice(0, currMonth - 1);
-    }
 
     const data = [
-      ...categoryInfo.monthlySums.thirdYear.slice(currMonth),
-      ...categoryInfo.monthlySums.secondYear,
+      //...categoryInfo.monthlySums.thirdYear.slice(currMonth),
+      ...categoryInfo.monthlySums.secondYear.slice(currMonth),
       ...categoryInfo.monthlySums.firstYear,
-      ...currYear,
+      ...categoryInfo.monthlySums.currYear.slice(0, currMonth),
     ];
 
-    if (categoryInfo.category === "Office Supplies") {
+    if (categoryInfo.category === "Gas") {
       console.log(currMonth);
-      console.log(categoryInfo.monthlySums.thirdYear.slice(currMonth));
-      console.log(categoryInfo.monthlySums.secondYear);
+      //console.log(categoryInfo.monthlySums.thirdYear.slice(currMonth));
+      console.log(categoryInfo.monthlySums.secondYear.slice(currMonth));
       console.log(categoryInfo.monthlySums.firstYear);
-      console.log(currYear);
+      console.log(categoryInfo.monthlySums.currYear.slice(0, currMonth));
       console.log(data);
     }
 
@@ -500,7 +495,7 @@ export const GlobalProvider = ({ children }) => {
     doubleExp.predict();
     tripleExp.predict();
 
-    if (categoryInfo.category === "Office Supplies") {
+    if (categoryInfo.category === "Gas") {
       console.log(simpleExp);
       console.log(doubleExp);
       console.log(tripleExp);
@@ -510,7 +505,7 @@ export const GlobalProvider = ({ children }) => {
     doubleMSE = doubleExp.computeMeanSquaredError();
     tripleMSE = tripleExp.computeMeanSquaredError();
 
-    if (categoryInfo.category === "Office Supplies") {
+    if (categoryInfo.category === "Gas") {
       console.log(simpleMSE);
       console.log(doubleMSE);
       console.log(tripleMSE);
@@ -548,7 +543,7 @@ export const GlobalProvider = ({ children }) => {
       categoryInfo.expected = tripleExp.forecast[tripleExp.data.length];
     }
 
-    if (categoryInfo.category === "Office Supplies") {
+    if (categoryInfo.category === "Gas") {
       console.log(tripleExp.data.length);
       console.log(tripleExp.forecast[tripleExp.data.length]);
     }
