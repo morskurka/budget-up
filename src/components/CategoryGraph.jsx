@@ -6,19 +6,32 @@ const CategoryGraph = ({
   category,
   graphLabels,
   graphData,
+  expectedData,
   year,
   previousYear,
   nextYear,
 }) => {
+  let datasets = [
+    {
+      data: graphData,
+      label: year,
+      backgroundColor: "rgba(51, 152, 102, 0.5)",
+    },
+  ];
+
+  if (year === new Date().getUTCFullYear()) {
+    datasets = [
+      ...datasets,
+      {
+        data: expectedData,
+        label: "Expected amount",
+        backgroundColor: "red",
+      },
+    ];
+  }
   const categoryData = {
     labels: graphLabels,
-    datasets: [
-      {
-        data: graphData,
-        label: year,
-        backgroundColor: "rgba(51, 152, 102, 0.5)",
-      },
-    ],
+    datasets: datasets,
   };
 
   return (
