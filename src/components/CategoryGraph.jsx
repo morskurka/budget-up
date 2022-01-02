@@ -42,6 +42,7 @@ const CategoryGraph = ({
               className="btn me-4"
               style={{ fontSize: "45px" }}
               onClick={() => previousYear()}
+              disabled={year === new Date().getUTCFullYear() - 3 ? true : false}
             >
               <i className="bi bi-arrow-left-circle"></i>
             </button>
@@ -49,6 +50,7 @@ const CategoryGraph = ({
               className="btn"
               style={{ fontSize: "45px" }}
               onClick={() => nextYear()}
+              disabled={year === new Date().getUTCFullYear() ? true : false}
             >
               <i className="bi bi-arrow-right-circle"></i>
             </button>
