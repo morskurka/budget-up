@@ -5,16 +5,19 @@ import BalanceInfoBar from "../components/BalanceInfoBar";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = ({ setCurrCategory }) => {
-  const { categoriesInfo, categoriesIcons, user } = useContext(GlobalContext);
+  const { categoriesInfo, categoriesIcons, user, addUser } =
+    useContext(GlobalContext);
   const [categories, setCategories] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user.email) {
+    if (sessionStorage.getItem("user")) {
+      addUser(JSON.parse(sessionStorage.getItem("user")));
+    } else {
       navigate("/login");
     }
-  });
+  }, []);
 
   useEffect(() => {
     let filteredCategories = categoriesInfo.filter((cat) => {

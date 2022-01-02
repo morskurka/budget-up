@@ -111,7 +111,7 @@ export const GlobalProvider = ({ children }) => {
       type: "ADD_TRANSACTION",
       payload: transaction,
     });
-    insertTransactionToDB(transaction);
+    insertTransactionToDB(transaction, state.user.email);
     if (transaction.withdrawTransaction) {
       let withdrawTransaction = transaction.withdrawTransaction;
       if (Math.abs(withdrawTransaction.amount) > 0) {

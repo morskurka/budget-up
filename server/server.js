@@ -35,7 +35,7 @@ app.post("/api/transactions", async (req, res) => {
 });
 
 app.post("/api/transactions/add", async (req, res) => {
-  dbOperations.addTransactionToDB(req.body);
+  dbOperations.addTransactionToDB(req.body.transaction, req.body.email);
 });
 
 app.post("/api/transactions/update", async (req, res) => {

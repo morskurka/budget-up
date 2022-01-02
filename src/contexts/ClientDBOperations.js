@@ -13,7 +13,7 @@ async function getAllTransactionsByEmail(email) {
   return transactions;
 }
 
-async function insertTransactionToDB(transaction) {
+async function insertTransactionToDB(transaction, email) {
   await fetch("/api/transactions/add", {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, *cors, same-origin
@@ -21,7 +21,7 @@ async function insertTransactionToDB(transaction) {
       "Content-Type": "application/json",
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: JSON.stringify(transaction), // body data type must match "Content-Type" header
+    body: JSON.stringify({ transaction, email }), // body data type must match "Content-Type" header
   });
 }
 

@@ -52,6 +52,7 @@ const LoginPage = () => {
 
     if (user.length > 0) {
       addUser(user[0]);
+      sessionStorage.setItem("user", JSON.stringify(user[0]));
       navigate("/");
     } else {
       setLoginError("Wrong username-password combination");
@@ -73,6 +74,7 @@ const LoginPage = () => {
                   placeholder="Email"
                   ref={userEmail}
                   required
+                  id="signInEmail"
                 />
               </div>
               <div className="input-field">
@@ -82,10 +84,12 @@ const LoginPage = () => {
                   placeholder="Password"
                   ref={userPassword}
                   required
+                  id="signInPassword"
                 />
               </div>
               <button
                 className="btn btn-basic solid"
+                id="signInButton"
                 onClick={(e) => {
                   e.preventDefault();
                   login();
@@ -104,6 +108,7 @@ const LoginPage = () => {
                   placeholder="First name"
                   ref={regFirstName}
                   required
+                  id="signUpFirstName"
                 />
               </div>
               <div className="input-field">
@@ -113,6 +118,7 @@ const LoginPage = () => {
                   placeholder="Last name"
                   ref={regLastName}
                   required
+                  id="signUpLastName"
                 />
               </div>
               <div className="input-field">
@@ -122,6 +128,7 @@ const LoginPage = () => {
                   placeholder="Email"
                   ref={regEmail}
                   required
+                  id="signUpEmail"
                 />
               </div>
               <div className="input-field">
@@ -131,10 +138,12 @@ const LoginPage = () => {
                   placeholder="Password"
                   ref={regPassword}
                   required
+                  id="signUpPassword"
                 />
               </div>
               <button
                 className="btn btn-basic solid"
+                id="signUpButton"
                 onClick={(e) => {
                   e.preventDefault();
                   signUp();

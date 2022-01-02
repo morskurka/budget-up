@@ -30,10 +30,7 @@ async function getAllTransactionsByEmail(email) {
   return request.recordset;
 }
 
-async function addTransactionToDB(t) {
-  // TODO: IMPLEMENT BY LOGIC!!!
-  const email = "demouser@gmail.com";
-
+async function addTransactionToDB(t, email) {
   const query = `INSERT INTO Transactions 
                   (email, tDate, amount, category, subCategory)
                   VALUES 

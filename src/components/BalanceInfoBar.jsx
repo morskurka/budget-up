@@ -81,6 +81,7 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
               icon="emoji-smile-upside-down"
               amount={-saving}
               tooltipTitle="Sum of Transactions from 'Saving' Category"
+              id="savingInfoCard"
             />
           </div>
           {/*income this month card*/}

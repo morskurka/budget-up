@@ -1,7 +1,7 @@
 import { Tooltip } from "bootstrap";
 import { useEffect, useRef } from "react";
 
-const BalanceInfoCard = ({ title, icon, amount, tooltipTitle }) => {
+const BalanceInfoCard = ({ title, icon, amount, tooltipTitle, id }) => {
   const tooltipRef = useRef();
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const BalanceInfoCard = ({ title, icon, amount, tooltipTitle }) => {
             (amount >= 0 ? "text-success" : "text-danger") + " fw-bold pt-3"
           }
         >
-          <h1>{amount && amount + "$"}</h1>
+          <h1 id={id}>{amount && amount + "$"}</h1>
         </div>
       </div>
     </div>
