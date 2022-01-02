@@ -17,6 +17,7 @@ const LoginPage = () => {
   const regPassword = useRef("");
   const [regError, setRegError] = useState("");
 
+  // sign-up function
   async function signUp() {
     if (
       regFirstName.current.value === "" ||
@@ -51,6 +52,7 @@ const LoginPage = () => {
     }
   }
 
+  // login function
   async function login() {
     if (userEmail.current.value === "" || userPassword.current.value === "") {
       setLoginError("Email and password are required");
