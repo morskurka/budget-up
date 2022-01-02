@@ -33,6 +33,7 @@ const CashExpense = ({
             name="category"
             onChange={handleCategoryChange}
             required
+            id={`categorySelector${id}`}
           >
             <option value="">Select Category</option>
             {categoriesNames.map((category) => {
@@ -59,6 +60,7 @@ const CashExpense = ({
               )
             }
             required
+            id={`datePicker${id}`}
           />
         </div>
         <div className="col-md-3 col-lg-2 mb-2">
@@ -78,6 +80,7 @@ const CashExpense = ({
                 )
               }
               required
+              id={`amountInput${id}`}
             />
           </div>
         </div>

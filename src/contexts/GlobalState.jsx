@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useReducer } from "react";
+import React, { createContext, useEffect, useReducer, useState } from "react";
 import AppReducer from "./AppReducer";
 import {
   SimpleExponentialSmoothing,
@@ -86,16 +86,21 @@ export const GlobalProvider = ({ children }) => {
     "Cash withdrawals": "cash-stack",
     "Bank Commissions": "bank2",
   };
+  const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
+    setLoading(true);
     if (state.user.email) {
       const tTransactions = await getAllTransactionsByEmail(state.user.email);
       dispatch({ type: "LOAD_USER_TRANSACTIONS", payload: tTransactions });
     }
+    setLoading(false);
   }, [state.user]);
 
   useEffect(() => {
+    setLoading(true);
     initCategoryInfo();
+    setLoading(false);
   }, [state.transactions]);
 
   // Actions
@@ -274,7 +279,7 @@ export const GlobalProvider = ({ children }) => {
         user: state.user,
       }}
     >
-      {children}
+      {!loading && children}
     </GlobalContext.Provider>
   );
 };

@@ -12,9 +12,9 @@ const HomePage = ({ setCurrCategory }) => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (sessionStorage.getItem("user")) {
+    if (sessionStorage.getItem("user") && !user.email) {
       addUser(JSON.parse(sessionStorage.getItem("user")));
-    } else {
+    } else if (!user.email) {
       navigate("/login");
     }
   }, []);
