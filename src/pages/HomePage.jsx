@@ -20,6 +20,9 @@ const HomePage = ({ setCurrCategory }) => {
   }, []);
 
   useEffect(() => {
+    categoriesInfo.sort((a, b) =>
+      a.category > b.category ? 1 : a.category < b.category ? -1 : 0
+    );
     let filteredCategories = categoriesInfo.filter((cat) => {
       return (
         cat.category
@@ -51,52 +54,19 @@ const HomePage = ({ setCurrCategory }) => {
 
           <div className={"row"} id="categoriesCards">
             {categories.map((cat, index) => {
-              if (index % 3 === 0)
-                return (
-                  <div className="col-lg-4 col-md-6" key={index}>
-                    <CategoryCard
-                      title={cat.category}
-                      currBalance={
-                        cat.monthlySums.currYear[new Date().getMonth()]
-                      }
-                      totalExpected={parseInt(cat.expected)}
-                      icon={categoriesIcons[cat.category]}
-                      setCurrCategory={setCurrCategory}
-                    />
-                  </div>
-                );
-            })}
-            {categories.map((cat, index) => {
-              if (index % 3 === 1)
-                return (
-                  <div className="col-lg-4 col-md-6" key={index}>
-                    <CategoryCard
-                      title={cat.category}
-                      currBalance={
-                        cat.monthlySums.currYear[new Date().getMonth()]
-                      }
-                      totalExpected={parseInt(cat.expected)}
-                      icon={categoriesIcons[cat.category]}
-                      setCurrCategory={setCurrCategory}
-                    />
-                  </div>
-                );
-            })}
-            {categories.map((cat, index) => {
-              if (index % 3 === 2)
-                return (
-                  <div className="col-lg-4 col-md-6" key={index}>
-                    <CategoryCard
-                      title={cat.category}
-                      currBalance={
-                        cat.monthlySums.currYear[new Date().getMonth()]
-                      }
-                      totalExpected={parseInt(cat.expected)}
-                      icon={categoriesIcons[cat.category]}
-                      setCurrCategory={setCurrCategory}
-                    />
-                  </div>
-                );
+              return (
+                <div className="col-lg-4 col-md-6" key={index}>
+                  <CategoryCard
+                    title={cat.category}
+                    currBalance={
+                      cat.monthlySums.currYear[new Date().getMonth()]
+                    }
+                    totalExpected={parseInt(cat.expected)}
+                    icon={categoriesIcons[cat.category]}
+                    setCurrCategory={setCurrCategory}
+                  />
+                </div>
+              );
             })}
           </div>
         </div>
