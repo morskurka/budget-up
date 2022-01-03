@@ -7,17 +7,28 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [type, setType] = useState("");
   //user login details
-  const userEmail = useRef();
-  const userPassword = useRef();
+  const userEmail = useRef("");
+  const userPassword = useRef("");
   const [loginError, setLoginError] = useState("");
   //user registration details
-  const regFirstName = useRef();
-  const regLastName = useRef();
-  const regEmail = useRef();
-  const regPassword = useRef();
+  const regFirstName = useRef("");
+  const regLastName = useRef("");
+  const regEmail = useRef("");
+  const regPassword = useRef("");
   const [regError, setRegError] = useState("");
 
+  // sign-up function
   async function signUp() {
+    if (
+      regFirstName.current.value === "" ||
+      regLastName.current.value === "" ||
+      regEmail.current.value === "" ||
+      regPassword.current.value === ""
+    ) {
+      setRegError("Required fields");
+      return;
+    }
+
     const user = await fetch("/api/registration", {
       method: "POST",
       headers: {
@@ -30,15 +41,24 @@ const LoginPage = () => {
         password: regPassword.current.value,
       }),
     }).then((res) => res.json());
+    console.log(user);
 
-    if (user.rowsAffected[0] == 0) {
-      setRegError("User already exists with the same email address"); // *******************
+    if (user.rowsAffected === 0) {
+      console.log("1");
+      setRegError("User already exists with the same email address");
     } else {
+      console.log("2");
       setType("");
     }
   }
 
+  // login function
   async function login() {
+    if (userEmail.current.value === "" || userPassword.current.value === "") {
+      setLoginError("Email and password are required");
+      return;
+    }
+
     const user = await fetch("/api/login", {
       method: "POST",
       headers: {
@@ -64,6 +84,7 @@ const LoginPage = () => {
       <div className={"login-container" + type}>
         <div className="forms-container">
           <div className="signin-signup">
+            {/*Sign in form*/}
             <form action="#" className="form-section sign-in-form">
               <div className=""></div>
               <h2 className="title">Sign in</h2>
@@ -99,6 +120,7 @@ const LoginPage = () => {
               </button>
               <p className="social-text">{loginError}</p>
             </form>
+            {/*Sign up form*/}
             <form action="#" className="form-section sign-up-form">
               <h2 className="title">Sign up</h2>
               <div className="input-field">

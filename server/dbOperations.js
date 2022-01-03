@@ -70,15 +70,16 @@ async function addUserToDB(userReg) {
   (firstName, lastName, email, uPassword)
   VALUES 
   (@firstName, @lastName, @email, @uPassword)`;
-  let user = await connectionPool
+  await connectionPool
     .request()
     .input("firstName", sql.NVarChar, userReg.firstName)
     .input("lastName", sql.NVarChar, userReg.lastName)
     .input("email", sql.VarChar, userReg.email)
     .input("uPassword", sql.VarChar, userReg.password)
-    .query(query);
-
-  return user;
+    .query(query, (err, result) => {
+      if (err) return { err };
+      if (result.lenth > 0) return result;
+    });
 }
 
 async function getUserFromDB(userAuth) {
