@@ -12,6 +12,7 @@ import {
   insertTransactionToDB,
   updateTransactionOnDB,
 } from "./ClientDBOperations";
+import { end } from "@popperjs/core";
 // Initial state
 
 const initialState = {
@@ -165,13 +166,15 @@ export const GlobalProvider = ({ children }) => {
 
     categoriesName.forEach((cat) => {
       const currYear = getMonthlySums(cat, year);
-      const secondYear = getMonthlySums(cat, year - 1);
-      const thirdYear = getMonthlySums(cat, year - 2);
+      const firstYear = getMonthlySums(cat, year - 1);
+      const secondYear = getMonthlySums(cat, year - 2);
+      const thirdYear = getMonthlySums(cat, year - 3);
 
       let categoryInfo = {
         category: cat,
         monthlySums: {
           currYear: currYear,
+          firstYear: firstYear,
           secondYear: secondYear,
           thirdYear: thirdYear,
         },
@@ -207,11 +210,13 @@ export const GlobalProvider = ({ children }) => {
     let simpleMSE = 0;
     let doubleMSE = 0;
     let tripleMSE = 0;
+    let currMonth = new Date().getMonth();
 
     const data = [
-      ...categoryInfo.monthlySums.thirdYear,
-      ...categoryInfo.monthlySums.secondYear,
-      ...categoryInfo.monthlySums.currYear.slice(0, new Date().getMonth() + 1),
+      //...categoryInfo.monthlySums.thirdYear.slice(currMonth),
+      ...categoryInfo.monthlySums.secondYear.slice(currMonth),
+      ...categoryInfo.monthlySums.firstYear,
+      ...categoryInfo.monthlySums.currYear.slice(0, currMonth),
     ];
 
     let simpleExp = new SimpleExponentialSmoothing(data, 0.5);
@@ -255,13 +260,12 @@ export const GlobalProvider = ({ children }) => {
     categoryInfo
   ) {
     if (simpleMSE <= doubleMSE && simpleMSE <= tripleMSE)
-      categoryInfo.expected = simpleExp.forecast[simpleExp.forecast.length - 1];
+      categoryInfo.expected = simpleExp.forecast[simpleExp.data.length];
     else if (doubleMSE <= simpleMSE && doubleMSE <= tripleMSE) {
-      categoryInfo.expected = doubleExp.forecast[doubleExp.forecast.length - 1];
+      categoryInfo.expected = doubleExp.forecast[doubleExp.data.length];
     } else {
-      categoryInfo.expected = tripleExp.forecast[tripleExp.data.length - 1];
+      categoryInfo.expected = tripleExp.forecast[tripleExp.data.length];
     }
-
     return categoryInfo;
   }
 

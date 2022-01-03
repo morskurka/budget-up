@@ -6,9 +6,11 @@ import CategoryTable from "../components/CategoryTable";
 import { useNavigate } from "react-router-dom";
 
 const CategoryPage = ({ category }) => {
-  const { transactions, categoriesIcons } = useContext(GlobalContext);
+  const { transactions, categoriesIcons, categoriesInfo } =
+    useContext(GlobalContext);
   const navigate = useNavigate();
   const [year, setYear] = useState(new Date().getUTCFullYear());
+  let expectedData = new Array(12).fill(0);
   const labels = [
     "January",
     "February",
@@ -31,7 +33,7 @@ const CategoryPage = ({ category }) => {
       new Date(item.tDate).getUTCFullYear() === year
   );
 
-  const monthlySum = categoryData.reduce(function (acc, item) {
+  let monthlySum = categoryData.reduce(function (acc, item) {
     let month = new Date(item.tDate).getMonth();
     if (!acc[month]) {
       acc[month] = 0;
@@ -39,6 +41,13 @@ const CategoryPage = ({ category }) => {
     acc[month] += Math.abs(item.amount);
     return acc;
   }, []);
+
+  if (year === new Date().getUTCFullYear()) {
+    let currCategoryInfo = categoriesInfo.filter(
+      (item) => item.category === category
+    );
+    expectedData[new Date().getMonth()] = currCategoryInfo[0].expected;
+  }
 
   //display previous year
   function previousYear() {
@@ -66,6 +75,7 @@ const CategoryPage = ({ category }) => {
               year={year}
               graphLabels={labels}
               graphData={monthlySum}
+              expectedData={expectedData}
               previousYear={previousYear}
               nextYear={nextYear}
             />
