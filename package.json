@@ -19,7 +19,8 @@
   "scripts": {
     "start": "cd server && npm start",
     "build": "react-scripts build && cd server && npm install",
-    "test": "cypress open",
+    "test": "react-scripts test",
+    "testcypress": "cypress open",
     "eject": "react-scripts eject",
     "startlocal": "react-scripts start"
   },
