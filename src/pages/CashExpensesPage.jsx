@@ -6,9 +6,18 @@ import { GlobalContext } from "../contexts/GlobalState";
 
 const CashExpensesPage = () => {
   const navigate = useNavigate();
-  const { addTransaction, transactions } = useContext(GlobalContext);
+  const { addTransaction, transactions, user, addUser } =
+    useContext(GlobalContext);
   const [cashWithdrawalItem, setCashWithdrawalItem] = useState();
   const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("user") && !user.email) {
+      addUser(JSON.parse(sessionStorage.getItem("user")));
+    } else if (!user.email) {
+      navigate("/login");
+    }
+  }, []);
 
   // get all Cash withdrawals transactions
   const cashWithdrawals = transactions.filter((transaction) => {
@@ -169,6 +178,7 @@ const CashExpensesPage = () => {
                         Math.abs(cashWithdrawalItem.amount) - sum < 0
                       }
                       type="submit"
+                      id="saveBtn"
                     >
                       Save
                     </button>

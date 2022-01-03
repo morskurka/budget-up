@@ -22,6 +22,7 @@ const CashIncome = ({ setSource, setDate, setAmount }) => {
               className="form-control"
               max={new Date().toISOString().split("T")[0]}
               required
+              id="cashDate"
             />
             <label htmlFor="cashDate">Date</label>
           </div>
@@ -38,11 +39,6 @@ const CashIncome = ({ setSource, setDate, setAmount }) => {
             />
             <label htmlFor="cashAmount">Amount</label>
           </div>
-        </div>
-        <div className="col-md-1 col-lg-1 mb-2">
-          <button className="btn btn-lg btn-danger">
-            <i className="bi bi-eraser"></i>
-          </button>
         </div>
       </div>
     </>

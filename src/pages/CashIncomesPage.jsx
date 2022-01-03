@@ -1,16 +1,25 @@
 import BalanceInfoBar from "../components/BalanceInfoBar";
 import CashIncome from "../components/CashIncome";
 import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 
 const CashIncomesPage = () => {
   const navigate = useNavigate();
 
-  const [source, setSource] = useState();
-  const [date, setDate] = useState();
-  const [amount, setAmount] = useState();
-  const { addIncomeTransaction, transactions } = useContext(GlobalContext);
+  const [source, setSource] = useState("");
+  const [date, setDate] = useState("");
+  const [amount, setAmount] = useState(0);
+  const { addIncomeTransaction, transactions, addUser, user } =
+    useContext(GlobalContext);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("user") && !user.email) {
+      addUser(JSON.parse(sessionStorage.getItem("user")));
+    } else if (!user.email) {
+      navigate("/login");
+    }
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -49,6 +58,12 @@ const CashIncomesPage = () => {
                       className="btn btn-success btn-lg rounded-pill"
                       /* TODO: implement logic instead of CONST value */
                       type="submit"
+                      disabled={
+                        amount <= 0 ||
+                        date.trim() === "" ||
+                        source.trim() === ""
+                      }
+                      id="saveBtn"
                     >
                       Save
                     </button>

@@ -44,11 +44,12 @@ const HomePage = ({ setCurrCategory }) => {
                 className="form-control form-control-lg"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
+                id="searchInput"
               ></input>
             </div>
           </div>
 
-          <div className={"row"}>
+          <div className={"row"} id="categoriesCards">
             {categories.map((cat, index) => {
               if (index % 3 === 0)
                 return (

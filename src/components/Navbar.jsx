@@ -42,14 +42,22 @@ const Navbar = () => {
             </li>
             {user.email && (
               <li className="nav-item">
-                <Link className="nav-link my-3" to="/CashExpensesPage">
+                <Link
+                  className="nav-link my-3"
+                  to="/CashExpensesPage"
+                  id="classifyCashExpenses"
+                >
                   Classify Cash Expenses
                 </Link>
               </li>
             )}
             {user.email && (
               <li className="nav-item">
-                <Link className="nav-link my-3" to="/CashIncomesPage">
+                <Link
+                  className="nav-link my-3"
+                  to="/CashIncomesPage"
+                  id="addIncome"
+                >
                   Add Income Transaction
                 </Link>
               </li>
