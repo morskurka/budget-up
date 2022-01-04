@@ -4,6 +4,7 @@ import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoBar from "../components/BalanceInfoBar";
 import { useNavigate } from "react-router-dom";
 import UploadTransactions from "../components/UploadTransactions";
+import Header from "../components/Header";
 
 const HomePage = ({ setCurrCategory }) => {
   const { categoriesInfo, categoriesIcons, user, addUser } =
@@ -43,8 +44,12 @@ const HomePage = ({ setCurrCategory }) => {
       <BalanceInfoBar />
       {/* <Prediction /> */}
       <section className="categories">
+        <Header
+          title="Follow Your Expenses"
+          body="Click on a particular category to see monthly breakdown and more information"
+        />
         <div className="container" style={{ padding: "0 30px" }}>
-          <div className=" d-flex justify-content-center">
+          <div className="d-flex justify-content-center">
             <div className="mb-3 form-group has-feedback">
               <input
                 placeholder="Search Category..."

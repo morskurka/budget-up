@@ -233,8 +233,7 @@ input {
   transform: translateX(800px);
 }
 
-/* ANIMATION */
-
+/* animation */
 .login-container.sign-up-mode:before {
   transform: translate(100%, -50%);
   right: 52%;
@@ -363,12 +362,10 @@ input {
   .login-container.sign-up-mode .right-panel .content {
     transform: translateY(0px);
   }
-
   .right-panel .image,
   .right-panel .content {
     transform: translateY(300px);
   }
-
   .login-container.sign-up-mode .signin-signup {
     top: 5%;
     transform: translate(-50%, 0);
@@ -383,9 +380,11 @@ input {
   .image {
     display: none;
   }
+
   .panel .content {
     padding: 0.5rem 1rem;
   }
+
   .login-container {
     padding: 1.5rem;
   }
@@ -406,6 +405,7 @@ input {
   position: relative;
   z-index: 0;
   background-color: #f4f7fa;
+  padding-top: 5rem;
 }
 
 .categories .single-category {
@@ -422,13 +422,15 @@ input {
   border-top: 3px solid transparent;
   border-bottom: 3px solid transparent;
 }
+
 .categories .single-category:hover {
   -webkit-transform: scale(1.05);
   transform: scale(1.05);
-  border-top-color: #7e57ff;
-  border-bottom-color: #7e57ff;
+  border-top-color: #0069ff;
+  border-bottom-color: #0069ff;
   cursor: pointer;
 }
+
 .categories .single-category .category-icon {
   width: 72px;
   height: 72px;
@@ -439,6 +441,7 @@ input {
   margin-top: -60px;
   display: inline-block;
 }
+
 .categories .single-category .category-title {
   min-height: 95px;
 }
@@ -447,6 +450,7 @@ input {
 .balanceInfoBar-back {
   background-color: #f4f7fa;
 }
+
 .balanceInfoBar-bar {
   padding-bottom: 9.5rem;
   background-color: #2f80ed;
@@ -495,14 +499,17 @@ input {
   color: #828d9f;
   text-transform: uppercase;
 }
+
 .balanceInfoCard .balanceInfoCard-amount {
   font-size: 2rem;
   color: #252930;
 }
+
 .balanceInfoCard .balanceInfoCard-subTitle {
   font-size: 0.875rem;
   color: #828d9f;
 }
+
 .balanceInfoCard-icon {
   width: 62px;
   height: 62px;
@@ -511,4 +518,10 @@ input {
   border-radius: 16px;
   font-size: 35px;
   display: inline-block;
+}
+
+/**************/
+.section-title p {
+  font-size: 18px;
+  line-height: 28px;
 }
