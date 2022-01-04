@@ -1,5 +1,7 @@
 // Import the mssql package
 var sql = require("mssql");
+const fs = require("fs");
+const csv = require("csv-parser");
 require("dotenv").config({ path: __dirname + "/../.env" });
 
 // Create a configuration object for our Azure SQL connection parameters
@@ -89,6 +91,35 @@ async function getUserFromDB(userAuth) {
   return user.recordset;
 }
 
+async function bulkInsert(body) {
+  //let file = fs.readFileSync(body.file.path);
+  const results = [];
+  await fs
+    .createReadStream(body.file.path)
+    .pipe(csv())
+    .on("data", (data) => {
+      try {
+        let email = body.body.user;
+        let { tDate, amount, category, subCategory } = data;
+        // make sure date is valid and not in the future
+        if (!isNaN(amount) && new Date(tDate) < new Date()) {
+          results.push(
+            `('${email}', '${tDate}', ${amount}, '${category}', '${subCategory}')`
+          );
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    })
+    .on("end", () => {
+      console.log(results.join(",\n"));
+    });
+  await fs.unlink(body.file.path, (err) => {
+    if (err) throw err;
+    console.log(body.file.path + " was deleted");
+  });
+}
+
 module.exports = {
   getAllTransactionsByEmail,
   addUserToDB,
@@ -97,4 +128,5 @@ module.exports = {
   addTransactionToDB,
   deleteTransactionById,
   updateExistingTransaction,
+  bulkInsert,
 };

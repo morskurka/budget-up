@@ -259,15 +259,36 @@ export const GlobalProvider = ({ children }) => {
     tripleExp,
     categoryInfo
   ) {
-    if (simpleMSE <= doubleMSE && simpleMSE <= tripleMSE)
+    if (simpleMSE <= doubleMSE && simpleMSE <= tripleMSE) {
       categoryInfo.expected = simpleExp.forecast[simpleExp.data.length];
-    else if (doubleMSE <= simpleMSE && doubleMSE <= tripleMSE) {
+    } else if (doubleMSE <= simpleMSE && doubleMSE <= tripleMSE) {
       categoryInfo.expected = doubleExp.forecast[doubleExp.data.length];
     } else {
       categoryInfo.expected = tripleExp.forecast[tripleExp.data.length];
     }
     return categoryInfo;
   }
+
+  const loadingJSX = (
+    <div className="h-100 row align-items-center justify-content-center mt-5">
+      <div
+        style={{
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          "justify-content": "center",
+          "align-items": "center",
+        }}
+      >
+        <div class="spinner-grow text-primary me-2" role="status"></div>
+        <div class="spinner-grow text-secondary me-2" role="status"></div>
+        <div class="spinner-grow text-success me-2" role="status"></div>
+        <div class="spinner-grow text-danger me-2" role="status"></div>
+        <div class="spinner-grow text-warning me-2" role="status"></div>
+        <div class="spinner-grow text-info me-2" role="status"></div>
+      </div>
+    </div>
+  );
 
   return (
     <GlobalContext.Provider
@@ -283,7 +304,7 @@ export const GlobalProvider = ({ children }) => {
         user: state.user,
       }}
     >
-      {!loading && children}
+      {loading ? loadingJSX : children}
     </GlobalContext.Provider>
   );
 };

@@ -1,6 +1,7 @@
 // import express - server lib
 const express = require("express");
 const path = require("path");
+const multer = require("multer");
 
 // import cors to set CORS options to '*' easily
 const cors = require("cors");
@@ -38,7 +39,17 @@ app.post("/api/transactions/add", async (req, res) => {
   dbOperations.addTransactionToDB(req.body.transaction, req.body.email);
 });
 
-app.post("/api/transactions/update", async (req, res) => {
+const upload = multer({ dest: "uploads/" });
+app.post(
+  "/api/transactions/upload",
+  upload.single("file"),
+  async (req, res) => {
+    dbOperations.bulkInsert(req);
+    res.status(200).send({ success: "True" });
+  }
+);
+
+app.post("/api/transactions/update", (req, res) => {
   dbOperations.updateExistingTransaction(req.body);
 });
 
