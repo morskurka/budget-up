@@ -28,7 +28,7 @@ The server package serves the client and handles any communication with database
 #### _Client (Pages & Components)_
 
 The Pages package is mainly responsible for UI and UI logic.
-We seperated all shared components and logic into GlobalState, as describe above.
+We separated all shared components and logic into GlobalState, as describe above.
 
 ### Package Diagram
 
@@ -43,12 +43,10 @@ Eventually, we ended up with prediction time of less than 2 seconds per user, so
 
 ## System Workflow
 
-When a new user wants to use the system, he must to sign up and login.
-
-When a user use the system for the first time, ask him to upload his banking transactions file (.csv).
+When a user use the system for the first time, we ask him to upload his banking transactions file (.csv).
 All the transactions from the file are stored on the database for later use.
 
-When we have the transactions, we can prepare them for the prediction algorithm.
+After we have the transactions, we can prepare them for the prediction algorithm.
 First, we sort the transactions by category, and then sorting each category's transactions by months.
 
 The input for the prediction algorithm is an `Array`, including categories objects:
@@ -119,8 +117,38 @@ When we run the tests, it launch a Chromium browser instance, and interact with 
 
 For unit tests, we used the react integrated tests module that pre-installed when using `create-react-app` module.
 
-Our unit tests are focus on the correct behavior of the `Exponential-Smoothing` module, in cases of invalid input that may happened when handling user input.
+Our unit tests are focused on the correct behavior of the `Exponential-Smoothing` module, in cases of invalid input that may happened when handling user input.
 
 ### _Manual Tests_
 
-<!-- such as connecting multiple users together -->
+Manual tests were conducted in order to test the overall behavior and user experience in the system. Those tests include latency time in regular use case, appearance in different screen sizes and so on. We also test manually for cases such as connecting multiple users together and connecting the same user from multiple devices.
+
+# Results and Conclusions
+
+The final result of this project is a real system that can used as a great staring point for more robust service that uses real banking transaction to predict expenses and families to better handle their financial situation.
+
+During the work on the project, the Open Banking Law was approved in the Knesset after more than 3 years of discussions and delays. The law was enacted with the aim of enabling services like ours, and we really hope to some new and smart services in this topic in the near future.
+
+This project was our first time to develop a complete system, end-to-end, with so many technologies and topics that we don't know.
+
+We both found it very interesting, challenging and satisfying.
+
+### _Decision Considerations_
+
+We are very pleased with the end results, although we were happy to implement a number of additional features that we did not deliver in the end.
+
+Every feature that eventually implemented, was considered under strict rules:
+
+1. **Deliver on time:** All features must be implemented by the submission date.
+
+2. **Phase 1 Commitments:** We first implement features that discussed in phase 1, and only later all the rest.
+
+3. **Quality Delivery:** We don't do shortcuts. If we decided to implement the feature, it should be done as best as we can.
+
+### _Supporting Tools_
+
+Beside the developing tools such as git and VSCode, we used several more tools to manage and organize our work:
+
+- **zoom:** Most of the work on this project has been done remotely, so we used zoom for on daily basis for planing and synchronization calls.
+- **Google Calendar:** Every weekend week we make a planned the expected work to be done during the next week.
+- **Google Keep:** We make a shared list on Google Keep so each one of could add, remove or update tasks.
