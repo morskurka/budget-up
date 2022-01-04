@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoCard from "../components/BalanceInfoCard";
-const fs = require("fs");
-const FormData = require("form-data");
 
 const BalanceInfoBar = ({ backgroundColor, barColor }) => {
   const { transactions, user } = useContext(GlobalContext);
@@ -42,36 +40,6 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
     .filter((item) => item.category.toLowerCase() === "saving")
     .reduce((acc, item) => (acc += item.amount), 0);
 
-  const [selectedFile, setSelectedFile] = useState();
-  const [isSelected, setIsSelected] = useState(false);
-
-  const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setIsSelected(true);
-  };
-
-  const handleSubmission = () => {
-    const formData = new FormData();
-
-    formData.append("name", "transactions");
-    formData.append("file", selectedFile);
-    formData.append("user", user.email);
-
-    console.log(formData);
-    fetch("/api/transactions/upload", {
-      method: "POST",
-      mode: "cors", // no-cors, *cors, same-origin
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Success:", result);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
   return (
     <div className={backgroundColor}>
       <div
@@ -94,12 +62,6 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
           <div className="col-lg-12 col-md-12 col-12">
             <div className="d-flex justify-content-between align-items-center mb-2">
               <h3 className="text-white"> Expenses</h3>
-              <div>
-                <input type="file" name="file" onChange={changeHandler} />
-                <div>
-                  <button onClick={handleSubmission}>Submit</button>
-                </div>
-              </div>
             </div>
           </div>
           {/*balance card*/}

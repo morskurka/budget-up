@@ -89,13 +89,17 @@ export const GlobalProvider = ({ children }) => {
   };
   const [loading, setLoading] = useState(true);
 
-  useEffect(async () => {
+  async function loadUserTransactions() {
     setLoading(true);
     if (state.user.email) {
       const tTransactions = await getAllTransactionsByEmail(state.user.email);
       dispatch({ type: "LOAD_USER_TRANSACTIONS", payload: tTransactions });
     }
     setLoading(false);
+  }
+
+  useEffect(async () => {
+    loadUserTransactions();
   }, [state.user]);
 
   useEffect(() => {
@@ -302,6 +306,7 @@ export const GlobalProvider = ({ children }) => {
         addCategoryInfo,
         addUser,
         user: state.user,
+        loadUserTransactions,
       }}
     >
       {loading ? loadingJSX : children}

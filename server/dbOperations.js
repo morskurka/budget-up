@@ -94,30 +94,55 @@ async function getUserFromDB(userAuth) {
 async function bulkInsert(body) {
   //let file = fs.readFileSync(body.file.path);
   const results = [];
-  await fs
-    .createReadStream(body.file.path)
+  fs.createReadStream(body.file.path)
     .pipe(csv())
     .on("data", (data) => {
       try {
         let email = body.body.user;
         let { tDate, amount, category, subCategory } = data;
+        //console.log(data);
         // make sure date is valid and not in the future
-        if (!isNaN(amount) && new Date(tDate) < new Date()) {
-          results.push(
-            `('${email}', '${tDate}', ${amount}, '${category}', '${subCategory}')`
-          );
+        if (!isNaN(amount) /* && new Date(tDate) < new Date()*/) {
+          results.push([
+            email,
+            new Date(tDate),
+            parseFloat(amount),
+            category,
+            subCategory,
+          ]);
+        } else {
+          console.log(data);
         }
       } catch (error) {
         console.log(error.message);
       }
     })
-    .on("end", () => {
-      console.log(results.join(",\n"));
+    .on("end", async () => {
+      try {
+        const table = new sql.Table("Transactions");
+        table.create = false; // presuming table already exists
+        table.columns.add("email", sql.VarChar, { nullable: false });
+        table.columns.add("tDate", sql.Date, { nullable: false });
+        table.columns.add("amount", sql.Float, { nullable: false });
+        table.columns.add("category", sql.NVarChar, { nullable: false });
+        table.columns.add("subCategory", sql.NVarChar, { nullable: true });
+        // Add rows
+        results.forEach((row) =>
+          table.rows.add(row[0], row[1], row[2], row[3], row[4])
+        );
+        await connectionPool.request().bulk(table, function (err, result) {
+          if (err) throw err;
+          console.log("Number of records inserted: " + result.rowsAffected);
+        });
+
+        fs.unlink(body.file.path, (err) => {
+          if (err) throw err;
+          console.log(body.file.path + " was deleted");
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
     });
-  await fs.unlink(body.file.path, (err) => {
-    if (err) throw err;
-    console.log(body.file.path + " was deleted");
-  });
 }
 
 module.exports = {

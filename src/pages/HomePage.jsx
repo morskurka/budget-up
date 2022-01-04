@@ -3,6 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoBar from "../components/BalanceInfoBar";
 import { useNavigate } from "react-router-dom";
+import UploadTransactions from "../components/UploadTransactions";
 
 const HomePage = ({ setCurrCategory }) => {
   const { categoriesInfo, categoriesIcons, user, addUser } =
@@ -32,6 +33,10 @@ const HomePage = ({ setCurrCategory }) => {
     });
     setCategories(filteredCategories);
   }, [searchInput, categoriesInfo]);
+
+  if (categoriesInfo.length === 0) {
+    return <UploadTransactions />;
+  }
 
   return (
     <>

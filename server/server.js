@@ -44,8 +44,8 @@ app.post(
   "/api/transactions/upload",
   upload.single("file"),
   async (req, res) => {
-    dbOperations.bulkInsert(req);
-    res.status(200).send({ success: "True" });
+    await dbOperations.bulkInsert(req);
+    res.status(200).send();
   }
 );
 
