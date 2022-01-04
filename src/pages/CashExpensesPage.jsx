@@ -20,13 +20,9 @@ const CashExpensesPage = () => {
   }, []);
 
   // get all Cash withdrawals transactions
-  const cashWithdrawals = transactions.filter((transaction) => {
-    return (
-      transaction.category === "Cash withdrawals" &&
-      new Date(transaction.tDate).getFullYear() === new Date().getFullYear() &&
-      new Date(transaction.tDate).getMonth() == new Date().getMonth()
-    );
-  });
+  const cashWithdrawals = transactions
+    .filter((transaction) => transaction.category === "Cash withdrawals")
+    .sort((a, b) => (a.tDate < b.tDate ? 1 : a.tDate > b.tDate ? -1 : 0));
 
   // update cashWithdrawals
   useEffect(() => {
@@ -35,15 +31,15 @@ const CashExpensesPage = () => {
 
   //display previous withdrawal
   function previousCashWithdrawal() {
-    if (index > 0) {
-      setIndex(index - 1);
+    if (index < cashWithdrawals.length + 1) {
+      setIndex(index + 1);
     }
   }
 
   //display next withdrawal
   function nextCashWithdrawal() {
-    if (index < cashWithdrawals.length - 1) {
-      setIndex(index + 1);
+    if (index > 0) {
+      setIndex(index - 1);
     }
   }
 
@@ -94,7 +90,8 @@ const CashExpensesPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // TODO: add transactions to database
+    if (cashWithdrawalItem && Math.abs(cashWithdrawalItem.amount) - sum < 0)
+      return;
     let expenses = JSON.parse(JSON.stringify(ExpensesList));
     expenses.forEach((expense) => {
       delete expense.key;

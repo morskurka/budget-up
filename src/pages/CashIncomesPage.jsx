@@ -24,6 +24,7 @@ const CashIncomesPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     // TODO: add transactions to database
+    if (amount <= 0 || date.trim() === "" || source.trim() === "") return;
     await addIncomeTransaction({
       id: transactions[transactions.length - 1].id + 1,
       category: "Income",

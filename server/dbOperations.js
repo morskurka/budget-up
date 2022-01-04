@@ -139,8 +139,10 @@ async function bulkInsert(body) {
           if (err) throw err;
           console.log(body.file.path + " was deleted");
         });
+        return 200;
       } catch (error) {
         console.log(error.message);
+        return 500;
       }
     });
 }

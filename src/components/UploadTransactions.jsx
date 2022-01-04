@@ -28,9 +28,7 @@ const UploadTransactions = () => {
     formData.append("file", selectedFile);
     formData.append("user", user.email);
     let uploadStatus = await uploadTransactionsFile(formData);
-    if (uploadStatus === 200) {
-      await loadUserTransactions();
-    }
+    await loadUserTransactions();
   };
 
   return (
