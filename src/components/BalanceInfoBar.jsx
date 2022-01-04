@@ -54,7 +54,7 @@ const BalanceInfoBar = () => {
 
             <div className="row justify-content-center">
               {/*balance card*/}
-              <div className="col-xl-3 col-lg-6 col-md-6 col-12">
+              <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-1">
                 <BalanceInfoCard
                   title="My Balance"
                   subTitle=""
@@ -64,7 +64,7 @@ const BalanceInfoBar = () => {
                 />
               </div>
               {/*expected balance card*/}
-              <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-6">
+              <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-1">
                 <BalanceInfoCard
                   title="Saving Balance"
                   subTitle=""
@@ -75,7 +75,7 @@ const BalanceInfoBar = () => {
                 />
               </div>
               {/*income this month card*/}
-              <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-6">
+              <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-1">
                 <BalanceInfoCard
                   title="Income"
                   subTitle="This Month"
@@ -85,7 +85,7 @@ const BalanceInfoBar = () => {
                 />
               </div>
               {/*outcome this month card*/}
-              <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-6">
+              <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-1">
                 <BalanceInfoCard
                   title="Outcome"
                   subTitle="This Month"
