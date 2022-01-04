@@ -1,7 +1,14 @@
 import { Tooltip } from "bootstrap";
 import { useEffect, useRef } from "react";
 
-const BalanceInfoCard = ({ title, icon, amount, tooltipTitle, id }) => {
+const BalanceInfoCard = ({
+  title,
+  subTitle,
+  icon,
+  amount,
+  tooltipTitle,
+  id,
+}) => {
   const tooltipRef = useRef();
 
   useEffect(() => {
@@ -13,30 +20,33 @@ const BalanceInfoCard = ({ title, icon, amount, tooltipTitle, id }) => {
   }, []);
 
   return (
-    <div
-      className="card border-0"
-      style={{
-        borderRadius: "0.5rem",
-        boxShadow: "0 2px 4px rgb(0 0 20 / 8%), 0 1px 2px rgb(0 0 20 / 8%)",
-      }}
-    >
-      <div className="card-body">
-        <div className="d-flex justify-content-between align-items-center mb-3">
-          <div>
-            <h4 className="pt-3" data-bs-toggle="tooltip" ref={tooltipRef}>
+    <div className="balanceInfoCard shadow-sm h-100">
+      <div className="balanceInfoCard-body p-3 p-lg-4">
+        <div className="row">
+          <div className="col-8">
+            <h4
+              className="balanceInfoCard-title mb-1 fw-bold"
+              data-bs-toggle="tooltip"
+              ref={tooltipRef}
+            >
               {title}
             </h4>
+            <div
+              className={
+                (amount >= 0 ? "text-success" : "text-danger") +
+                " balanceInfoCard-amount fw-bold"
+              }
+              id={id}
+            >
+              {amount && amount + "$"}
+            </div>
+            <div className="balanceInfoCard-subTitle">{subTitle}</div>
           </div>
-          <div className="text-primary">
-            <i className={"bi bi-" + icon + " fs-4"}></i>
+          <div className="col-4 text-end">
+            <div className="balanceInfoCard-icon d-flex justify-content-center align-items-center">
+              <i className={"bi bi-" + icon}></i>
+            </div>
           </div>
-        </div>
-        <div
-          className={
-            (amount >= 0 ? "text-success" : "text-danger") + " fw-bold pt-3"
-          }
-        >
-          <h1 id={id}>{amount && amount + "$"}</h1>
         </div>
       </div>
     </div>

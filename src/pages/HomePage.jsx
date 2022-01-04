@@ -40,7 +40,7 @@ const HomePage = ({ setCurrCategory }) => {
 
   return (
     <>
-      <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />
+      <BalanceInfoBar />
       {/* <Prediction /> */}
       <section className="categories">
         <div className="container" style={{ padding: "0 30px" }}>
@@ -49,7 +49,7 @@ const HomePage = ({ setCurrCategory }) => {
               <input
                 placeholder="Search Category..."
                 type="text"
-                className="form-control form-control-lg"
+                className="form-control form-control-lg mt-4"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 id="searchInput"

@@ -65,7 +65,7 @@ const CategoryPage = ({ category }) => {
 
   return (
     <div className="bg-light">
-      <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />
+      <BalanceInfoBar />
       <div className="row my-4">
         <div className="col ms-5 ps-5">
           <div className="m-5">
