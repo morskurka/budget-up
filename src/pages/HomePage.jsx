@@ -37,7 +37,7 @@ const HomePage = ({ setCurrCategory }) => {
     <>
       <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />
       {/* <Prediction /> */}
-      <section className="bg-white">
+      <section className="categories">
         <div className="container" style={{ padding: "0 30px" }}>
           <div className=" d-flex justify-content-center">
             <div className="mb-3 form-group has-feedback">
@@ -55,7 +55,7 @@ const HomePage = ({ setCurrCategory }) => {
           <div className={"row"} id="categoriesCards">
             {categories.map((cat, index) => {
               return (
-                <div className="col-lg-4 col-md-6" key={index}>
+                <div className="col-lg-4 col-md-6 wow fadeInUp" key={index}>
                   <CategoryCard
                     title={cat.category}
                     currBalance={

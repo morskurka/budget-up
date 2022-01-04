@@ -400,3 +400,46 @@ input {
     left: 50%;
   }
 }
+
+/*Category card*/
+
+.categories {
+  position: relative;
+  z-index: 0;
+  background-color: #f4f7fa;
+}
+
+.categories .single-category {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 30px rgba(81, 94, 125, 0.082);
+  box-shadow: 0 0 30px rgba(81, 94, 125, 0.082);
+  padding: 40px 50px;
+  text-align: start;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+}
+.categories .single-category:hover {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+  border-top-color: #7e57ff;
+  border-bottom-color: #7e57ff;
+  cursor: pointer;
+}
+.categories .single-category .category-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: #2f80ed;
+  font-size: 35px;
+  margin-bottom: 20px;
+  margin-top: -60px;
+  display: inline-block;
+}
+.categories .single-category .category-title {
+  min-height: 95px;
+}
