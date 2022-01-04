@@ -280,16 +280,16 @@ export const GlobalProvider = ({ children }) => {
           height: "100%",
           width: "100%",
           display: "flex",
-          "justify-content": "center",
-          "align-items": "center",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <div class="spinner-grow text-primary me-2" role="status"></div>
-        <div class="spinner-grow text-secondary me-2" role="status"></div>
-        <div class="spinner-grow text-success me-2" role="status"></div>
-        <div class="spinner-grow text-danger me-2" role="status"></div>
-        <div class="spinner-grow text-warning me-2" role="status"></div>
-        <div class="spinner-grow text-info me-2" role="status"></div>
+        <div className="spinner-grow text-primary me-2" role="status"></div>
+        <div className="spinner-grow text-secondary me-2" role="status"></div>
+        <div className="spinner-grow text-success me-2" role="status"></div>
+        <div className="spinner-grow text-danger me-2" role="status"></div>
+        <div className="spinner-grow text-warning me-2" role="status"></div>
+        <div className="spinner-grow text-info me-2" role="status"></div>
       </div>
     </div>
   );
