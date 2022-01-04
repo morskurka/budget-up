@@ -202,23 +202,6 @@ const Footer = () => {
             </Link>
           </p>
         </div>
-        <Link
-          className="d-flex justify-content-center align-items-center text-align-center position-absolute"
-          style={{
-            width: "45px",
-            height: "45px",
-            background: "#2F80ED",
-            fontSize: "20px",
-            color: "#ffffff",
-            borderRadius: "5px",
-            cursor: "pointer",
-            bottom: "30px",
-            right: "30px",
-          }}
-          to="#"
-        >
-          <i className="bi bi-caret-up"></i>
-        </Link>
       </div>
     </footer>
   );

@@ -2,7 +2,7 @@ const Header = ({ title, body, btn }) => {
   return (
     <div className="row justify-content-center">
       <div className="col-xxl-5 col-xl-6 col-lg-7">
-        <div className="section-title text-center mb-60">
+        <div className="header-title text-center mb-60">
           <h1>{title}</h1>
           <p>{body}</p>
         </div>
