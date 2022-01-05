@@ -93,12 +93,12 @@ const CashExpensesPage = () => {
     if (cashWithdrawalItem && Math.abs(cashWithdrawalItem.amount) - sum < 0)
       return;
     let expenses = JSON.parse(JSON.stringify(ExpensesList));
-    expenses.forEach((expense) => {
+    expenses.forEach(async (expense) => {
       delete expense.key;
       expense.amount = -Math.abs(expense.amount);
       expense.withdrawTransaction = cashWithdrawals[index];
       expense.withdrawTransaction.amount -= expense.amount;
-      addTransaction(expense);
+      await addTransaction(expense);
     });
     navigate("/");
   };

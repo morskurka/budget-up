@@ -37,7 +37,7 @@ async function addTransactionToDB(t, email) {
                   (email, tDate, amount, category, subCategory)
                   VALUES 
                   (@email, @tDate, @amount, @category, @subCategory)`;
-  await connectionPool
+  const result = await connectionPool
     .request()
     .input("email", sql.VarChar, email)
     .input("tDate", sql.Date, new Date(t.tDate))
@@ -46,12 +46,14 @@ async function addTransactionToDB(t, email) {
     .input("subCategory", sql.NVarChar, t.subCategory)
     .query(query);
   console.log(`Executed: ${query}`);
+  return result.rowsAffected;
 }
 
 async function deleteTransactionById(transaction) {
   const query = `delete FROM Transactions WHERE id = ${transaction.id}`;
-  let request = await connectionPool.request().query(query);
+  const result = await connectionPool.request().query(query);
   console.log(`Executed: ${query}`);
+  return result.rowsAffected;
 }
 
 async function updateExistingTransaction(transaction) {
@@ -59,12 +61,13 @@ async function updateExistingTransaction(transaction) {
                   amount = @amount
                   WHERE
                   id = @id`;
-  let request = await connectionPool.request();
+  const request = await connectionPool.request();
   request.input("id", sql.Int, transaction.id);
   request.input("amount", sql.Float, transaction.amount);
 
   await request.query(query);
   console.log(`Executed: ${query}`);
+  return result.rowsAffected;
 }
 
 async function addUserToDB(userReg) {
@@ -72,15 +75,15 @@ async function addUserToDB(userReg) {
   (firstName, lastName, email, uPassword)
   VALUES 
   (@firstName, @lastName, @email, @uPassword)`;
-  await connectionPool
+  const result = await connectionPool
     .request()
     .input("firstName", sql.NVarChar, userReg.firstName)
     .input("lastName", sql.NVarChar, userReg.lastName)
     .input("email", sql.VarChar, userReg.email)
     .input("uPassword", sql.VarChar, userReg.password)
     .query(query, (err, result) => {
-      if (err) return { err };
-      if (result.lenth > 0) return result;
+      if (err) throw err;
+      return result.rowsAffected;
     });
 }
 

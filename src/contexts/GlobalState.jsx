@@ -18,34 +18,6 @@ import { end } from "@popperjs/core";
 const initialState = {
   transactions: [],
   user: {},
-  events: [
-    {
-      id: 1,
-      title: "Birth Day",
-      tDate: "2021-12-11",
-      amount: 3000,
-    },
-  ],
-  predictionParams: [
-    {
-      category: "Supermarket",
-      simple_alpha: 0.4,
-      double_alpha: 0.2,
-      double_beta: 0.6,
-      triple_alpha: 0.1,
-      triple_beta: 0.5,
-      triple_gamma: 0.7,
-    },
-    {
-      category: "Water",
-      simple_alpha: 0.2,
-      double_alpha: 0.4,
-      double_beta: 0.6,
-      triple_alpha: 0.1,
-      triple_beta: 0.8,
-      triple_gamma: 0.3,
-    },
-  ],
   categoriesInfo: [],
 };
 
@@ -92,8 +64,14 @@ export const GlobalProvider = ({ children }) => {
   async function loadUserTransactions() {
     setLoading(true);
     if (state.user.email) {
-      const tTransactions = await getAllTransactionsByEmail(state.user.email);
-      dispatch({ type: "LOAD_USER_TRANSACTIONS", payload: tTransactions });
+      const { status, message } = await getAllTransactionsByEmail(
+        state.user.email
+      );
+      if (status === 200) {
+        dispatch({ type: "LOAD_USER_TRANSACTIONS", payload: message });
+      } else {
+        console.log(`Error: ${message}`);
+      }
     }
     setLoading(false);
   }
@@ -121,15 +99,22 @@ export const GlobalProvider = ({ children }) => {
       type: "ADD_TRANSACTION",
       payload: transaction,
     });
-    insertTransactionToDB(transaction, state.user.email);
-    if (transaction.withdrawTransaction) {
-      let withdrawTransaction = transaction.withdrawTransaction;
-      if (Math.abs(withdrawTransaction.amount) > 0) {
-        updateTransactionOnDB(withdrawTransaction);
-      } else {
-        deleteTransactionFromDB(withdrawTransaction);
+    const { status, message } = await insertTransactionToDB(
+      transaction,
+      state.user.email
+    );
+    if (status === 200) {
+      if (transaction.withdrawTransaction) {
+        let withdrawTransaction = transaction.withdrawTransaction;
+        // TODO: more elegant handling
+        if (Math.abs(withdrawTransaction.amount) > 0) {
+          return await updateTransactionOnDB(withdrawTransaction);
+        } else {
+          return await deleteTransactionFromDB(withdrawTransaction);
+        }
       }
     }
+    return { status, message };
   }
 
   async function addIncomeTransaction(transaction) {
@@ -137,7 +122,7 @@ export const GlobalProvider = ({ children }) => {
       type: "ADD_INCOME_TRANSACTION",
       payload: transaction,
     });
-    insertTransactionToDB(transaction);
+    return await insertTransactionToDB(transaction);
   }
 
   function getCategoriesNames() {
@@ -307,6 +292,7 @@ export const GlobalProvider = ({ children }) => {
         addUser,
         user: state.user,
         loadUserTransactions,
+        setLoading,
       }}
     >
       {loading ? loadingJSX : children}

@@ -1,9 +1,10 @@
 import { GlobalContext } from "../contexts/GlobalState";
 import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUserFromDB } from "../contexts/ClientDBOperations";
 
 const LoginPage = () => {
-  const { addUser } = useContext(GlobalContext);
+  const { addUser, setLoading } = useContext(GlobalContext);
   const navigate = useNavigate();
   const [type, setType] = useState("");
   //user login details
@@ -58,25 +59,24 @@ const LoginPage = () => {
       setLoginError("Email and password are required");
       return;
     }
-
-    const user = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: userEmail.current.value,
-        password: userPassword.current.value,
-      }),
-    }).then((res) => res.json());
-
-    if (user.length > 0) {
-      addUser(user[0]);
-      sessionStorage.setItem("user", JSON.stringify(user[0]));
-      navigate("/");
+    setLoading(true);
+    const { status, message } = await getUserFromDB(
+      userEmail.current.value,
+      userPassword.current.value
+    );
+    if (status === 200) {
+      let user = message;
+      if (user.length > 0) {
+        addUser(user[0]);
+        sessionStorage.setItem("user", JSON.stringify(user[0]));
+        navigate("/");
+      } else {
+        setLoginError("Wrong username-password combination");
+      }
     } else {
-      setLoginError("Wrong username-password combination");
+      setLoginError(message);
     }
+    setLoading(false);
   }
 
   return (

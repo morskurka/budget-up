@@ -24,19 +24,45 @@ app.options("*", cors());
 
 //DB Connection
 app.post("/api/registration", async (req, res) => {
-  res.json(await dbOperations.addUserToDB(req.body));
+  try {
+    const rowsAffected = await dbOperations.addUserToDB(req.body);
+    res.status(200).json({ status: 200, message: rowsAffected });
+  } catch (error) {
+    res.status(503).json({ status: 503, message: error.message });
+  }
 });
 
 app.post("/api/login", async (req, res) => {
-  res.json(await dbOperations.getUserFromDB(req.body));
+  try {
+    const user = await dbOperations.getUserFromDB(req.body);
+    res.status(200).json({ status: 200, message: user });
+  } catch (error) {
+    res.status(503).json({ status: 503, message: error.message });
+  }
+  res.json();
 });
 
 app.post("/api/transactions", async (req, res) => {
-  res.json(await dbOperations.getAllTransactionsByEmail(req.body.email));
+  try {
+    const transactions = await dbOperations.getAllTransactionsByEmail(
+      req.body.email
+    );
+    res.status(200).json({ status: 200, message: transactions });
+  } catch (error) {
+    res.status(503).json({ status: 503, message: error.message });
+  }
 });
 
 app.post("/api/transactions/add", async (req, res) => {
-  dbOperations.addTransactionToDB(req.body.transaction, req.body.email);
+  try {
+    const rowsAffected = dbOperations.addTransactionToDB(
+      req.body.transaction,
+      req.body.email
+    );
+    res.status(200).json({ status: 200, message: rowsAffected });
+  } catch (error) {
+    res.status(503).json({ status: 503, message: error.message });
+  }
 });
 
 const upload = multer({ dest: "uploads/" });
@@ -44,25 +70,47 @@ app.post(
   "/api/transactions/upload",
   upload.single("file"),
   async (req, res) => {
-    await dbOperations.bulkInsert(req);
-    res.status(200).send();
+    try {
+      const rowsAffected = await dbOperations.bulkInsert(req);
+      res.status(200).json({ status: 200, message: rowsAffected });
+    } catch (error) {
+      res.status(503).json({ status: 503, message: error.message });
+    }
   }
 );
 
-app.post("/api/transactions/update", (req, res) => {
-  dbOperations.updateExistingTransaction(req.body);
+app.post("/api/transactions/update", async (req, res) => {
+  try {
+    const rowsAffected = await dbOperations.updateExistingTransaction(req.body);
+    res.status(200).json({ status: 200, message: rowsAffected });
+  } catch (error) {
+    res.status(503).json({ status: 503, message: error.message });
+  }
 });
 
 app.post("/api/transactions/delete", async (req, res) => {
-  dbOperations.deleteTransactionById(req.body);
+  try {
+    const rowsAffected = await dbOperations.deleteTransactionById(req.body);
+    res.status(200).json({ status: 200, message: rowsAffected });
+  } catch (error) {
+    res.status(503).json({ status: 503, message: error.message });
+  }
 });
 
 // All other GET requests not handled before will return our React app
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../build", "index.html"));
+  try {
+    res.status(200).sendFile(path.resolve(__dirname, "../build", "index.html"));
+  } catch (error) {
+    res.status(503).json({ status: 503, message: error.message });
+  }
 });
 
-app.listen(port, () => {
-  dbOperations.connectToDB();
+app.listen(port, async () => {
   console.log(`Example app listening at http://localhost:${port}`);
+  try {
+    await dbOperations.connectToDB();
+  } catch (error) {
+    console.log(`Error: Can not connect to database`);
+  }
 });
