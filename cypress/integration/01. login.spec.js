@@ -15,8 +15,6 @@ describe("Login Tests", () => {
     cy.get("#signInPassword").type("test123");
     cy.get("#signInButton").click();
     cy.wait(3000);
-    cy.get(
-      ":nth-child(2) > .card > .card-body > .d-flex > :nth-child(1) > .pt-3"
-    ).should("exist");
+    cy.get("#balanceInfoBar").should("exist");
   });
 });

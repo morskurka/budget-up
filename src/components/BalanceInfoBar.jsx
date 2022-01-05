@@ -41,7 +41,7 @@ const BalanceInfoBar = () => {
     .reduce((acc, item) => (acc += item.amount), 0);
 
   return (
-    <div className="balanceInfoBar-back">
+    <div className="balanceInfoBar-back" id="balanceInfoBar">
       <div className="balanceInfoBar-bar"></div>
       <section className="balanceInfoBar-section">
         <div className="container">
