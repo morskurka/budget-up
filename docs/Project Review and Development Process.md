@@ -95,9 +95,9 @@ Each one of us was responsible to several features, and every time we finished a
 
 Most of the feature were end-to-end features, including development on client, server and DB. As a result, both of us has ability to get experienced in all used technologies.
 
-## Challenges - TBD
+## Challenges
 
-TDB
+### Cyber and Security
 
 ### TDB
 

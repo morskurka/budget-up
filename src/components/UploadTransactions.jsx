@@ -5,7 +5,7 @@ import { uploadTransactionsFile } from "../contexts/ClientDBOperations";
 const FormData = require("form-data");
 
 const UploadTransactions = () => {
-  const { user, loadUserTransactions, setLoading } = useContext(GlobalContext);
+  const { user, loadUserTransactions } = useContext(GlobalContext);
 
   const [selectedFile, setSelectedFile] = useState();
   const [isSelected, setIsSelected] = useState(false);
@@ -15,8 +15,10 @@ const UploadTransactions = () => {
   // upload transactions file
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
-    if (event.target.files[0]) setIsSelected(true);
-    else setIsSelected(false);
+    if (event.target.files[0]) {
+      setIsSelected(true);
+      setUploadError("");
+    } else setIsSelected(false);
   };
 
   const handleSubmission = async () => {
@@ -32,7 +34,7 @@ const UploadTransactions = () => {
       await loadUserTransactions();
     } else {
       setUploadError(
-        "We can't upload your transactions file, please check it's format and try again"
+        `We can't upload your transactions file, please check it's format and try again.`
       );
     }
     setUploading("");
@@ -59,7 +61,7 @@ const UploadTransactions = () => {
               <button
                 className="btn btn-success"
                 onClick={handleSubmission}
-                disabled={!isSelected}
+                disabled={!isSelected || uploading !== ""}
               >
                 Upload
               </button>
