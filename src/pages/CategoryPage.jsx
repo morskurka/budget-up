@@ -66,24 +66,29 @@ const CategoryPage = ({ category }) => {
   return (
     <div className="bg-light">
       <BalanceInfoBar />
-      <div className="row my-4">
-        <div className="col ms-5 ps-5">
-          <div className="m-5">
-            <CategoryGraph
-              icon={categoriesIcons[category]}
-              category={category}
-              year={year}
-              graphLabels={labels}
-              graphData={monthlySum}
-              expectedData={expectedData}
-              previousYear={previousYear}
-              nextYear={nextYear}
-            />
-            <CategoryTable data={categoryData} />
+      <div className="categoryGraph-card">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-12 col-lg-10">
+              <CategoryGraph
+                icon={categoriesIcons[category]}
+                category={category}
+                year={year}
+                graphLabels={labels}
+                graphData={monthlySum}
+                expectedData={expectedData}
+                previousYear={previousYear}
+                nextYear={nextYear}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <CategoryTable data={categoryData} />
+            </div>
           </div>
         </div>
       </div>
-      <div className="row my-6"></div>
     </div>
   );
 };
