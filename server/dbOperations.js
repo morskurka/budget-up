@@ -1,8 +1,9 @@
 // Import the mssql package
+require("dotenv").config({ path: __dirname + "/../.env" });
 var sql = require("mssql");
 const fs = require("fs");
 const csv = require("csv-parser");
-require("dotenv").config({ path: __dirname + "/../.env" });
+const bcrypt = require("bcryptjs");
 
 // Create a configuration object for our Azure SQL connection parameters
 var dbConfig = {
@@ -75,23 +76,38 @@ async function addUserToDB(userReg) {
   (firstName, lastName, email, uPassword)
   VALUES 
   (@firstName, @lastName, @email, @uPassword)`;
+  // hash password for security reasons
+  const hash = await bcrypt.hash(userReg.password, 10);
   const result = await connectionPool
     .request()
     .input("firstName", sql.NVarChar, userReg.firstName)
     .input("lastName", sql.NVarChar, userReg.lastName)
     .input("email", sql.VarChar, userReg.email)
-    .input("uPassword", sql.VarChar, userReg.password)
+    .input("uPassword", sql.VarChar, hash)
     .query(query, (err, result) => {
       if (err) throw err;
+      console.log(`Executed: ${query}`);
       return result.rowsAffected;
     });
 }
 
 async function getUserFromDB(userAuth) {
-  const query = `SELECT * from Users WHERE email = '${userAuth.email}' AND uPassword = '${userAuth.password}'`;
+  const query = `SELECT * from Users WHERE email = '${userAuth.email}'`;
+  const result = await connectionPool.request().query(query);
+  // if user found
+  if (result.recordset > 0) {
+    // compare hashed passwords
+    const dbHash = result.recordset.uPassword;
+    const validPass = await bcrypt.compare(userAuth.password, dbHash);
+    // if valid -> return the user
+    if (validPass) {
+      return result.recordset;
+    } else {
+      return [];
+    }
+  }
   console.log(`Executed: ${query}`);
-  let user = await connectionPool.request().query(query);
-  return user.recordset;
+  return result.recordset;
 }
 
 async function bulkInsert(body) {
