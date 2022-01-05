@@ -1,8 +1,9 @@
 // Import the mssql package
+require("dotenv").config({ path: __dirname + "/../.env" });
 var sql = require("mssql");
 const fs = require("fs");
 const csv = require("csv-parser");
-require("dotenv").config({ path: __dirname + "/../.env" });
+const bcrypt = require("bcryptjs");
 
 // Create a configuration object for our Azure SQL connection parameters
 var dbConfig = {
@@ -75,79 +76,92 @@ async function addUserToDB(userReg) {
   (firstName, lastName, email, uPassword)
   VALUES 
   (@firstName, @lastName, @email, @uPassword)`;
+  // hash password for security reasons
+  const hash = await bcrypt.hash(userReg.password, 10);
   const result = await connectionPool
     .request()
     .input("firstName", sql.NVarChar, userReg.firstName)
     .input("lastName", sql.NVarChar, userReg.lastName)
     .input("email", sql.VarChar, userReg.email)
-    .input("uPassword", sql.VarChar, userReg.password)
-    .query(query, (err, result) => {
-      if (err) throw err;
-      return result.rowsAffected;
-    });
+    .input("uPassword", sql.VarChar, hash)
+    .query(query);
+  console.log(`Executed: ${query}`);
+  return result.rowsAffected;
 }
 
 async function getUserFromDB(userAuth) {
-  const query = `SELECT * from Users WHERE email = '${userAuth.email}' AND uPassword = '${userAuth.password}'`;
+  const query = `SELECT * from Users WHERE email = '${userAuth.email}'`;
+  const result = await connectionPool.request().query(query);
+  // if user found
+  if (result.recordset > 0) {
+    // compare hashed passwords
+    const dbHash = result.recordset.uPassword;
+    const validPass = await bcrypt.compare(userAuth.password, dbHash);
+    // if valid -> return the user
+    if (validPass) {
+      return result.recordset;
+    } else {
+      return [];
+    }
+  }
   console.log(`Executed: ${query}`);
-  let user = await connectionPool.request().query(query);
-  return user.recordset;
+  return result.recordset;
 }
 
 async function bulkInsert(body) {
-  //let file = fs.readFileSync(body.file.path);
-  const results = [];
-  fs.createReadStream(body.file.path)
-    .pipe(csv())
-    .on("data", (data) => {
-      try {
-        let email = body.body.user;
-        let { tDate, amount, category, subCategory } = data;
-        //console.log(data);
-        // make sure date is valid and not in the future
-        if (!isNaN(amount) /* && new Date(tDate) < new Date()*/) {
-          results.push([
-            email,
-            new Date(tDate),
-            parseFloat(amount),
-            category,
-            subCategory,
-          ]);
-        } else {
-          console.log(data);
+  return new Promise(function (resolve, reject) {
+    const results = [];
+    fs.createReadStream(body.file.path)
+      .pipe(csv())
+      .on("data", (data) => {
+        try {
+          let email = body.body.user;
+          let { tDate, amount, category, subCategory } = data;
+          // make sure date is valid and not in the future
+          if (
+            !isNaN(amount) &&
+            tDate !== "" &&
+            category != "" /* && new Date(tDate) < new Date()*/
+          ) {
+            results.push([
+              email,
+              new Date(tDate),
+              parseFloat(amount),
+              category,
+              subCategory,
+            ]);
+          } else {
+            console.log(data);
+          }
+        } catch (error) {
+          reject(error);
         }
-      } catch (error) {
-        console.log(error.message);
-      }
-    })
-    .on("end", async () => {
-      try {
-        const table = new sql.Table("Transactions");
-        table.create = false; // presuming table already exists
-        table.columns.add("email", sql.VarChar, { nullable: false });
-        table.columns.add("tDate", sql.Date, { nullable: false });
-        table.columns.add("amount", sql.Float, { nullable: false });
-        table.columns.add("category", sql.NVarChar, { nullable: false });
-        table.columns.add("subCategory", sql.NVarChar, { nullable: true });
-        // Add rows
-        results.forEach((row) =>
-          table.rows.add(row[0], row[1], row[2], row[3], row[4])
-        );
-        await connectionPool.request().bulk(table, function (err, result) {
-          if (err) throw err;
-          console.log("Number of records inserted: " + result.rowsAffected);
-        });
+      })
+      .on("end", async () => {
+        try {
+          const table = new sql.Table("Transactions");
+          table.create = false; // presuming table already exists
+          table.columns.add("email", sql.VarChar, { nullable: false });
+          table.columns.add("tDate", sql.Date, { nullable: false });
+          table.columns.add("amount", sql.Float, { nullable: false });
+          table.columns.add("category", sql.NVarChar, { nullable: false });
+          table.columns.add("subCategory", sql.NVarChar, { nullable: true });
+          // Add rows
+          results.forEach((row) =>
+            table.rows.add(row[0], row[1], row[2], row[3], row[4])
+          );
+          const res = await connectionPool.request().bulk(table);
+          console.log("Number of records inserted: " + res.rowsAffected);
 
-        fs.unlink(body.file.path, (err) => {
-          if (err) throw err;
+          fs.unlinkSync(body.file.path);
           console.log(body.file.path + " was deleted");
-        });
-        return 200;
-      } catch (error) {
-        console.log(error.message);
-        return 500;
-      }
-    });
+          resolve(res.rowsAffected);
+        } catch (error) {
+          reject(error);
+        }
+      })
+      .on("error", reject);
+  });
 }
 
 module.exports = {

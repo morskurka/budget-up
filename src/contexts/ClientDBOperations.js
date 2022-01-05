@@ -93,6 +93,21 @@ async function getUserFromDB(email, password) {
     return { status: 500, message: "Server is not available" };
   }
 }
+
+async function addUserToDB(user) {
+  try {
+    const res = await fetch("/api/registration", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    return await res.json();
+  } catch (error) {
+    return { status: 500, message: "Server is not available" };
+  }
+}
 export {
   getAllTransactionsByEmail,
   insertTransactionToDB,
@@ -100,4 +115,5 @@ export {
   updateTransactionOnDB,
   uploadTransactionsFile,
   getUserFromDB,
+  addUserToDB,
 };
