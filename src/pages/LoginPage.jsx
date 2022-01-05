@@ -1,7 +1,7 @@
 import { GlobalContext } from "../contexts/GlobalState";
 import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserFromDB } from "../contexts/ClientDBOperations";
+import { getUserFromDB, addUserToDB } from "../contexts/ClientDBOperations";
 
 const LoginPage = () => {
   const { addUser, setLoading } = useContext(GlobalContext);
@@ -29,41 +29,41 @@ const LoginPage = () => {
       setRegError("Required fields");
       return;
     }
+    const user = {
+      firstName: regFirstName.current.value,
+      lastName: regLastName.current.value,
+      email: regEmail.current.value,
+      password: regPassword.current.value,
+    };
 
-    const user = await fetch("/api/registration", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        firstName: regFirstName.current.value,
-        lastName: regLastName.current.value,
-        email: regEmail.current.value,
-        password: regPassword.current.value,
-      }),
-    }).then((res) => res.json());
-    console.log(user);
+    const { status, message } = await addUserToDB(user);
 
-    if (user.rowsAffected === 0) {
-      console.log("1");
-      setRegError("User already exists with the same email address");
-    } else {
-      console.log("2");
+    if (status === 200) {
       setType("");
+      await login(user.email, user.password);
+    } else {
+      setRegError("User already exists with the same email address");
     }
   }
 
-  // login function
-  async function login() {
+  async function handleLogin(e) {
+    e.preventDefault();
+    if (validateLoginInput()) {
+      login(userEmail.current.value, userPassword.current.value);
+    }
+  }
+
+  function validateLoginInput() {
     if (userEmail.current.value === "" || userPassword.current.value === "") {
       setLoginError("Email and password are required");
-      return;
+      return false;
     }
+    return true;
+  }
+  // login function
+  async function login(email, password) {
     setLoading(true);
-    const { status, message } = await getUserFromDB(
-      userEmail.current.value,
-      userPassword.current.value
-    );
+    const { status, message } = await getUserFromDB(email, password);
     if (status === 200) {
       let user = message;
       if (user.length > 0) {
@@ -111,10 +111,7 @@ const LoginPage = () => {
               <button
                 className="btn btn-basic solid"
                 id="signInButton"
-                onClick={(e) => {
-                  e.preventDefault();
-                  login();
-                }}
+                onClick={(e) => handleLogin(e)}
               >
                 Login
               </button>
@@ -181,10 +178,10 @@ const LoginPage = () => {
         <div className="panels-container">
           <div className="panel left-panel">
             <div className="content">
-              <h3>New here ?</h3>
+              <h3>New here?</h3>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Debitis, ex ratione. Aliquid!
+                Welcome to BudgetUp! <br></br>
+                Join us on an exciting journey to proper financial management.
               </p>
               <button
                 className="btn btn-basic transparent"
@@ -202,10 +199,10 @@ const LoginPage = () => {
           </div>
           <div className="panel right-panel">
             <div className="content">
-              <h3>One of us ?</h3>
+              <h3>One of us?</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-                laboriosam ad deleniti.
+                Great! We are exciting to have you back. Click the button to
+                login to your account.
               </p>
               <button
                 className="btn btn-basic transparent"

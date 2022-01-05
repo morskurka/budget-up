@@ -1,18 +1,16 @@
 import BalanceInfoBar from "../components/BalanceInfoBar";
 import { useState, useContext } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
-import {
-  uploadTransactionsFile,
-  getAllTransactionsByEmail,
-} from "../contexts/ClientDBOperations";
-const fs = require("fs");
+import { uploadTransactionsFile } from "../contexts/ClientDBOperations";
 const FormData = require("form-data");
 
 const UploadTransactions = () => {
-  const { user, loadUserTransactions } = useContext(GlobalContext);
+  const { user, loadUserTransactions, setLoading } = useContext(GlobalContext);
 
   const [selectedFile, setSelectedFile] = useState();
   const [isSelected, setIsSelected] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+  const [uploading, setUploading] = useState("");
 
   // upload transactions file
   const changeHandler = (event) => {
@@ -22,13 +20,22 @@ const UploadTransactions = () => {
   };
 
   const handleSubmission = async () => {
+    setUploadError("");
+    setUploading("Uploading... Please wait");
     const formData = new FormData();
 
     formData.append("name", "transactions");
     formData.append("file", selectedFile);
     formData.append("user", user.email);
-    let uploadStatus = await uploadTransactionsFile(formData);
-    await loadUserTransactions();
+    const { status, message } = await uploadTransactionsFile(formData);
+    if (status === 200) {
+      await loadUserTransactions();
+    } else {
+      setUploadError(
+        "We can't upload your transactions file, please check it's format and try again"
+      );
+    }
+    setUploading("");
   };
 
   return (
@@ -38,7 +45,7 @@ const UploadTransactions = () => {
         We could'nt find any transactions in your account.<br></br>
         Please Upload transactions fils (.csv)
       </div>
-      <div className="row mt-3 mb-5 align-items-center justify-content-center">
+      <div className="row mt-3 mb-3 align-items-center justify-content-center">
         <div className="col d-flex justify-content-center">
           <div className="d-flex justify-content-center">
             <input
@@ -58,6 +65,12 @@ const UploadTransactions = () => {
               </button>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="row mb-5 align-items-center justify-content-center">
+        <div className="col d-flex justify-content-center">
+          <p className="social-text">{uploadError}</p>
+          <p className="lead">{uploading}</p>
         </div>
       </div>
     </>
