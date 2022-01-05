@@ -11,6 +11,7 @@ import { GlobalProvider } from "./contexts/GlobalState";
 import { useState } from "react";
 import LoginPage from "./pages/LoginPage";
 import ScrollUp from "./components/ScrollUp";
+import Test2 from "./components/Test2";
 
 function App() {
   const [currCategory, setCurrCategory] = useState("");
@@ -19,7 +20,7 @@ function App() {
     <>
       <GlobalProvider>
         <Router>
-          <Navbar />
+          <Test2 />
           <Routes>
             <Route path="/Login" element={<LoginPage />} />
             <Route

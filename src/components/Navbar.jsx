@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { GlobalContext } from "../contexts/GlobalState";
 
 const Navbar = () => {
-  const image = true;
   const { user } = useContext(GlobalContext);
   return (
     <nav
@@ -12,13 +11,6 @@ const Navbar = () => {
     >
       <div className="container">
         <Link className="navbar-brand fw-bold fs-2" to="/">
-          <img
-            className="mx-2"
-            src="logo192.png"
-            alt=""
-            width="30"
-            height="24"
-          />
           BudgetUP
         </Link>
         <button
@@ -69,15 +61,7 @@ const Navbar = () => {
                 id="dropdown04"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-              >
-                <img
-                  className="ms-4 me-1 d-inline-block rounded-circle border border-dark border-1"
-                  src={image ? "mor.png" : "user.png"}
-                  alt=""
-                  width="55"
-                  height="55"
-                />
-              </Link>
+              ></Link>
               <ul className="dropdown-menu" aria-labelledby="dropdown04">
                 <li>
                   <p className="fs-6  fst-italic text-center text-secondary">
