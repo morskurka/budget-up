@@ -10,6 +10,7 @@ import CashIncomesPage from "./pages/CashIncomesPage";
 import { GlobalProvider } from "./contexts/GlobalState";
 import { useState } from "react";
 import LoginPage from "./pages/LoginPage";
+import ScrollUp from "./components/ScrollUp";
 
 function App() {
   const [currCategory, setCurrCategory] = useState("");
@@ -37,6 +38,7 @@ function App() {
             />
           </Routes>
           <Footer />
+          <ScrollUp />
         </Router>
       </GlobalProvider>
     </>

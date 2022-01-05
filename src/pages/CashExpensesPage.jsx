@@ -105,7 +105,7 @@ const CashExpensesPage = () => {
 
   return (
     <>
-      <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />
+      <BalanceInfoBar />
 
       <div className="container">
         <div className="row justify-content-center">

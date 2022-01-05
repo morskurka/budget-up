@@ -233,8 +233,7 @@ input {
   transform: translateX(800px);
 }
 
-/* ANIMATION */
-
+/* animation */
 .login-container.sign-up-mode:before {
   transform: translate(100%, -50%);
   right: 52%;
@@ -363,12 +362,10 @@ input {
   .login-container.sign-up-mode .right-panel .content {
     transform: translateY(0px);
   }
-
   .right-panel .image,
   .right-panel .content {
     transform: translateY(300px);
   }
-
   .login-container.sign-up-mode .signin-signup {
     top: 5%;
     transform: translate(-50%, 0);
@@ -383,9 +380,11 @@ input {
   .image {
     display: none;
   }
+
   .panel .content {
     padding: 0.5rem 1rem;
   }
+
   .login-container {
     padding: 1.5rem;
   }
@@ -402,11 +401,11 @@ input {
 }
 
 /*Category card*/
-
 .categories {
   position: relative;
   z-index: 0;
   background-color: #f4f7fa;
+  padding-top: 5rem;
 }
 
 .categories .single-category {
@@ -423,13 +422,15 @@ input {
   border-top: 3px solid transparent;
   border-bottom: 3px solid transparent;
 }
+
 .categories .single-category:hover {
   -webkit-transform: scale(1.05);
   transform: scale(1.05);
-  border-top-color: #7e57ff;
-  border-bottom-color: #7e57ff;
+  border-top-color: #0069ff;
+  border-bottom-color: #0069ff;
   cursor: pointer;
 }
+
 .categories .single-category .category-icon {
   width: 72px;
   height: 72px;
@@ -440,6 +441,120 @@ input {
   margin-top: -60px;
   display: inline-block;
 }
+
 .categories .single-category .category-title {
   min-height: 95px;
+}
+
+/*Balance info bar*/
+.balanceInfoBar-back {
+  background-color: #f4f7fa;
+}
+
+.balanceInfoBar-bar {
+  padding-bottom: 9.5rem;
+  background-color: #2f80ed;
+}
+
+.balanceInfoBar-section {
+  position: relative;
+  margin-top: -100px;
+  z-index: 1;
+}
+
+.balanceInfoBar-section .balanceInfoBar-wrapper {
+  background: #fff;
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.16);
+  border-radius: 16px;
+  padding: 32px 37px 37px;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .balanceInfoBar-section .balanceInfoBar-wrapper {
+    padding: 32px 25px;
+  }
+}
+
+.balanceInfoBar-section .balanceInfoBar-wrapper .section-title {
+  margin-bottom: 22px;
+}
+
+.balanceInfoBar-section .balanceInfoBar-wrapper .section-title span {
+  text-transform: none;
+  font-weight: 600;
+}
+
+/*Balance info card*/
+.balanceInfoCard {
+  position: relative;
+  background: #fff;
+  text-align: center;
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.16);
+  border-radius: 16px;
+}
+
+.balanceInfoCard .balanceInfoCard-title {
+  font-size: 0.875rem;
+  color: #828d9f;
+  text-transform: uppercase;
+}
+
+.balanceInfoCard .balanceInfoCard-amount {
+  font-size: 2rem;
+  color: #252930;
+}
+
+.balanceInfoCard .balanceInfoCard-subTitle {
+  font-size: 0.875rem;
+  color: #828d9f;
+}
+
+.balanceInfoCard-icon {
+  width: 62px;
+  height: 62px;
+  background-color: #e9eef5;
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.16);
+  border-radius: 16px;
+  font-size: 35px;
+  display: inline-block;
+}
+
+/*header*/
+.header-title p {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+/*scroll up*/
+.scroll-up {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  background: #3763eb;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 18px;
+  color: #fff !important;
+  border-radius: 5px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease-out 0s;
+  transition: all 0.3s ease-out 0s;
+}
+.scroll-up:hover {
+  -webkit-box-shadow: 0 1rem 3rem rgba(35, 38, 45, 0.15) !important;
+  box-shadow: 0 1rem 3rem rgba(35, 38, 45, 0.15) !important;
+  -webkit-transform: translate3d(0, -5px, 0);
+  transform: translate3d(0, -5px, 0);
 }

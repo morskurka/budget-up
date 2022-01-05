@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoCard from "../components/BalanceInfoCard";
 
-const BalanceInfoBar = ({ backgroundColor, barColor }) => {
+const BalanceInfoBar = () => {
   const { transactions, user } = useContext(GlobalContext);
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getUTCFullYear();
@@ -41,68 +41,63 @@ const BalanceInfoBar = ({ backgroundColor, barColor }) => {
     .reduce((acc, item) => (acc += item.amount), 0);
 
   return (
-    <div className={backgroundColor}>
-      <div
-        className={barColor}
-        style={{
-          paddingTop: "4rem",
-          paddingBottom: "9.5rem",
-          backgroundColor: barColor,
-        }}
-      ></div>
-      <div
-        className="container-fluid"
-        style={{
-          marginTop: "-11rem",
-          paddingRight: "2rem",
-          paddingLeft: "2rem",
-        }}
-      >
-        <div className="row g-4 mb-4">
-          <div className="col-lg-12 col-md-12 col-12">
-            <div className="d-flex justify-content-between align-items-center mb-2">
-              <h3 className="text-white"> Expenses</h3>
+    <div className="balanceInfoBar-back">
+      <div className="balanceInfoBar-bar"></div>
+      <section className="balanceInfoBar-section">
+        <div className="container">
+          <div className="balanceInfoBar-wrapper">
+            <div className="row justify-content-center">
+              <div className="col-xl-6">
+                <div className="section-title text-center"></div>
+              </div>
+            </div>
+
+            <div className="row justify-content-center">
+              {/*balance card*/}
+              <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-1">
+                <BalanceInfoCard
+                  title="My Balance"
+                  subTitle=""
+                  icon="arrow-down-up"
+                  amount={myBalance}
+                  tooltipTitle="Your current balance based on all known transactions"
+                />
+              </div>
+              {/*expected balance card*/}
+              <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-1">
+                <BalanceInfoCard
+                  title="Saving Balance"
+                  subTitle=""
+                  icon="piggy-bank"
+                  amount={-saving}
+                  tooltipTitle="Sum of Transactions from 'Saving' Category"
+                  id="savingInfoCard"
+                />
+              </div>
+              {/*income this month card*/}
+              <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-1">
+                <BalanceInfoCard
+                  title="Income"
+                  subTitle="This Month"
+                  icon="graph-up-arrow"
+                  amount={income}
+                  tooltipTitle="Sum of all POSITIVE transactions this month"
+                />
+              </div>
+              {/*outcome this month card*/}
+              <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-1">
+                <BalanceInfoCard
+                  title="Outcome"
+                  subTitle="This Month"
+                  icon="graph-down-arrow"
+                  amount={outcome}
+                  tooltipTitle="Sum of all NEGATIVE transactions this month"
+                />
+              </div>
             </div>
           </div>
-          {/*balance card*/}
-          <div className="col-xl-3 col-lg-6 col-md-6 col-12">
-            <BalanceInfoCard
-              title="My Balance"
-              icon="arrow-down-up"
-              amount={myBalance}
-              tooltipTitle="Your current balance based on all known transactions"
-            />
-          </div>
-          {/*expected balance card*/}
-          <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-6">
-            <BalanceInfoCard
-              title="Saving Balance"
-              icon="emoji-smile-upside-down"
-              amount={-saving}
-              tooltipTitle="Sum of Transactions from 'Saving' Category"
-              id="savingInfoCard"
-            />
-          </div>
-          {/*income this month card*/}
-          <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-6">
-            <BalanceInfoCard
-              title="Income This Month"
-              icon="box-arrow-in-down-left"
-              amount={income}
-              tooltipTitle="Sum of all POSITIVE transactions this month"
-            />
-          </div>
-          {/*outcome this month card*/}
-          <div className="col-xl-3 col-lg-6 col-md-6 col-12 mt-6">
-            <BalanceInfoCard
-              title="Outcome This Month"
-              icon="box-arrow-up-right"
-              amount={outcome}
-              tooltipTitle="Sum of all NEGATIVE transactions this month"
-            />
-          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
