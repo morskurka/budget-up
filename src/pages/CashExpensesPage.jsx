@@ -136,7 +136,7 @@ const CashExpensesPage = () => {
                                       <h3 className="fw-light">
                                         Unclassified Cash Withdrawal
                                       </h3>
-                                      <h2>
+                                      <h2 className="fw-bold">
                                         <div className="lead">
                                           {cashWithdrawalItem &&
                                             `Transaction ${
