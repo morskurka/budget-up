@@ -1,5 +1,5 @@
 import CategoryCard from "../components/CategoryCard";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoBar from "../components/BalanceInfoBar";
 import { useNavigate } from "react-router-dom";
