@@ -674,6 +674,45 @@ input {
   min-height: 95px;
 }
 
+/*Search*/
+.search-section {
+  position: relative;
+}
+.search-section input {
+  border: 2px solid transparent;
+  border-radius: 50px;
+  border-color: #323450;
+  width: 100%;
+  font-size: 16px;
+  padding: 18px 30px;
+  background: #fff;
+  transition: all 0.3s ease-out 0s;
+}
+.search-section input:focus {
+  outline: none;
+  box-shadow: none;
+}
+.search-section .icon {
+  align-items: center;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  background: linear-gradient(
+    to left,
+    #3763eb 0%,
+    #6f58e8 50.39%,
+    #3763eb 100%
+  );
+  background-size: 200%;
+  position: absolute;
+  height: 54px;
+  width: 54px;
+  top: 5px;
+  right: 5px;
+}
+
 /*Balance info bar*/
 .balanceInfoBar-back {
   background-color: #f4f7fa;
@@ -927,12 +966,16 @@ input {
   margin-bottom: 15px;
   font-size: 30px;
 }
+.cash-expense-section .single-cash-expense .info i {
+  margin-bottom: 15px;
+  font-size: 40px;
+}
 
 .cash-expense-btn .arrow-btn {
-  width: 64px;
-  height: 64px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
-  background: #3763eb;
+  background: #2f80ed;
   color: #ffffff;
   display: flex;
   justify-content: center;
@@ -975,7 +1018,7 @@ input {
 .save-btn {
   width: 150px;
   height: 45px;
-  background: #3763eb;
+  background: #2f80ed;
   color: #ffffff;
   border-radius: 14px;
   border: none;

@@ -45,22 +45,29 @@ const HomePage = ({ setCurrCategory }) => {
       {/* <Prediction /> */}
       <section className="categories">
         <div className="container">
-          <div className="py-5">
+          <div className="pt-5 pb-3">
             <Header
               title="Follow Your Expenses"
               body="Click on a particular category to see monthly breakdown and more information"
             />
           </div>
-          <div className="d-flex justify-content-center">
-            <div className="mb-3 form-group has-feedback">
-              <input
-                placeholder="Search Category..."
-                type="text"
-                className="form-control form-control-lg"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                id="searchInput"
-              ></input>
+          <div className="row justify-content-center mb-5">
+            <div className="col-xxl-5 col-xl-6 col-lg-7">
+              <div className="mb-3 form-group has-feedback">
+                <section className="search-section">
+                  <input
+                    placeholder="Search Category..."
+                    type="text"
+                    className="form-control form-control-lg"
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    id="searchInput"
+                  ></input>
+                  <div className="icon d-flex justify-content-center align-items-center">
+                    <i className="bi bi-search"></i>
+                  </div>
+                </section>
+              </div>
             </div>
           </div>
 
