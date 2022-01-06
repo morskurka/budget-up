@@ -10,11 +10,9 @@ The system can be used by anyone as long as they have a table of banking transac
 | ----------- | :---------: | :--------: | :----: |
 | Income      |  Salary 1   | 2021-10-10 | 15000  |
 | Income      |  Salary 2   | 2021-07-10 | 12000  |
-| Supermarket |  Rami Levi  | 2021-08-24 |  657   |
+| Supermarket |  Rami Levi  | 2021-08-24 |  -657  |
 
-Categories name can be anything, but we expect for `Income` category.
-
-Transactions should be stored in the database before using the system.
+Categories name can be anything, but we do expect for `Income` category.
 
 ## Sign-up / Sign-in
 
@@ -28,16 +26,16 @@ If you just want to get impression of the system, you can login to our demo user
 
 ## HomePage
 
-once you logged in, you'll pass to the homepage of logged in accounts.
+once you logged in, you'll pass to the homepage.
 
 The system will load your banking transactions from the DB, analyze it, sort it by categories and make a prediction of your expenses in each category.
-This a the main page of our app.
+This is the main page of our app.
 
 ### Balance Info Bar
 
 On the top of the page you'll see your Balance Info Bar with some general information about your account, such as current balance, current saving balance, sum of incomes this month and sum of expenses this month.
 
-### Category Info Card
+### Category Info Cards
 
 Below the Balance Info Bar you'll find an Category Info Card for each detected category from your transactions.
 
@@ -48,17 +46,17 @@ Clicking on a category will pass you to the Category Page.
 
 ## Category Page
 
-The Category Page includes 2 main components. A graph, which shows sum of your expenses each month in the passed year. And a table, that shows you all the transactions in this category in the passed year.
+The Category Page includes 2 main components. A graph, which shows sum of your expenses each month in the past year. And a table, that shows you all the transactions in this category in the past year.
 
-Hovering with your mouse on each column of the graph will reval the exact amount for this month.
+Hovering with your mouse on each column of the graph will reveal the exact amount for this month.
 
 ## Classify Cash Withdrawal
 
 Back to Homepage and you'll find a 'Classify Cash Withdrawal' button. Click on the button and you'll pass to the Classify Cash Withdrawal page.
 
-In this page you can can classify cash withdrawals into categories, so we can know on in which category you spent the money, and recalculate the prediction based on the updated amounts.
+In this page you can classify cash withdrawals into categories, so we can know on in which category you spent the money, and recalculate the prediction based on the updated amounts.
 
-The system shows you one withdrawal at a time, and you can classify it's amount into one or more categories.
+The system shows you one withdrawal at a time, and you can classify its amount into one or more categories.
 
 You move between withdrawals with the arrows at left-down corner.
 
@@ -70,6 +68,6 @@ Also in homepage, You will find the 'Add Income Transaction'. Click on the butto
 
 Here you add incomes that are not shown the system, such as cash you received from customers and didn't deposit on your bank account.
 
-After filling the source, date and amount, click save and the system will update the new info in the database, recalculate the prediction and pass you back to the homepage.
+After filling the source, date, and amount, click save and the system will update the new info in the database, recalculate the prediction and pass you back to the homepage.
 
 Any amount you add in this page is added to Income category.

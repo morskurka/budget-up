@@ -8,8 +8,8 @@ The service assumes that your transactions are classified into several major cat
 
 ### _Preparation_
 
-BudgetUp uses React-js library on client side, Express.js library on server side, and MSSQL server as database.
-Therefor, you'll need to install node.js, npm, and MSSQL in order to build our project.
+BudgetUp uses React.js library on client side, Express.js library on server side, and MSSQL server as database.
+Therefore, you'll need to install node.js, npm, and MSSQL in order to build our project.
 
 To run this app locally on your computer you will first need to install dependencies:
 
@@ -36,7 +36,7 @@ Place your `.env` file in `budget-up` root folder.
 
 ### _Launch Server_
 
-Navigate back to `budget-up` root folder and run in terminal: `npm start`
+Navigate back to `budget-up` root folder and run in terminal: `npm startnodemon`
 
 ### _Launch Client_
 
@@ -56,7 +56,7 @@ Navigate back to `budget-up` root folder and run in terminal: `npm run testcypre
 
 ## Contribution
 
-If you want to add functionality to the project, please follow this rules:
+If you want to add functionality to the project, please follow these rules:
 
 ### _Add UI Component:_
 
@@ -72,7 +72,7 @@ If you want to add functionality to the project, please follow this rules:
    - `type`: a `String` that describe the event (`"ADD_INCOME_TRANSACTION"` for example)
    - `payload`: an `Object` that can be manipulate later in `AppReducer()`.
 
-2. `AppReducer()` is only function that can the `initialState` object. In order to do so, you just need to return the new state from the function.
+2. `AppReducer()` is only function that can change the `initialState` object. To do so, you just need to return the new state from the function.
 
 #### Example
 
@@ -111,7 +111,7 @@ export default (state, action) => {
 
 **PLEASE NOTE**
 
-Changing the `GlobalState` DOES NOT EFFECT the database. To store changes in database, see the next chapter.
+Changing the `GlobalState` DOES NOT AFFECT the database. To store changes in database, see the next chapter.
 
 ### _Add Server & DB Communication:_
 
@@ -119,7 +119,7 @@ Changing the `GlobalState` DOES NOT EFFECT the database. To store changes in dat
 
 Client shall never make any DB request directly.
 
-All client to server calls are done through REST API. Client functions that makes API calls are stored in `/src/context/ClientDBOperations.js`
+All client to server calls is done through REST API. Client functions that make API calls are stored in `/src/context/ClientDBOperations.js`
 Make a call to server:
 
 1. Add your new function to `ClientDBOperations.js`. If your call involve DB communication, Please make sure its URL starts with `/api/`.
