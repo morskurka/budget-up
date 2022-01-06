@@ -48,7 +48,7 @@ const BalanceInfoBar = () => {
           <div className="balanceInfoBar-wrapper">
             <div
               id="carouselExampleControlsNoTouching"
-              className="carousel carousel-dark slide d-block d-xl-none"
+              className="carousel carousel-dark slide d-block d-xl-none carousel-size "
               data-bs-touch="false"
               data-bs-interval="false"
             >

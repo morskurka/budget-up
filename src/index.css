@@ -714,6 +714,10 @@ input {
   font-weight: 600;
 }
 
+.carousel-size {
+  min-height: 122px;
+}
+
 /*Balance info card*/
 .balanceInfoCard {
   position: relative;
