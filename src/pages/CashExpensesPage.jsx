@@ -182,7 +182,7 @@ const CashExpensesPage = () => {
                                 </div>
                                 <div className="align-items-center justify-content-center d-flex">
                                   <button
-                                    className="btn save-btn"
+                                    className="btn save-btn mb-3"
                                     /* TODO: implement logic instead of CONST value */
                                     disabled={
                                       cashWithdrawalItem &&
