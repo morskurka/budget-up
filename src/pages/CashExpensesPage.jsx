@@ -107,7 +107,6 @@ const CashExpensesPage = () => {
   return (
     <>
       <BalanceInfoBar />
-
       <div className="cash-expenses">
         <div className="py-5">
           <Header

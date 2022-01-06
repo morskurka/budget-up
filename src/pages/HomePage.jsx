@@ -44,17 +44,19 @@ const HomePage = ({ setCurrCategory }) => {
       <BalanceInfoBar />
       {/* <Prediction /> */}
       <section className="categories">
-        <Header
-          title="Follow Your Expenses"
-          body="Click on a particular category to see monthly breakdown and more information"
-        />
-        <div className="container" style={{ padding: "0 30px" }}>
+        <div className="container">
+          <div className="py-5">
+            <Header
+              title="Follow Your Expenses"
+              body="Click on a particular category to see monthly breakdown and more information"
+            />
+          </div>
           <div className="d-flex justify-content-center">
             <div className="mb-3 form-group has-feedback">
               <input
                 placeholder="Search Category..."
                 type="text"
-                className="form-control form-control-lg mt-4"
+                className="form-control form-control-lg"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 id="searchInput"
