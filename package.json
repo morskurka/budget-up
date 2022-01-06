@@ -18,12 +18,13 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "cd server && nodemon server.js",
+    "start": "cd server && npm start",
     "build": "react-scripts build && cd server && npm install",
     "test": "react-scripts test",
     "testcypress": "cypress open",
     "eject": "react-scripts eject",
-    "startlocal": "react-scripts start"
+    "startlocal": "react-scripts start",
+    "startnodemon": "cd server && nodemon server.js"
   },
   "eslintConfig": {
     "extends": [

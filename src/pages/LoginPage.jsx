@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getUserFromDB, addUserToDB } from "../contexts/ClientDBOperations";
 
 const LoginPage = () => {
-  const { addUser, setLoading } = useContext(GlobalContext);
+  const { addUser } = useContext(GlobalContext);
   const navigate = useNavigate();
   const [type, setType] = useState("");
   //user login details
@@ -17,9 +17,11 @@ const LoginPage = () => {
   const regEmail = useRef("");
   const regPassword = useRef("");
   const [regError, setRegError] = useState("");
+  const [btnDisabled, setBtnDisabled] = useState(false);
 
   // sign-up function
   async function signUp() {
+    setBtnDisabled(true);
     if (
       regFirstName.current.value === "" ||
       regLastName.current.value === "" ||
@@ -42,8 +44,9 @@ const LoginPage = () => {
       setType("");
       await login(user.email, user.password);
     } else {
-      setRegError("User already exists with the same email address");
+      setRegError("User already exists with this email address");
     }
+    setBtnDisabled(false);
   }
 
   async function handleLogin(e) {
@@ -62,7 +65,7 @@ const LoginPage = () => {
   }
   // login function
   async function login(email, password) {
-    setLoading(true);
+    setBtnDisabled(true);
     const { status, message } = await getUserFromDB(email, password);
     if (status === 200) {
       let user = message;
@@ -76,7 +79,7 @@ const LoginPage = () => {
     } else {
       setLoginError(message);
     }
-    setLoading(false);
+    setBtnDisabled(false);
   }
 
   return (
@@ -113,7 +116,7 @@ const LoginPage = () => {
                 id="signInButton"
                 onClick={(e) => handleLogin(e)}
               >
-                Login
+                {btnDisabled ? "Loading..." : "Login"}
               </button>
               <p className="social-text">{loginError}</p>
             </form>
@@ -168,7 +171,7 @@ const LoginPage = () => {
                   signUp();
                 }}
               >
-                SIGN UP
+                {btnDisabled ? "Loading..." : "SIGN UP"}
               </button>
               <p className="social-text">{regError}</p>
             </form>

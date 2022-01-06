@@ -8,8 +8,8 @@ The service assumes that your transactions are classified into several major cat
 
 ### _Preparation_
 
-BudgetUp uses React-js library on client side, Express.js library on server side, and MSSQL server as database.
-Therefor, you'll need to install node.js, npm, and MSSQL in order to build our project.
+BudgetUp uses React.js library on client side, Express.js library on server side, and MSSQL server as database.
+Therefore, you'll need to install node.js, npm, and MSSQL in order to build our project.
 
 To run this app locally on your computer you will first need to install dependencies:
 
@@ -36,7 +36,7 @@ Place your `.env` file in `budget-up` root folder.
 
 ### _Launch Server_
 
-Navigate back to `budget-up` root folder and run in terminal: `npm start`
+Navigate back to `budget-up` root folder and run in terminal: `npm startnodemon`
 
 ### _Launch Client_
 
@@ -46,9 +46,17 @@ run in **new terminal**:
 
 **Please note that both server and client needs to run in parallel.**
 
+### _Launch unit tests_
+
+Navigate back to `budget-up` root folder and run in terminal: `npm test`
+
+### _Launch integration tests_
+
+Navigate back to `budget-up` root folder and run in terminal: `npm run testcypress`
+
 ## Contribution
 
-If you want to add functionality to the project, please follow this rules:
+If you want to add functionality to the project, please follow these rules:
 
 ### _Add UI Component:_
 
@@ -64,7 +72,7 @@ If you want to add functionality to the project, please follow this rules:
    - `type`: a `String` that describe the event (`"ADD_INCOME_TRANSACTION"` for example)
    - `payload`: an `Object` that can be manipulate later in `AppReducer()`.
 
-2. `AppReducer()` is only function that can the `initialState` object. In order to do so, you just need to return the new state from the function.
+2. `AppReducer()` is only function that can change the `initialState` object. To do so, you just need to return the new state from the function.
 
 #### Example
 
@@ -103,7 +111,7 @@ export default (state, action) => {
 
 **PLEASE NOTE**
 
-Changing the `GlobalState` DOES NOT EFFECT the database. To store changes in database, see the next chapter.
+Changing the `GlobalState` DOES NOT AFFECT the database. To store changes in database, see the next chapter.
 
 ### _Add Server & DB Communication:_
 
@@ -111,7 +119,7 @@ Changing the `GlobalState` DOES NOT EFFECT the database. To store changes in dat
 
 Client shall never make any DB request directly.
 
-All client to server calls are done through REST API. Client functions that makes API calls are stored in `/src/context/ClientDBOperations.js`
+All client to server calls is done through REST API. Client functions that make API calls are stored in `/src/context/ClientDBOperations.js`
 Make a call to server:
 
 1. Add your new function to `ClientDBOperations.js`. If your call involve DB communication, Please make sure its URL starts with `/api/`.
@@ -128,22 +136,27 @@ async function addIncomeTransaction(transaction) {
     type: "ADD_INCOME_TRANSACTION",
     payload: transaction,
   });
-  insertTransactionToDB(transaction); // server call
+  return await insertTransactionToDB(transaction); // server call
 }
 ```
 
 `ClientDBOperations.js`
 
 ```js
-async function insertTransactionToDB(transaction) {
-  await fetch("/api/transactions/add", {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "cors", // no-cors, *cors, same-origin
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(transaction), // body data type must match "Content-Type" header
-  });
+async function insertTransactionToDB(transaction, email) {
+  try {
+    const res = await fetch("/api/transactions/add", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ transaction, email }),
+    });
+    return await res.json();
+  } catch (error) {
+    return { status: 500, message: "Server is not available" };
+  }
 }
 ```
 
@@ -151,25 +164,36 @@ async function insertTransactionToDB(transaction) {
 
 ```js
 app.post("/api/transactions/add", async (req, res) => {
-  dbOperations.addTransactionToDB(req.body); // DB function
+  try {
+    const rowsAffected = dbOperations.addTransactionToDB(
+      req.body.transaction,
+      req.body.email // email comes the current user on GlobalState
+    );
+    res.status(200).json({ status: 200, message: rowsAffected });
+  } catch (error) {
+    res.status(503).json({ status: 503, message: error.message });
+  }
 });
 ```
 
 `dbOperations.js`
 
 ```js
-async function addTransactionToDB(t) {
+async function addTransactionToDB(t, email) {
   const query = `INSERT INTO Transactions 
-                  (userID, tDate, amount, category, subCategory)
+                  (email, tDate, amount, category, subCategory)
                   VALUES 
-                  (@userID, @tDate, @amount, @category, @subCategory)`;
-  let request = await connectionPool.request();
-  request.input("userID", sql.Int, 1); // real userID
-  request.input("tDate", sql.Date, new Date(t.tDate));
-  request.input("amount", sql.Float, t.amount);
-  request.input("category", sql.NVarChar, t.category);
-  request.input("subCategory", sql.NVarChar, t.subCategory);
-  await request.query(query);
+                  (@email, @tDate, @amount, @category, @subCategory)`;
+  const result = await connectionPool
+    .request()
+    .input("email", sql.VarChar, email)
+    .input("tDate", sql.Date, new Date(t.tDate))
+    .input("amount", sql.Float, t.amount)
+    .input("category", sql.NVarChar, t.category)
+    .input("subCategory", sql.NVarChar, t.subCategory)
+    .query(query);
+  console.log(`Executed: ${query}`);
+  return result.rowsAffected;
 }
 ```
 

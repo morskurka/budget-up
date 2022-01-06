@@ -131,7 +131,7 @@ async function bulkInsert(body) {
               subCategory,
             ]);
           } else {
-            console.log(data);
+            reject(new Error(`Can't parse line: ${data}`));
           }
         } catch (error) {
           reject(error);
