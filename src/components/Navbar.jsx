@@ -101,7 +101,7 @@ const Navbar = () => {
                 </li>
                 <li className="nav-link d-lg-flex d-none mt-1">
                   <div className="navbar-user d-lg-flex justify-content-center align-items-center ms-2 d-none">
-                    <i class="bi bi-person-check text-white"></i>
+                    <i className="bi bi-person-check text-white"></i>
                   </div>
                 </li>
                 <li className="nav-item mt-5 d-lg-flex d-none">

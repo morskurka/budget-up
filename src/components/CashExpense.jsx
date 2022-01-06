@@ -86,11 +86,13 @@ const CashExpense = ({
         </div>
         <div className="col-md-1 mb-2">
           <button
-            className="btn btn-danger"
+            className="btn"
             onClick={() => handleDeleteBtnClicked(id)}
             type="button"
           >
-            <i className="bi bi-eraser"></i>
+            <h4 className="remove-btn fw-bold">
+              <i className="bi bi-x-lg"></i>
+            </h4>
           </button>
         </div>
       </div>

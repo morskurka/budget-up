@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import BalanceInfoBar from "../components/BalanceInfoBar";
 import CashExpense from "../components/CashExpense";
+import Header from "../components/Header";
 import { GlobalContext } from "../contexts/GlobalState";
 
 const CashExpensesPage = () => {
@@ -106,100 +107,122 @@ const CashExpensesPage = () => {
   return (
     <>
       <BalanceInfoBar />
-
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-xl-10">
-            <div className="card m-2">
-              <div className="card-body p-4 bg-light">
-                <h1 className="card-title ms-3 mb-4 display-6 align-items-center">
-                  <i className="bi bi-cash-coin me-4"></i>
-                  Classify Your Cash Withdrawals
-                </h1>
-                <div className="row justify-content-center">
-                  <div className="">
-                    <div className="card m-3 rounded-pill">
-                      <div className="card-body text-center">
-                        <h3 className="fw-light">
-                          Unclassified Cash Withdrawal
-                        </h3>
-                        <h2>
-                          <div className="lead">
-                            {cashWithdrawalItem &&
-                              `Transaction ${
-                                cashWithdrawalItem.id
-                              } from ${new Date(
-                                cashWithdrawalItem.tDate
-                              ).toLocaleDateString()}: `}
+      <div className="cash-expenses">
+        <div className="py-5">
+          <Header
+            title="Classify Your Cash Withdrawals"
+            body="Select a cash withdrawal and classify it into one category or more in order to follow your cash expenses better"
+          />
+        </div>
+        <div className="container">
+          <section className="cash-expense-section">
+            <div className="container">
+              <div className="row justify-content-center">
+                <div className="col-lg-10">
+                  <div className="single-cash-expense">
+                    <div className="info">
+                      <h5>Cash Withdrawal</h5>
+                      <p>Classify your cash withdrawals into categories</p>
+                    </div>
+                    <div className="card">
+                      <div className="row justify-content-center">
+                        <div className="col-xl-10">
+                          <div className="m-2">
+                            <div className="cash-expenses-content">
+                              <div className="row justify-content-center">
+                                <div className="">
+                                  <div className="m-3 rounded-pill">
+                                    <div className="text-center">
+                                      <h3 className="fw-light">
+                                        Unclassified Cash Withdrawal
+                                      </h3>
+                                      <h2>
+                                        <div className="lead">
+                                          {cashWithdrawalItem &&
+                                            `Transaction ${
+                                              cashWithdrawalItem.id
+                                            } from ${new Date(
+                                              cashWithdrawalItem.tDate
+                                            ).toLocaleDateString()}: `}
+                                        </div>
+                                        {cashWithdrawalItem &&
+                                          Math.abs(cashWithdrawalItem.amount) -
+                                            sum}
+                                        $
+                                      </h2>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <form onSubmit={onSubmit}>
+                                <div>
+                                  {ExpensesList.map((expense) => (
+                                    <CashExpense
+                                      id={expense.key}
+                                      key={expense.key}
+                                      minDate={
+                                        cashWithdrawalItem
+                                          ? cashWithdrawalItem.tDate
+                                          : new Date().toDateString()
+                                      }
+                                      updateExpenseItem={updateExpenseItem}
+                                      handleDeleteBtnClicked={removeExpenseItem}
+                                    />
+                                  ))}
+                                </div>
+                                <div className="me-5 d-flex justify-content-end cash-expense-btn">
+                                  {/* ADD EXPENSE COMPONENT */}
+                                  <button
+                                    className="add-btn"
+                                    onClick={addExpenseItem}
+                                    type="button"
+                                  >
+                                    <i className="bi bi-plus-lg"></i>
+                                  </button>
+                                </div>
+                                <div className="align-items-center justify-content-center d-flex">
+                                  <button
+                                    className="btn save-btn"
+                                    /* TODO: implement logic instead of CONST value */
+                                    disabled={
+                                      cashWithdrawalItem &&
+                                      Math.abs(cashWithdrawalItem.amount) -
+                                        sum <
+                                        0
+                                    }
+                                    type="submit"
+                                    id="saveBtn"
+                                  >
+                                    Save
+                                  </button>
+                                </div>
+                              </form>
+                              <div className="row cash-expense-btn mb-4">
+                                <button
+                                  className="arrow-btn"
+                                  style={{ fontSize: "45px" }}
+                                  onClick={() => previousCashWithdrawal()}
+                                >
+                                  <i className="bi bi-arrow-left-short"></i>
+                                </button>
+                                <button
+                                  className="arrow-btn"
+                                  style={{ fontSize: "45px" }}
+                                  onClick={() => nextCashWithdrawal()}
+                                >
+                                  <i className="bi bi-arrow-right-short"></i>
+                                </button>
+                              </div>
+                            </div>
                           </div>
-                          {cashWithdrawalItem &&
-                            Math.abs(cashWithdrawalItem.amount) - sum}
-                          $
-                        </h2>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <form onSubmit={onSubmit}>
-                  <div>
-                    {ExpensesList.map((expense) => (
-                      <CashExpense
-                        id={expense.key}
-                        key={expense.key}
-                        minDate={
-                          cashWithdrawalItem
-                            ? cashWithdrawalItem.tDate
-                            : new Date().toDateString()
-                        }
-                        updateExpenseItem={updateExpenseItem}
-                        handleDeleteBtnClicked={removeExpenseItem}
-                      />
-                    ))}
-                  </div>
-                  <div className="me-5 d-flex justify-content-end">
-                    {/* ADD EXPENSE COMPONENT */}
-                    <button
-                      className="btn btn-success"
-                      onClick={addExpenseItem}
-                      type="button"
-                    >
-                      <i className="bi bi-plus-square"></i>
-                    </button>
-                  </div>
-                  <div className="align-items-center justify-content-center d-flex">
-                    <button
-                      className="btn btn-success btn-lg rounded-pill"
-                      /* TODO: implement logic instead of CONST value */
-                      disabled={
-                        cashWithdrawalItem &&
-                        Math.abs(cashWithdrawalItem.amount) - sum < 0
-                      }
-                      type="submit"
-                      id="saveBtn"
-                    >
-                      Save
-                    </button>
-                  </div>
-                </form>
-                <div>
-                  <button
-                    className="btn me-4"
-                    style={{ fontSize: "45px" }}
-                    onClick={() => previousCashWithdrawal()}
-                  >
-                    <i className="bi bi-arrow-left-circle"></i>
-                  </button>
-                  <button
-                    className="btn"
-                    style={{ fontSize: "45px" }}
-                    onClick={() => nextCashWithdrawal()}
-                  >
-                    <i className="bi bi-arrow-right-circle"></i>
-                  </button>
-                </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </>
