@@ -2,6 +2,7 @@ import BalanceInfoBar from "../components/BalanceInfoBar";
 import { useState, useContext } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 import { uploadTransactionsFile } from "../contexts/ClientDBOperations";
+import Header from "../components/Header";
 const FormData = require("form-data");
 
 const UploadTransactions = () => {
@@ -41,13 +42,16 @@ const UploadTransactions = () => {
   };
 
   return (
-    <>
-      <BalanceInfoBar backgroundColor="bg-light" barColor="bg-success" />
-      <div className="row mt-5 mb-2 align-items-center justify-content-center text-center lead">
-        We could'nt find any transactions in your account.<br></br>
-        Please Upload transactions fils (.csv)
+    <section className="categories">
+      <BalanceInfoBar />
+      <div className="py-5">
+        <Header
+          title="Upload Transactions File"
+          body="we could'nt find any transactions in your account.
+Please Upload transactions fils (.csv)"
+        />
       </div>
-      <div className="row mt-3 mb-3 align-items-center justify-content-center">
+      <div className="row mb-3 align-items-center justify-content-center">
         <div className="col d-flex justify-content-center">
           <div className="d-flex justify-content-center">
             <input
@@ -59,7 +63,7 @@ const UploadTransactions = () => {
             />
             <div>
               <button
-                className="btn btn-success"
+                className="btn save-btn"
                 onClick={handleSubmission}
                 disabled={!isSelected || uploading !== ""}
               >
@@ -69,13 +73,13 @@ const UploadTransactions = () => {
           </div>
         </div>
       </div>
-      <div className="row mb-5 align-items-center justify-content-center">
+      <div className="row pb-5 align-items-center justify-content-center">
         <div className="col d-flex justify-content-center">
           <p className="social-text">{uploadError}</p>
           <p className="lead">{uploading}</p>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 
