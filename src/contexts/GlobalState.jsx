@@ -259,22 +259,12 @@ export const GlobalProvider = ({ children }) => {
   }
 
   const loadingJSX = (
-    <div className="h-100 row align-items-center justify-content-center mt-5">
-      <div
-        style={{
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div className="spinner-grow text-primary me-2" role="status"></div>
-        <div className="spinner-grow text-secondary me-2" role="status"></div>
-        <div className="spinner-grow text-success me-2" role="status"></div>
-        <div className="spinner-grow text-danger me-2" role="status"></div>
-        <div className="spinner-grow text-warning me-2" role="status"></div>
-        <div className="spinner-grow text-info me-2" role="status"></div>
+    <div className="preloader">
+      <div className="preloader-inner">
+        <div className="preloader-icon">
+          <span></span>
+          <span></span>
+        </div>
       </div>
     </div>
   );
