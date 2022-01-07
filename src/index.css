@@ -255,6 +255,7 @@ input {
 .login-container.sign-up-mode .form-section.sign-up-form {
   opacity: 1;
   z-index: 2;
+  margin-top: 60px;
 }
 
 .login-container.sign-up-mode .form-section.sign-in-form {
@@ -853,12 +854,37 @@ input {
 .categoryGraph-card .single-card .card-graph {
   position: relative;
   display: block;
-  padding-top: 30px;
+  padding-top: 75px;
 }
-/**********************/
+
+.card-back-btn {
+  font-size: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.card-back-btn:hover {
+  color: #0069ff;
+}
+
+.card-slide-btn {
+  font-size: 45px;
+}
+
+.card-slide-btn:hover {
+  color: #0069ff;
+}
+
+.card-slide-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 @media (max-width: 767px) {
   .categoryGraph-card .single-card {
     padding: 32px 25px;
+    padding-bottom: 0px;
   }
 
   .categoryGraph-card .single-card .card-head .card-icon {
@@ -866,12 +892,18 @@ input {
   }
 
   .categoryGraph-card .single-card .card-head .card-category {
-    font-size: 25px;
+    font-size: 35x;
+    line-height: normal;
   }
 
   .categoryGraph-card .single-card .card-graph {
     position: relative;
     display: block;
+    padding-top: 30px;
+  }
+
+  .card-slide-btn {
+    font-size: 35px;
   }
 }
 

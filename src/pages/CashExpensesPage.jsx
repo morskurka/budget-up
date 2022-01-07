@@ -126,7 +126,10 @@ const CashExpensesPage = () => {
                 <div className="col-lg-10">
                   <div className="single-cash-expense">
                     <div className="info">
-                      <h5>Cash Withdrawal</h5>
+                      <h5>
+                        <i className="bi bi-currency-exchange"></i>
+                        <i className="bi bi-dash pe-2"></i>Cash Withdrawal
+                      </h5>
                       <p>Classify your cash withdrawals into categories</p>
                     </div>
                     <div className="card">

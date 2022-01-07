@@ -85,6 +85,18 @@ const LoginPage = () => {
   return (
     <div>
       <div className={"login-container" + type}>
+        <div
+          className={
+            type === ""
+              ? "text-end navbar-brand fw-bold fs-2 ms-4 mt-3"
+              : " " + " navbar-brand fw-bold fs-2 ms-4 mt-3"
+          }
+          to="/"
+        >
+          <i className="bi bi-coin"></i>
+          <i className="bi bi-bar-chart-steps pe-2"></i>
+          BudgetUp
+        </div>
         <div className="forms-container">
           <div className="signin-signup">
             {/*Sign in form*/}

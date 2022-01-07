@@ -59,16 +59,13 @@ const CashIncomesPage = () => {
                   <div className="single-cash-expense">
                     <div className="info">
                       <h5>
-                        <i className="bi bi-cash-coin pe-2"></i>Cash Incomes
+                        <i className="bi bi-currency-exchange"></i>
+                        <i className="bi bi-plus pe-2"></i>Cash Incomes
                       </h5>
                       <p>Add Your Cash Incomes</p>
                     </div>
-                    <div className="card m-2">
-                      <div className="p-4">
-                        <h1 className="ms-3 mb-4 display-6 align-items-center">
-                          <i className="bi bi-cash-coin me-4"></i>
-                          Add Your Cash Incomes
-                        </h1>
+                    <div className="card">
+                      <div className="cash-expenses-content pb-3">
                         <form onSubmit={onSubmit}>
                           <CashIncome
                             setSource={setSource}
