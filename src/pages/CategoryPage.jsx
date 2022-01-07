@@ -64,7 +64,7 @@ const CategoryPage = ({ category }) => {
   }, [category]);
 
   return (
-    <div className="bg-light">
+    <div>
       <BalanceInfoBar />
       <div className="categoryGraph-card">
         <div className="container">

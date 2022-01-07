@@ -12,43 +12,44 @@ const Navbar = () => {
 
   function logout() {
     addUser({});
+    sessionStorage.clear();
     navigate("/login");
   }
 
   return (
     <div className="navbar-header">
-      <div className="container">
-        <nav className="navbar navbar-expand-lg">
+      <nav className="navbar navbar-expand-lg">
+        <div className="container">
           <Link className="navbar-brand fw-bold fs-2" to="/">
-            <img src="/logo192.png" alt="" />
-            BudgetUP
+            <i className="bi bi-coin"></i>
+            <i className="bi bi-bar-chart-steps pe-2"></i>
+            BudgetUp
           </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent2"
-            aria-controls="navbarSupportedContent2"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="toggler-icon"></span>
-            <span className="toggler-icon"></span>
-            <span className="toggler-icon"></span>
-          </button>
           {user.email && (
-            <div
-              className="collapse navbar-collapse sub-menu-bar"
-              id="navbarSupportedContent2"
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#nav"
+              aria-controls="nav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
             >
-              <ul className="navbar-nav ms-auto">
-                <li className="nav-item d-lg-none">
-                  <p className="fst-italic text-secondary pt-3">
+              <span className="toggler-icon"> </span>
+              <span className="toggler-icon"> </span>
+              <span className="toggler-icon"> </span>
+            </button>
+          )}
+          {user.email && (
+            <div className="navbar-collapse">
+              <ul id="nav" className="navbar-nav mx-auto">
+                <li className="nav-item d-lg-none mt-3">
+                  <p className="fst-italic text-primary">
                     {user.firstName + "-" + user.lastName}
                   </p>
                   <hr />
                 </li>
-                <li className="nav-item mt-4">
+                <li className="nav-item mt-3 mt-lg-0 me-0 me-xl-5">
                   <Link
                     className={"nav-link" + active1}
                     to="/"
@@ -61,7 +62,7 @@ const Navbar = () => {
                     Home
                   </Link>
                 </li>
-                <li className="nav-item mt-4">
+                <li className="nav-item mt-3 mt-lg-0 me-0 me-xl-5">
                   <Link
                     className={"nav-link" + active2}
                     to="/CashExpensesPage"
@@ -75,7 +76,7 @@ const Navbar = () => {
                     Classify Cash
                   </Link>
                 </li>
-                <li className="nav-item mt-4">
+                <li className="nav-item mt-3 mt-lg-0">
                   <Link
                     className={"nav-link" + active3}
                     to="/CashIncomesPage"
@@ -89,31 +90,40 @@ const Navbar = () => {
                     Add Income
                   </Link>
                 </li>
-                <li className="nav-link mt-4">
-                  <Link
+                <li className="nav-item d-lg-none d-sm-inline-block mt-3 mt-lg-0">
+                  <button
                     to="/login"
-                    className="logout-btn"
+                    className="btn logout-btn"
                     onClick={() => logout()}
                   >
                     <i className="bi bi-box-arrow-right me-2"></i>
                     Logout
-                  </Link>
-                </li>
-                <li className="nav-link d-lg-flex d-none mt-1">
-                  <div className="navbar-user d-lg-flex justify-content-center align-items-center ms-2 d-none">
-                    <i className="bi bi-person-check text-white"></i>
-                  </div>
-                </li>
-                <li className="nav-item mt-5 d-lg-flex d-none">
-                  <p className="text-primary">
-                    {user.firstName + "-" + user.lastName}
-                  </p>
+                  </button>
                 </li>
               </ul>
             </div>
           )}
-        </nav>
-      </div>
+          {user.email && (
+            <div className="d-none d-lg-inline-block pt-3 pe-3">
+              <p className="navbar-user">
+                {user.firstName + "-" + user.lastName}
+              </p>
+            </div>
+          )}
+          {user.email && (
+            <div className="d-none d-lg-inline-block">
+              <button
+                to="/login"
+                className="btn logout-btn"
+                onClick={() => logout()}
+              >
+                <i className="bi bi-box-arrow-right me-2"></i>
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
+      </nav>
     </div>
   );
 };

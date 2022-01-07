@@ -1,5 +1,5 @@
 import CategoryCard from "../components/CategoryCard";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoBar from "../components/BalanceInfoBar";
 import { useNavigate } from "react-router-dom";
@@ -44,21 +44,30 @@ const HomePage = ({ setCurrCategory }) => {
       <BalanceInfoBar />
       {/* <Prediction /> */}
       <section className="categories">
-        <Header
-          title="Follow Your Expenses"
-          body="Click on a particular category to see monthly breakdown and more information"
-        />
-        <div className="container" style={{ padding: "0 30px" }}>
-          <div className="d-flex justify-content-center">
-            <div className="mb-3 form-group has-feedback">
-              <input
-                placeholder="Search Category..."
-                type="text"
-                className="form-control form-control-lg mt-4"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                id="searchInput"
-              ></input>
+        <div className="container">
+          <div className="pt-5 pb-3">
+            <Header
+              title="Follow Your Expenses"
+              body="Click on a particular category to see monthly breakdown and more information"
+            />
+          </div>
+          <div className="row justify-content-center mb-5">
+            <div className="col-xxl-5 col-xl-6 col-lg-7">
+              <div className="mb-3 form-group has-feedback">
+                <section className="search-section">
+                  <input
+                    placeholder="Search Category..."
+                    type="text"
+                    className="form-control form-control-lg"
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    id="searchInput"
+                  ></input>
+                  <div className="icon d-flex justify-content-center align-items-center">
+                    <i className="bi bi-search"></i>
+                  </div>
+                </section>
+              </div>
             </div>
           </div>
 

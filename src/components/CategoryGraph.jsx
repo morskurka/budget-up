@@ -15,7 +15,7 @@ const CategoryGraph = ({
     {
       data: graphData,
       label: year,
-      backgroundColor: "rgba(51, 152, 102, 0.5)",
+      backgroundColor: "#04316b7e",
     },
   ];
 
@@ -25,7 +25,7 @@ const CategoryGraph = ({
       {
         data: expectedData,
         label: "Expected amount",
-        backgroundColor: "red",
+        backgroundColor: "#04316b",
       },
     ];
   }
@@ -37,14 +37,13 @@ const CategoryGraph = ({
   return (
     <div className="single-card">
       <div className="card-head">
-        <div className="card-icon">
-          <i className={"bi bi-" + icon + " text-white"}></i>
-          <span className="ms-4">{category}</span>
+        <div className="card-icon d-flex mb-5">
+          <i className={"bi bi-" + icon}></i>
+          <span className="card-category pt-3 ms-4">{category}</span>
         </div>
-        <h4 className="card-category">Category Breakdown</h4>
       </div>
       <div className="card-graph">
-        <Bar style={{ height: "1000px" }} data={categoryData} />
+        <Bar data={categoryData} />
       </div>
       <div className="card-footer bg-white">
         <button
