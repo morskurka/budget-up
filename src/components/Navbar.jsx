@@ -41,8 +41,8 @@ const Navbar = () => {
             </button>
           )}
           {user.email && (
-            <div className="navbar-collapse">
-              <ul id="nav" className="navbar-nav mx-auto">
+            <div className="collapse navbar-collapse" id="nav">
+              <ul className="navbar-nav mx-auto">
                 <li className="nav-item d-lg-none mt-3">
                   <p className="fst-italic text-primary">
                     {user.firstName + "-" + user.lastName}
