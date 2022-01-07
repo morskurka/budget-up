@@ -21,7 +21,7 @@ const Navbar = () => {
       {user.email && (
         <nav className="navbar navbar-expand-lg">
           <div className="container">
-            <Link className="navbar-brand fw-bold fs-2" to="/">
+            <Link className="navbar-brand fw-bold fs-2 text-dark" to="/">
               <i className="bi bi-coin"></i>
               <i className="bi bi-bar-chart-steps pe-2"></i>
               BudgetUp
