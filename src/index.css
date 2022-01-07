@@ -12,6 +12,10 @@ input {
 }
 
 /*login page*/
+.login-header {
+  position: relative;
+}
+
 .login-container {
   position: relative;
   width: 100%;
@@ -401,8 +405,16 @@ input {
 }
 
 /*Navbar*/
+.navbar-header {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background: 0 0;
+}
+
 .navbar {
-  background-color: #fff;
   border-radius: 0;
   position: relative;
   padding-top: 0.5rem;
@@ -412,124 +424,64 @@ input {
   align-items: center;
   flex-wrap: nowrap;
 }
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .navbar {
-    padding: 10px 0;
-  }
-}
-@media (max-width: 767px) {
-  .navbar {
-    padding: 17px 0;
-  }
-}
+
 .navbar-brand {
   padding: 0;
+  color: #04316b;
 }
+
+.navbar-brand:hover {
+  color: #04316b;
+}
+
 .navbar-brand img {
   max-width: 50px;
   max-height: 50px;
   margin-right: 5px;
 }
+
 .navbar-toggler {
   padding: 0;
 }
+
 .navbar-toggler:focus {
   outline: none;
   box-shadow: none;
 }
+
 .navbar-toggler .toggler-icon {
   width: 30px;
   height: 2px;
-  background-color: #323450;
+  background-color: #ffffff;
   display: block;
   margin: 5px 0;
   position: relative;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .navbar-collapse {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    z-index: 9;
-    box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.1);
-    padding: 5px 12px;
-  }
-}
-@media (max-width: 767px) {
-  .navbar-collapse {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    z-index: 9;
-    box-shadow: 0 15px 20px 0 rgba(50, 52, 80, 0.1);
-    padding: 5px 12px;
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .navbar-nav {
-    margin-bottom: 15px;
-  }
-}
-@media (max-width: 767px) {
-  .navbar-nav {
-    margin-bottom: 15px;
-  }
-}
-
 .navbar-nav .nav-item a {
   font-size: 18px;
   font-weight: 500;
-  color: #585978;
+  color: #e5e7e9;
   transition: all 0.3s ease-out 0s;
   position: relative;
   display: inline-block;
   z-index: 1;
 }
+
 .navbar-nav .nav-item a::after {
   content: "";
   position: absolute;
   width: 0;
   height: 2px;
-  background: #2f80ed;
+  background: #ffffff;
   transition: all 0.3s ease-out 0s;
   left: 0;
   top: 0;
 }
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .navbar-nav .nav-item a::after {
-    top: auto;
-    bottom: 5px;
-  }
-}
-@media (max-width: 767px) {
-  .navbar-nav .nav-item a::after {
-    top: auto;
-    bottom: 5px;
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .navbar-nav .nav-item a {
-    display: inline-block;
-    padding: 10px 0;
-    color: #323450;
-  }
-}
-@media (max-width: 767px) {
-  .navbar-nav .nav-item a {
-    display: inline-block;
-    padding: 10px 0;
-    color: #323450;
-  }
-}
 
 .navbar-nav .nav-item a:hover,
 .navbar-nav .nav-item a.active {
-  color: #2f80ed;
+  color: #ffffff;
 }
 
 .navbar-nav .nav-item a:hover::after,
@@ -537,79 +489,11 @@ input {
   width: 100%;
 }
 
-.navbar-nav .nav-item:hover .sub-menu {
-  top: 100%;
-  opacity: 1;
-  visibility: visible;
-}
-
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .navbar-nav .nav-item:hover .sub-menu {
-    top: 0;
-  }
-}
-
-@media (max-width: 767px) {
-  .navbar-nav .nav-item:hover .sub-menu {
-    top: 0;
-  }
-}
-
-.navbar-nav .nav-item .sub-menu {
-  width: 200px;
-  background-color: #fff;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
-  position: absolute;
-  top: 110%;
-  left: 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease-out 0s;
-}
-
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .navbar-nav .nav-item .sub-menu {
-    position: relative;
-    width: 100%;
-    top: 0;
-    display: none;
-    opacity: 1;
-    visibility: visible;
-  }
-}
-
-@media (max-width: 767px) {
-  .navbar-nav .nav-item .sub-menu {
-    position: relative;
-    width: 100%;
-    top: 0;
-    display: none;
-    opacity: 1;
-    visibility: visible;
-  }
-}
-
-.navbar-nav .nav-item .sub-menu li {
-  display: block;
-}
-
-.navbar-nav .nav-item .sub-menu li a {
-  display: block;
-  padding: 8px 20px;
-  color: #000;
-}
-
-.navbar-nav .nav-item .sub-menu li a.active,
-.navbar-nav .nav-item .sub-menu li a:hover {
-  padding-left: 25px;
-  color: #2f80ed;
-}
-
 .logout-btn {
   width: 120px;
   height: 45px;
-  background: #2f80ed;
-  color: #ffffff;
+  background: #04316b;
+  color: #e5e7e9;
   border-radius: 14px;
   border: none;
   font-size: 18px;
@@ -618,6 +502,86 @@ input {
 .logout-btn:hover {
   background: #04316b;
   color: #ffffff;
+}
+
+.navbar-user {
+  color: #e5e7e9;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .navbar {
+    padding: 10px 0;
+  }
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 9;
+    box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.1);
+    padding: 0px 12px;
+  }
+  .navbar-nav {
+    margin-bottom: 15px;
+  }
+  .navbar-nav .nav-item a::after {
+    top: auto;
+    bottom: 5px;
+    background: #2f80ed;
+  }
+  .navbar-nav .nav-item a {
+    display: inline-block;
+    padding: 10px 0;
+    color: #323450;
+  }
+  .navbar-nav .nav-item a:hover,
+  .navbar-nav .nav-item a.active {
+    color: #2f80ed;
+  }
+
+  .navbar-nav .nav-item a:hover::after,
+  .navbar-nav .nav-item a.active::after {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    padding: 17px 0;
+  }
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 9;
+    box-shadow: 0 15px 20px 0 rgba(50, 52, 80, 0.1);
+    padding: 0px 12px;
+  }
+  .navbar-nav {
+    margin-bottom: 15px;
+  }
+  .navbar-nav .nav-item a::after {
+    top: auto;
+    bottom: 5px;
+    background: #2f80ed;
+  }
+  .navbar-nav .nav-item a {
+    display: inline-block;
+    padding: 10px 0;
+    color: #323450;
+  }
+  .navbar-nav .nav-item a:hover,
+  .navbar-nav .nav-item a.active {
+    color: #2f80ed;
+  }
+
+  .navbar-nav .nav-item a:hover::after,
+  .navbar-nav .nav-item a.active::after {
+    width: 100%;
+  }
 }
 
 /*Category card*/
@@ -710,7 +674,7 @@ input {
 }
 
 .balanceInfoBar-bar {
-  padding-bottom: 9.5rem;
+  padding-bottom: 11.5rem;
   background-color: #2f80ed;
 }
 
