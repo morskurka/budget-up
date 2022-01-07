@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 import Header from "../components/Header";
+import UploadTransactions from "../components/UploadTransactions";
 
 const CashIncomesPage = () => {
   const navigate = useNavigate();
@@ -35,6 +36,10 @@ const CashIncomesPage = () => {
     });
     navigate("/");
   };
+
+  if (transactions.length === 0) {
+    return <UploadTransactions />;
+  }
 
   return (
     <>

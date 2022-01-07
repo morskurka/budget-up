@@ -4,6 +4,7 @@ import BalanceInfoBar from "../components/BalanceInfoBar";
 import CashExpense from "../components/CashExpense";
 import Header from "../components/Header";
 import { GlobalContext } from "../contexts/GlobalState";
+import UploadTransactions from "../components/UploadTransactions";
 
 const CashExpensesPage = () => {
   const navigate = useNavigate();
@@ -103,6 +104,10 @@ const CashExpensesPage = () => {
     });
     navigate("/");
   };
+
+  if (transactions.length === 0) {
+    return <UploadTransactions />;
+  }
 
   return (
     <>
