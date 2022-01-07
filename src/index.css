@@ -787,7 +787,7 @@ input {
 
 /*Category graph - graph*/
 .categoryGraph-card {
-  background: #f9f9f9;
+  background: #f4f7fa;
   position: relative;
 }
 
@@ -799,10 +799,11 @@ input {
   position: relative;
   border: 1px solid #ececec;
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: 16px;
   padding: 40px 40px;
   padding-bottom: 0px;
   z-index: 2;
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.16);
 }
 
 .categoryGraph-card .single-card::before {
@@ -812,7 +813,7 @@ input {
   top: 0;
   height: 300px;
   width: 300px;
-  background: #5830e0;
+  background: #2f80ed;
   border-radius: 50%;
   left: -50px;
   top: -110px;
@@ -825,7 +826,7 @@ input {
   top: 0;
   height: 300px;
   width: 300px;
-  background: #5830e0;
+  background: #2f80ed;
   border-radius: 50%;
   left: -40px;
   top: -110px;
@@ -842,7 +843,7 @@ input {
 }
 
 .categoryGraph-card .single-card .card-head .card-category {
-  font-size: 35px;
+  font-size: 40px;
   line-height: 56px;
   font-weight: 700;
   color: rgb(14, 14, 14);
