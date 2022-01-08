@@ -11,7 +11,9 @@ const BalanceInfoBar = () => {
   const [myBalance, setMyBalance] = useState(0);
 
   useEffect(() => {
-    const balance = transactions.reduce((acc, item) => (acc += item.amount), 0);
+    const balance = transactions
+      .reduce((acc, item) => (acc += item.amount), 0)
+      .toFixed(0);
     setMyBalance(balance);
   }, [transactions]);
 
@@ -23,7 +25,8 @@ const BalanceInfoBar = () => {
         new Date(item.tDate).getUTCFullYear() === currentYear &&
         new Date(item.tDate).getMonth() === currentMonth
     )
-    .reduce((acc, item) => (acc += item.amount), 0);
+    .reduce((acc, item) => (acc += item.amount), 0)
+    .toFixed(0);
 
   //calculate outcome this month
   const outcome = transactions
@@ -33,12 +36,14 @@ const BalanceInfoBar = () => {
         new Date(item.tDate).getUTCFullYear() === currentYear &&
         new Date(item.tDate).getMonth() === currentMonth
     )
-    .reduce((acc, item) => (acc += item.amount), 0);
+    .reduce((acc, item) => (acc += item.amount), 0)
+    .toFixed(0);
 
   //calculate global saving amount
   const saving = transactions
     .filter((item) => item.category.toLowerCase() === "saving")
-    .reduce((acc, item) => (acc += item.amount), 0);
+    .reduce((acc, item) => (acc += item.amount), 0)
+    .toFixed(0);
 
   return (
     <div className="balanceInfoBar-back" id="balanceInfoBar">
