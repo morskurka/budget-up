@@ -1,10 +1,10 @@
 import { GlobalContext } from "../contexts/GlobalState";
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserFromDB, addUserToDB } from "../contexts/ClientDBOperations";
 
 const LoginPage = () => {
-  const { addUser } = useContext(GlobalContext);
+  const { addUser, user } = useContext(GlobalContext);
   const navigate = useNavigate();
   const [type, setType] = useState("");
   //user login details
@@ -18,6 +18,13 @@ const LoginPage = () => {
   const regPassword = useRef("");
   const [regError, setRegError] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("user") && !user.email) {
+      addUser(JSON.parse(sessionStorage.getItem("user")));
+      navigate("/");
+    }
+  }, []);
 
   const validateEmail = (email) => {
     return String(email)
