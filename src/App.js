@@ -13,8 +13,6 @@ import LoginPage from "./pages/LoginPage";
 import ScrollUp from "./components/ScrollUp";
 
 function App() {
-  const [currCategory, setCurrCategory] = useState("");
-
   return (
     <>
       <GlobalProvider>
@@ -22,20 +20,10 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/Login" element={<LoginPage />} />
-            <Route
-              path="/"
-              element={<HomePage setCurrCategory={setCurrCategory} />}
-            />
-            <Route
-              path="/CategoryPage"
-              element={<CategoryPage category={currCategory} />}
-            />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/CategoryPage" element={<CategoryPage />} />
             <Route path="/CashExpensesPage" element={<CashExpensesPage />} />
             <Route path="/CashIncomesPage" element={<CashIncomesPage />} />
-            <Route
-              path="/ProfileSettingsPage"
-              element={<ProfileSettingsPage name="Mor Skurka" />}
-            />
           </Routes>
           <Footer />
           <ScrollUp />

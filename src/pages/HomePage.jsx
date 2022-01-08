@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import UploadTransactions from "../components/UploadTransactions";
 import Header from "../components/Header";
 
-const HomePage = ({ setCurrCategory }) => {
+const HomePage = () => {
   const { categoriesInfo, categoriesIcons, user, addUser } =
     useContext(GlobalContext);
   const [categories, setCategories] = useState([]);
@@ -82,7 +82,6 @@ const HomePage = ({ setCurrCategory }) => {
                     }
                     totalExpected={parseInt(cat.expected)}
                     icon={categoriesIcons[cat.category]}
-                    setCurrCategory={setCurrCategory}
                   />
                 </div>
               );

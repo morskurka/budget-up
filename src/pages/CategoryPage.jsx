@@ -5,10 +5,35 @@ import CategoryGraph from "../components/CategoryGraph";
 import CategoryTable from "../components/CategoryTable";
 import { useNavigate } from "react-router-dom";
 
-const CategoryPage = ({ category }) => {
-  const { transactions, categoriesIcons, categoriesInfo } =
-    useContext(GlobalContext);
+const CategoryPage = () => {
+  const {
+    transactions,
+    categoriesIcons,
+    categoriesInfo,
+    currCategory,
+    setCurrCategory,
+    user,
+    addUser,
+  } = useContext(GlobalContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // make sure user is logged in
+    if (sessionStorage.getItem("user") && !user.email) {
+      addUser(JSON.parse(sessionStorage.getItem("user")));
+      // if not - navigate to login page
+    } else if (!user.email) {
+      navigate("/login");
+    }
+    // handle case of refresh
+    if (sessionStorage.getItem("currCategory") && !currCategory) {
+      console.log(sessionStorage.getItem("currCategory"));
+      setCurrCategory(sessionStorage.getItem("currCategory"));
+    } else if (!currCategory) {
+      navigate("/");
+    }
+  }, []);
+
   const [year, setYear] = useState(new Date().getUTCFullYear());
   let expectedData = new Array(12).fill(0);
   const labels = [
@@ -29,7 +54,7 @@ const CategoryPage = ({ category }) => {
   // calculate the sum for each month for specific category
   const categoryData = transactions.filter(
     (item) =>
-      item.category === category &&
+      item.category === currCategory &&
       new Date(item.tDate).getUTCFullYear() === year
   );
 
@@ -44,9 +69,11 @@ const CategoryPage = ({ category }) => {
 
   if (year === new Date().getUTCFullYear()) {
     let currCategoryInfo = categoriesInfo.filter(
-      (item) => item.category === category
+      (item) => item.category === currCategory
     );
-    expectedData[new Date().getMonth()] = currCategoryInfo[0].expected;
+    if (currCategoryInfo[0]) {
+      expectedData[new Date().getMonth()] = currCategoryInfo[0].expected;
+    }
   }
 
   //display previous year
@@ -59,10 +86,6 @@ const CategoryPage = ({ category }) => {
     setYear(year + 1);
   }
 
-  useEffect(() => {
-    if (!category) navigate("/");
-  }, [category]);
-
   return (
     <div>
       <BalanceInfoBar />
@@ -71,8 +94,8 @@ const CategoryPage = ({ category }) => {
           <div className="row justify-content-center">
             <div className="col-12 col-lg-10">
               <CategoryGraph
-                icon={categoriesIcons[category]}
-                category={category}
+                icon={categoriesIcons[currCategory]}
+                category={currCategory}
                 year={year}
                 graphLabels={labels}
                 graphData={monthlySum}

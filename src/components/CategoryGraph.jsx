@@ -48,7 +48,10 @@ const CategoryGraph = ({
       <div className="single-card">
         <button
           className="btn card-back-btn pe-lg-5 pt-lg-3 pe-3 pt-1"
-          onClick={() => navigate("/")}
+          onClick={() => {
+            sessionStorage.removeItem("currCategory");
+            navigate("/");
+          }}
         >
           Back<i className="bi bi-arrow-bar-right"></i>
         </button>

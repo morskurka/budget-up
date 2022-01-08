@@ -1,22 +1,19 @@
 import ProgressBarBU from "./ProgressBarBU";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { GlobalContext } from "../contexts/GlobalState";
 
-const CategoryCard = ({
-  icon,
-  title,
-  currBalance,
-  totalExpected,
-  setCurrCategory,
-}) => {
+const CategoryCard = ({ icon, title, currBalance, totalExpected }) => {
   const percentages = (currBalance / totalExpected) * 100;
   const navigate = useNavigate();
-
+  const { setCurrCategory } = useContext(GlobalContext);
   return (
     <div
       className="single-category"
       onClick={() => {
         setCurrCategory(title);
+        sessionStorage.setItem("currCategory", title);
+        console.log(sessionStorage.getItem("currCategory"));
         navigate("/CategoryPage");
       }}
     >

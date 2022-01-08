@@ -258,6 +258,11 @@ export const GlobalProvider = ({ children }) => {
     return categoryInfo;
   }
 
+  const [currCategory, setCurrCategory] = useState("");
+  // useEffect(() => {
+  //   sessionStorage.setItem("currCategory", currCategory);
+  // }, [currCategory]);
+
   const loadingJSX = (
     <div className="preloader">
       <div className="preloader-inner">
@@ -283,6 +288,8 @@ export const GlobalProvider = ({ children }) => {
         user: state.user,
         loadUserTransactions,
         setLoading,
+        currCategory,
+        setCurrCategory,
       }}
     >
       {loading ? loadingJSX : children}
