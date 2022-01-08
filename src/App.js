@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 import CategoryPage from "./pages/CategoryPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import ProfileSettingsPage from "./pages/ProfileSettingsPage";
 import CashExpensesPage from "./pages/CashExpensesPage";
 import CashIncomesPage from "./pages/CashIncomesPage";
 import { GlobalProvider } from "./contexts/GlobalState";
