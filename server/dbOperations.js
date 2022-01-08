@@ -93,19 +93,23 @@ async function getUserFromDB(userAuth) {
   const query = `SELECT * from Users WHERE email = '${userAuth.email}'`;
   const result = await connectionPool.request().query(query);
   // if user found
-  if (result.recordset > 0) {
+  if (result.recordset.length > 0) {
     // compare hashed passwords
-    const dbHash = result.recordset.uPassword;
+    const dbHash = result.recordset[0].uPassword;
     const validPass = await bcrypt.compare(userAuth.password, dbHash);
     // if valid -> return the user
     if (validPass) {
+      console.log(`Executed: ${query}`);
       return result.recordset;
     } else {
+      // password not match
+      console.log(`Executed: ${query} Not found`);
       return [];
     }
+  } else {
+    // user not found
+    return [];
   }
-  console.log(`Executed: ${query}`);
-  return result.recordset;
 }
 
 async function bulkInsert(body) {
