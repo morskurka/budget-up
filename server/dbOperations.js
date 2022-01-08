@@ -71,6 +71,28 @@ async function updateExistingTransaction(transaction) {
   return result.rowsAffected;
 }
 
+async function validateUserExist(email) {
+  const getUserQuery = `SELECT email from Users WHERE email = '${email}'`;
+  const result = await connectionPool.request().query(getUserQuery);
+  return result.recordset;
+}
+
+async function updateUserPassword(email, newPassword) {
+  const query = `UPDATE Users SET
+                  uPassword = @newPassword
+                  WHERE
+                  email = @email`;
+  const hash = await bcrypt.hash(newPassword, 10);
+
+  const request = await connectionPool.request();
+  request.input("email", sql.VarChar, email);
+  request.input("newPassword", sql.VarChar, hash);
+
+  const result = await request.query(query);
+  console.log(`Executed: ${query}`);
+  return result.rowsAffected;
+}
+
 async function addUserToDB(userReg) {
   const query = `INSERT INTO Users 
   (firstName, lastName, email, uPassword)
@@ -177,4 +199,6 @@ module.exports = {
   deleteTransactionById,
   updateExistingTransaction,
   bulkInsert,
+  updateUserPassword,
+  validateUserExist,
 };

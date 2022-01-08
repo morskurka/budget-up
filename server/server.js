@@ -6,10 +6,15 @@ const multer = require("multer");
 // import cors to set CORS options to '*' easily
 const cors = require("cors");
 const dbOperations = require("./dbOperations");
+const mailer = require("./mailer");
 
 const port = process.env.PORT || 5000;
 
 const app = express();
+
+const validatePassword = (password) => {
+  return String(password).match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
+};
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, "../build")));
@@ -36,6 +41,31 @@ app.post("/api/login", async (req, res) => {
   try {
     const user = await dbOperations.getUserFromDB(req.body);
     res.status(200).json({ status: 200, message: user });
+  } catch (error) {
+    res.status(503).json({ status: 503, message: error.message });
+  }
+  res.json();
+});
+
+app.post("/api/forgotPassword", async (req, res) => {
+  try {
+    const userEmail = req.body.email;
+    const user = await dbOperations.validateUserExist(userEmail);
+    if (user.length > 0) {
+      let newPass = "weak";
+      while (!validatePassword(newPass)) {
+        newPass = Math.random().toString(36).slice(-10);
+      }
+      const rowsAffected = await dbOperations.updateUserPassword(
+        userEmail,
+        newPass
+      );
+      console.log(newPass);
+      mailer.sendNewPasswordByEmail(userEmail, newPass);
+      res.status(200).json({ status: 200, message: rowsAffected });
+    } else {
+      res.status(404).json({ status: 503, message: "User not found" });
+    }
   } catch (error) {
     res.status(503).json({ status: 503, message: error.message });
   }

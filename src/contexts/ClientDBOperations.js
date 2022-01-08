@@ -94,6 +94,21 @@ async function getUserFromDB(email, password) {
   }
 }
 
+async function forgotPassword(email) {
+  try {
+    const res = await fetch("/api/forgotPassword", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    return await res.json();
+  } catch (error) {
+    return { status: 500, message: "Server is not available" };
+  }
+}
+
 async function addUserToDB(user) {
   try {
     const res = await fetch("/api/registration", {
@@ -116,4 +131,5 @@ export {
   uploadTransactionsFile,
   getUserFromDB,
   addUserToDB,
+  forgotPassword,
 };

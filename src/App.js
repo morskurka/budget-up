@@ -11,6 +11,7 @@ import { GlobalProvider } from "./contexts/GlobalState";
 import { useState } from "react";
 import LoginPage from "./pages/LoginPage";
 import ScrollUp from "./components/ScrollUp";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/CategoryPage" element={<CategoryPage />} />
             <Route path="/CashExpensesPage" element={<CashExpensesPage />} />
             <Route path="/CashIncomesPage" element={<CashIncomesPage />} />
+            <Route path="/ForgotPassword" element={<ForgotPassword />} />
           </Routes>
           <Footer />
           <ScrollUp />
