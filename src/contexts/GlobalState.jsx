@@ -168,6 +168,9 @@ export const GlobalProvider = ({ children }) => {
           thirdYear: thirdYear,
         },
         expected: null,
+        expectedData: null,
+        method: "",
+        mse: 0,
       };
       categoryInfo = chooseExMethod(categoryInfo);
       addCategoryInfo(categoryInfo);
@@ -202,8 +205,8 @@ export const GlobalProvider = ({ children }) => {
     let currMonth = new Date().getMonth();
 
     const data = [
-      //...categoryInfo.monthlySums.thirdYear.slice(currMonth),
-      ...categoryInfo.monthlySums.secondYear.slice(currMonth),
+      ...categoryInfo.monthlySums.thirdYear.slice(currMonth),
+      ...categoryInfo.monthlySums.secondYear,
       ...categoryInfo.monthlySums.firstYear,
       ...categoryInfo.monthlySums.currYear.slice(0, currMonth),
     ];
@@ -248,13 +251,27 @@ export const GlobalProvider = ({ children }) => {
     tripleExp,
     categoryInfo
   ) {
+    let zeros = new Array(12 - new Date().getMonth() - 1).fill(0);
     if (simpleMSE <= doubleMSE && simpleMSE <= tripleMSE) {
       categoryInfo.expected = simpleExp.forecast[simpleExp.data.length];
+      categoryInfo.expectedData = [...simpleExp.forecast, ...zeros];
+      categoryInfo.method = "simpleEX";
+      categoryInfo.mse = simpleMSE;
     } else if (doubleMSE <= simpleMSE && doubleMSE <= tripleMSE) {
       categoryInfo.expected = doubleExp.forecast[doubleExp.data.length];
+      categoryInfo.expectedData = [...doubleExp.forecast, ...zeros];
+      categoryInfo.method = "doubleEX";
+      categoryInfo.mse = doubleMSE;
     } else {
       categoryInfo.expected = tripleExp.forecast[tripleExp.data.length];
+      categoryInfo.expectedData = [
+        ...tripleExp.forecast.slice(0, tripleExp.data.length + 1),
+        ...zeros,
+      ];
+      categoryInfo.method = "tripleEX";
+      categoryInfo.mse = tripleMSE;
     }
+
     return categoryInfo;
   }
 

@@ -10,7 +10,7 @@ const CategoryPage = ({ category }) => {
     useContext(GlobalContext);
   const navigate = useNavigate();
   const [year, setYear] = useState(new Date().getUTCFullYear());
-  let expectedData = new Array(12).fill(0);
+
   const labels = [
     "January",
     "February",
@@ -42,12 +42,24 @@ const CategoryPage = ({ category }) => {
     return acc;
   }, []);
 
-  if (year === new Date().getUTCFullYear()) {
-    let currCategoryInfo = categoriesInfo.filter(
-      (item) => item.category === category
-    );
-    expectedData[new Date().getMonth()] = currCategoryInfo[0].expected;
-  }
+  let currCategoryInfo = categoriesInfo.filter(
+    (item) => item.category === category
+  );
+
+  let len = currCategoryInfo[0].expectedData.length;
+  let expectedData = currCategoryInfo[0].expectedData.slice(
+    len - (new Date().getUTCFullYear() - year + 1) * 12,
+    len - (new Date().getUTCFullYear() - year) * 12
+  );
+
+  console.log("full array");
+  console.log(currCategoryInfo[0].expectedData);
+  console.log(year);
+  console.log(expectedData);
+  console.log("method");
+  console.log(currCategoryInfo[0].method);
+  console.log("MSE");
+  console.log(currCategoryInfo[0].mse);
 
   //display previous year
   function previousYear() {
