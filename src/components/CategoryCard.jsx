@@ -35,13 +35,13 @@ const CategoryCard = ({
               "fw-bold lead"
             }
           >
-            {currBalance + "$"}
+            {currBalance.toFixed(0) + "$"}
           </div>
         </div>
         <div className="col text-end">
           <div className="fw-light">Expected</div>
           <div className="fw-bold lead">
-            {isNaN(totalExpected) ? "N/A" : totalExpected + "$"}
+            {isNaN(totalExpected) ? "N/A" : totalExpected.toFixed(0) + "$"}
           </div>
         </div>
       </div>
