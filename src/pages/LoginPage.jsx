@@ -19,6 +19,18 @@ const LoginPage = () => {
   const [regError, setRegError] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(false);
 
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
+  const validatePassword = (password) => {
+    return String(password).match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
+  };
+
   // sign-up function
   async function signUp() {
     setBtnDisabled(true);
@@ -28,7 +40,20 @@ const LoginPage = () => {
       regEmail.current.value === "" ||
       regPassword.current.value === ""
     ) {
+      setBtnDisabled(false);
       setRegError("Required fields");
+      return;
+    }
+    if (!validateEmail(regEmail.current.value)) {
+      setBtnDisabled(false);
+      setRegError("Invalid email");
+      return;
+    }
+    if (!validatePassword(regPassword.current.value)) {
+      setBtnDisabled(false);
+      setRegError(
+        "Password must contain minimum eight characters, at least one letter and one number"
+      );
       return;
     }
     const user = {
@@ -59,6 +84,12 @@ const LoginPage = () => {
   function validateLoginInput() {
     if (userEmail.current.value === "" || userPassword.current.value === "") {
       setLoginError("Email and password are required");
+      setBtnDisabled(false);
+      return false;
+    }
+    if (!validateEmail(userEmail.current.value)) {
+      setBtnDisabled(false);
+      setLoginError("Invalid email");
       return false;
     }
     return true;
@@ -85,18 +116,6 @@ const LoginPage = () => {
   return (
     <div>
       <div className={"login-container" + type}>
-        <div
-          className={
-            type === ""
-              ? "text-end navbar-brand fw-bold fs-2 ms-4 mt-3"
-              : " " + " navbar-brand fw-bold fs-2 ms-4 mt-3"
-          }
-          to="/"
-        >
-          <i className="bi bi-coin"></i>
-          <i className="bi bi-bar-chart-steps pe-2"></i>
-          BudgetUp
-        </div>
         <div className="forms-container">
           <div className="signin-signup">
             {/*Sign in form*/}
