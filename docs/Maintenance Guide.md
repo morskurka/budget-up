@@ -30,6 +30,8 @@ DATABASE=YOUR_DB_NAME
 USER=YOUR_DB_USERNAME
 PASSWORD=YOUR_DB_PASSWORD
 DB_PORT=YOUR_DB_PORT
+EMAIL_ADDRESS=YOUR_EMAIL
+EMAIL_PASSWORD=YOUR_EMAIL_PASSWORD
 ```
 
 Place your `.env` file in `budget-up` root folder.
@@ -53,6 +55,19 @@ Navigate back to `budget-up` root folder and run in terminal: `npm test`
 ### _Launch integration tests_
 
 Navigate back to `budget-up` root folder and run in terminal: `npm run testcypress`
+
+### _Create DB_
+
+SQL queries to create necessary tables are located at `budget-up/sql queries` folder.
+Simply execute the queries to create the tables on your MSSQL database.
+
+A `csv` file with demonstration transactions is also available in the same folder.
+
+**PLEASE NOTE**
+
+Users must be added using the `sign-up` page, as we store only hashed values on `uPassword` column.
+
+If you use `INSERT` command to add users, you will have to use `forgot-password` before login.
 
 ## Contribution
 

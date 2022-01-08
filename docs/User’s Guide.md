@@ -22,7 +22,7 @@ Go to [BudgetUp HomePage](http://budget-up.herokuapp.com/) and follow the instru
 If you just want to get impression of the system, you can login to our demo user:
 
 - username: demouser@gmail.com
-- password: BudgetUpDemo1!
+- password: qcbbunae9g
 
 ## HomePage
 
