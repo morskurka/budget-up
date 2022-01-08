@@ -1,21 +1,14 @@
 import { GlobalContext } from "../contexts/GlobalState";
 import { useState, useRef, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { forgotPassword } from "../contexts/ClientDBOperations";
 
 const ForgotPassword = () => {
   const { addUser, user } = useContext(GlobalContext);
   const navigate = useNavigate();
-  const [type, setType] = useState("");
   //user login details
   const userEmail = useRef("");
-  const userPassword = useRef("");
-  const [loginError, setLoginError] = useState("");
-  //user registration details
-  const regFirstName = useRef("");
-  const regLastName = useRef("");
-  const regEmail = useRef("");
-  const regPassword = useRef("");
+  const [emailError, setEmailError] = useState("");
   const [forgotPassTitle, setForgotPassTitle] = useState("Forgot Password");
   const [btnDisabled, setBtnDisabled] = useState(false);
 
@@ -37,8 +30,9 @@ const ForgotPassword = () => {
   // login function
   async function handleForgotPassword(e) {
     e.preventDefault();
+    setEmailError("");
     if (!validateEmail(userEmail.current.value)) {
-      setLoginError("Invalid email");
+      setEmailError("Invalid email");
     }
 
     setBtnDisabled(true);
@@ -46,16 +40,16 @@ const ForgotPassword = () => {
     if (status === 200) {
       setForgotPassTitle("Check your email");
     } else if (status === 404) {
-      setLoginError(message);
+      setEmailError(message);
     } else {
-      setLoginError(`Error on server: ${message}`);
+      setEmailError(`Error on server: ${message}`);
     }
     setBtnDisabled(false);
   }
 
   return (
     <div>
-      <div className={"login-container" + type}>
+      <div className="login-container">
         <div className="forms-container">
           <div className="signin-signup">
             {/*Sign in form*/}
@@ -79,7 +73,10 @@ const ForgotPassword = () => {
               >
                 {btnDisabled ? "Wait..." : "Recover"}
               </button>
-              <p className="social-text">{loginError}</p>
+              <p className="social-text">{emailError}</p>
+              <Link className="nav-link" to="/Login" id="login">
+                Back to Login Page
+              </Link>
             </form>
           </div>
         </div>

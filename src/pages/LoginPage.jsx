@@ -1,6 +1,6 @@
 import { GlobalContext } from "../contexts/GlobalState";
 import { useState, useRef, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getUserFromDB, addUserToDB } from "../contexts/ClientDBOperations";
 
 const LoginPage = () => {
@@ -157,7 +157,15 @@ const LoginPage = () => {
                 {btnDisabled ? "Loading..." : "Login"}
               </button>
               <p className="social-text">{loginError}</p>
+              <Link
+                className="nav-link"
+                to="/ForgotPassword"
+                id="forgotPassword"
+              >
+                Forgot your password?
+              </Link>
             </form>
+
             {/*Sign up form*/}
             <form action="#" className="form-section sign-up-form">
               <h2 className="title">Sign up</h2>
