@@ -17,7 +17,7 @@ Categories name can be anything, but we do expect for `Income` category.
 ## Sign-up / Sign-in
 
 In order to use the system, you will need first to sign-up.
-Go to [BudgetUp HomePage](http://budget-up.herokuapp.com/) and follow the instructions.
+Go to [BudgetUp HomePage](https://budget-up.azurewebsites.net/) and follow the instructions.
 
 If you just want to get impression of the system, you can login to our demo user:
 
