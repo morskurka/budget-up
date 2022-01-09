@@ -4,6 +4,8 @@ BudgetUp is a web application that use time-series analysis methods to analyze a
 
 The service assumes that your transactions are classified into several major categories such as Supermarket, Electricity, Water, ect. (the service is agnostic to the categories name's).
 
+For User Guide, Project Review and Development Process, please see [docs folder](/docs)
+
 ## Run Locally
 
 ### _Preparation_
