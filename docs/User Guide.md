@@ -26,7 +26,7 @@ Go to [BudgetUp HomePage](https://budget-up.azurewebsites.net/) and follow the i
 If you just want to get impression of the system, you can login to our demo user:
 
 - username: demouser@gmail.com
-- password: qcbbunae9g
+- password: DemoUser1
 
 ## HomePage
 
