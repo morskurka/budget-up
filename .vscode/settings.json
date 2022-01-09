@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/12dcb897-2a59-4298-9965-87a17c17ac4f/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/budget-up",
+  "appService.deploySubpath": "."
+}
