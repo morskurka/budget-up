@@ -15,14 +15,14 @@ const Footer = () => {
                 <div className="col-md-5 col-lg-5 col-xl-5 mx-auto">
                   <div className="footer-list">
                     <div className="logo mb-4">
-                      <a
+                      <Link
                         className="navbar-brand fw-bold fs-2 text-dark"
-                        href="#topOfPage"
+                        to="/"
                       >
                         <i className="bi bi-coin"></i>
                         <i className="bi bi-bar-chart-steps pe-2"></i>
                         BudgetUp
-                      </a>
+                      </Link>
                     </div>
                     <p className="desc text-white">
                       This project is used for demonstration only. All banking
@@ -57,10 +57,10 @@ const Footer = () => {
                         <Link to="/">Home</Link>
                       </li>
                       <li>
-                        <Link to="/">Classify Cash </Link>
+                        <Link to="/CashExpensesPage">Classify Cash </Link>
                       </li>
                       <li>
-                        <Link to="/">Add Income </Link>
+                        <Link to="/CashIncomesPage">Add Income </Link>
                       </li>
                     </ul>
                   </div>
