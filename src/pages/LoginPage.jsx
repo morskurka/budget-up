@@ -38,8 +38,15 @@ const LoginPage = () => {
     return String(password).match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
   };
 
+  const validateName = (str) => {
+    return String(str)
+      .toLowerCase()
+      .match(/^[A-Za-z]+$/);
+  };
+
   // sign-up function
   async function signUp() {
+    setRegError("");
     setBtnDisabled(true);
     if (
       regFirstName.current.value === "" ||
@@ -55,12 +62,19 @@ const LoginPage = () => {
       setBtnDisabled(false);
       setRegError("Invalid email");
       return;
-    }
-    if (!validatePassword(regPassword.current.value)) {
+    } else if (!validatePassword(regPassword.current.value)) {
       setBtnDisabled(false);
       setRegError(
         "Password must contain minimum eight characters, at least one letter and one number"
       );
+      return;
+    } else if (!validateName(regFirstName.current.value)) {
+      setBtnDisabled(false);
+      setRegError("Only latin letters are valid");
+      return;
+    } else if (!validateName(regLastName.current.value)) {
+      setBtnDisabled(false);
+      setRegError("Only latin letters are valid");
       return;
     }
     const user = {
@@ -103,6 +117,7 @@ const LoginPage = () => {
   }
   // login function
   async function login(email, password) {
+    setLoginError("");
     setBtnDisabled(true);
     const { status, message } = await getUserFromDB(email, password);
     if (status === 200) {
