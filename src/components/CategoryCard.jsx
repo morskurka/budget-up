@@ -15,7 +15,7 @@ const CategoryCard = ({ icon, title, currBalance, totalExpected }) => {
         ? (textColor = "text-danger ")
         : (textColor = "text-success ");
     } else {
-      percentages > 100
+      percentages >= 100
         ? (textColor = "text-success ")
         : (textColor = "text-danger ");
     }

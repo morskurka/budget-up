@@ -8,7 +8,7 @@ const ProgressBarBU = (props) => {
         ? (textColor = "bg-danger ")
         : (textColor = "bg-success ");
     } else {
-      percentages > 100
+      percentages >= 100
         ? (textColor = "bg-success ")
         : (textColor = "bg-danger ");
     }
