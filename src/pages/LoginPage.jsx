@@ -76,7 +76,7 @@ const LoginPage = () => {
       setType("");
       await login(user.email, user.password);
     } else {
-      setRegError("User already exists with this email address");
+      setRegError(message);
     }
     setBtnDisabled(false);
   }
