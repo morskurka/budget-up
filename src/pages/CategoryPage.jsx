@@ -52,15 +52,6 @@ const CategoryPage = ({ category }) => {
     len - (new Date().getUTCFullYear() - year) * 12
   );
 
-  console.log("full array");
-  console.log(currCategoryInfo[0].expectedData);
-  console.log(year);
-  console.log(expectedData);
-  console.log("method");
-  console.log(currCategoryInfo[0].method);
-  console.log("MSE");
-  console.log(currCategoryInfo[0].mse);
-
   //display previous year
   function previousYear() {
     setYear(year - 1);
