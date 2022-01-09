@@ -19,18 +19,13 @@ const CategoryGraph = ({
       label: year,
       backgroundColor: "#04316b7e",
     },
+    {
+      data: expectedData,
+      label: "Expected amount",
+      backgroundColor: "#04316b",
+    },
   ];
 
-  if (year === new Date().getUTCFullYear()) {
-    datasets = [
-      ...datasets,
-      {
-        data: expectedData,
-        label: "Expected amount",
-        backgroundColor: "#04316b",
-      },
-    ];
-  }
   const navigate = useNavigate();
   const categoryData = {
     labels: graphLabels,

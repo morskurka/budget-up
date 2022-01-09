@@ -35,7 +35,7 @@ const CategoryPage = () => {
   }, []);
 
   const [year, setYear] = useState(new Date().getUTCFullYear());
-  let expectedData = new Array(12).fill(0);
+
   const labels = [
     "January",
     "February",
@@ -67,13 +67,17 @@ const CategoryPage = () => {
     return acc;
   }, []);
 
-  if (year === new Date().getUTCFullYear()) {
-    let currCategoryInfo = categoriesInfo.filter(
-      (item) => item.category === currCategory
+  let currCategoryInfo = categoriesInfo.filter(
+    (item) => item.category === currCategory
+  );
+
+  let expectedData = [];
+  if (currCategoryInfo[0]) {
+    let len = currCategoryInfo[0].expectedData.length;
+    expectedData = currCategoryInfo[0].expectedData.slice(
+      len - (new Date().getUTCFullYear() - year + 1) * 12,
+      len - (new Date().getUTCFullYear() - year) * 12
     );
-    if (currCategoryInfo[0]) {
-      expectedData[new Date().getMonth()] = currCategoryInfo[0].expected;
-    }
   }
 
   //display previous year
