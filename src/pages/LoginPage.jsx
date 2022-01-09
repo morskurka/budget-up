@@ -183,7 +183,7 @@ const LoginPage = () => {
               >
                 {btnDisabled ? "Loading..." : "Login"}
               </button>
-              <p className="social-text">{loginError}</p>
+              <p className="social-text text-center">{loginError}</p>
               <Link
                 className="nav-link"
                 to="/ForgotPassword"
@@ -246,7 +246,7 @@ const LoginPage = () => {
               >
                 {btnDisabled ? "Loading..." : "SIGN UP"}
               </button>
-              <p className="social-text">{regError}</p>
+              <p className="social-text text-center">{regError}</p>
             </form>
           </div>
         </div>
