@@ -34,10 +34,17 @@ const CashExpense = ({
             onChange={handleCategoryChange}
             required
             id={`categorySelector${id}`}
+            key={`categorySelector${id}`}
           >
-            <option value="">Select Category</option>
+            <option value="" key="selectCategory">
+              Select Category
+            </option>
             {categoriesNames.map((category) => {
-              return <option value={category}>{category}</option>;
+              return (
+                <option value={category} key={category}>
+                  {category}
+                </option>
+              );
             })}
             <option value="Other">Other</option>
           </select>
@@ -46,7 +53,6 @@ const CashExpense = ({
         <div className="col-md-4 mb-2">
           <input
             type="date"
-            min="0"
             className="form-control"
             ref={date}
             min={new Date(minDate).toISOString().split("T")[0]}
@@ -61,6 +67,7 @@ const CashExpense = ({
             }
             required
             id={`datePicker${id}`}
+            key={`datePicker${id}`}
           />
         </div>
         <div className="col-md-3 col-lg-2 mb-2">
@@ -81,6 +88,7 @@ const CashExpense = ({
               }
               required
               id={`amountInput${id}`}
+              key={`amountInput${id}`}
             />
           </div>
         </div>

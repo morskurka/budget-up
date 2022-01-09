@@ -35,7 +35,8 @@ const UploadTransactions = () => {
       await loadUserTransactions();
     } else {
       setUploadError(
-        `We can't upload your transactions file, please check it's format and try again.`
+        `We can't upload your transactions file, please check it's format and try again.
+        Error code: ${message}`
       );
     }
     setUploading("");

@@ -7,7 +7,6 @@ import HomePage from "./pages/HomePage";
 import CashExpensesPage from "./pages/CashExpensesPage";
 import CashIncomesPage from "./pages/CashIncomesPage";
 import { GlobalProvider } from "./contexts/GlobalState";
-import { useState } from "react";
 import LoginPage from "./pages/LoginPage";
 import ScrollUp from "./components/ScrollUp";
 import ForgotPassword from "./pages/ForgotPassword";

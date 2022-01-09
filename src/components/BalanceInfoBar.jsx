@@ -3,7 +3,7 @@ import { GlobalContext } from "../contexts/GlobalState";
 import BalanceInfoCard from "../components/BalanceInfoCard";
 
 const BalanceInfoBar = () => {
-  const { transactions, user } = useContext(GlobalContext);
+  const { transactions } = useContext(GlobalContext);
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getUTCFullYear();
 

@@ -1,10 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { GlobalContext } from "../contexts/GlobalState";
 import { useContext } from "react";
 
 const Footer = () => {
-  const { user, addUser } = useContext(GlobalContext);
-  const navigate = useNavigate();
+  const { user } = useContext(GlobalContext);
 
   return (
     <section>
@@ -18,7 +17,7 @@ const Footer = () => {
                     <div className="logo mb-4">
                       <a
                         className="navbar-brand fw-bold fs-2 text-dark"
-                        href="#"
+                        href="#topOfPage"
                       >
                         <i className="bi bi-coin"></i>
                         <i className="bi bi-bar-chart-steps pe-2"></i>

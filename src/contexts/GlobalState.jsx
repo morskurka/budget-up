@@ -76,8 +76,11 @@ export const GlobalProvider = ({ children }) => {
     setLoading(false);
   }
 
-  useEffect(async () => {
-    loadUserTransactions();
+  useEffect(() => {
+    async function fetchData() {
+      await loadUserTransactions();
+    }
+    fetchData();
   }, [state.user]);
 
   useEffect(() => {
@@ -95,15 +98,15 @@ export const GlobalProvider = ({ children }) => {
   }
 
   async function addTransaction(transaction) {
-    dispatch({
-      type: "ADD_TRANSACTION",
-      payload: transaction,
-    });
     const { status, message } = await insertTransactionToDB(
       transaction,
       state.user.email
     );
     if (status === 200) {
+      dispatch({
+        type: "ADD_TRANSACTION",
+        payload: transaction,
+      });
       if (transaction.withdrawTransaction) {
         let withdrawTransaction = transaction.withdrawTransaction;
         // TODO: more elegant handling

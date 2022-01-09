@@ -1,6 +1,6 @@
 import ProgressBarBU from "./ProgressBarBU";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { GlobalContext } from "../contexts/GlobalState";
 
 const CategoryCard = ({ icon, title, currBalance, totalExpected }) => {
