@@ -7,6 +7,21 @@ const CategoryCard = ({ icon, title, currBalance, totalExpected }) => {
   const percentages = (currBalance / totalExpected) * 100;
   const navigate = useNavigate();
   const { setCurrCategory } = useContext(GlobalContext);
+
+  const getTextColor = (title) => {
+    let textColor = "";
+    if (title.toLowerCase() !== "income" && title.toLowerCase() !== "saving") {
+      percentages > 100
+        ? (textColor = "text-danger ")
+        : (textColor = "text-success ");
+    } else {
+      percentages > 100
+        ? (textColor = "text-success ")
+        : (textColor = "text-danger ");
+    }
+    return textColor;
+  };
+
   return (
     <div
       className="single-category"
@@ -26,12 +41,7 @@ const CategoryCard = ({ icon, title, currBalance, totalExpected }) => {
       <div className="row justify-content-between">
         <div className="col">
           <div className="fw-light">Current</div>
-          <div
-            className={
-              (percentages > 100 ? "text-danger " : "text-success ") +
-              "fw-bold lead"
-            }
-          >
+          <div className={getTextColor(title) + "fw-bold lead"}>
             {currBalance.toFixed(0) + "$"}
           </div>
         </div>
@@ -42,7 +52,7 @@ const CategoryCard = ({ icon, title, currBalance, totalExpected }) => {
           </div>
         </div>
       </div>
-      <ProgressBarBU percentages={percentages} />
+      <ProgressBarBU percentages={percentages} title={title} />
     </div>
   );
 };
