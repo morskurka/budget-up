@@ -27,8 +27,11 @@ async function connectToDB() {
 }
 
 async function getAllTransactionsByEmail(email) {
-  const query = `SELECT * FROM Transactions WHERE email = '${email}'`;
-  let request = await connectionPool.request().query(query);
+  const query = `SELECT * FROM Transactions WHERE email = @email`;
+  let request = await connectionPool
+    .request()
+    .input("email", sql.VarChar, email)
+    .query(query);
   console.log(`Executed: ${query}`);
   return request.recordset;
 }
@@ -51,8 +54,11 @@ async function addTransactionToDB(t, email) {
 }
 
 async function deleteTransactionById(transaction) {
-  const query = `delete FROM Transactions WHERE id = ${transaction.id}`;
-  const result = await connectionPool.request().query(query);
+  const query = `delete FROM Transactions WHERE id = @id`;
+  const result = await connectionPool
+    .request()
+    .input("id", sql.Int, transaction.id)
+    .query(query);
   console.log(`Executed: ${query}`);
   return result.rowsAffected;
 }
@@ -72,8 +78,11 @@ async function updateExistingTransaction(transaction) {
 }
 
 async function validateUserExist(email) {
-  const getUserQuery = `SELECT email from Users WHERE email = '${email}'`;
-  const result = await connectionPool.request().query(getUserQuery);
+  const getUserQuery = `SELECT email from Users WHERE email = @email`;
+  const result = await connectionPool
+    .request()
+    .input("email", sql.VarChar, email)
+    .query(getUserQuery);
   return result.recordset;
 }
 
@@ -112,8 +121,11 @@ async function addUserToDB(userReg) {
 }
 
 async function getUserFromDB(userAuth) {
-  const query = `SELECT * from Users WHERE email = '${userAuth.email}'`;
-  const result = await connectionPool.request().query(query);
+  const query = `SELECT * from Users WHERE email = @email`;
+  const result = await connectionPool
+    .request()
+    .input("email", sql.VarChar, userAuth.email)
+    .query(query);
   // if user found
   if (result.recordset.length > 0) {
     // compare hashed passwords
