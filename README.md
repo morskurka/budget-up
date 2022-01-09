@@ -1,5 +1,9 @@
 # BudgetUp Maintenance Guide
 
+## [BudgetUp Website Link](https://budget-up.azurewebsites.net/)
+
+---
+
 BudgetUp is a web application that use time-series analysis methods to analyze and predict users expenses based on their bank account transactions.
 
 The service assumes that your transactions are classified into several major categories such as Supermarket, Electricity, Water, ect. (the service is agnostic to the categories name's).
